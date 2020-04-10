@@ -32,7 +32,7 @@ class Home extends React.Component {
     render() {
         const {navigation} = this.props;
         return (
-            <View>
+            <View style={styles.container} >
                 <StatusBar  barStyle="light-content" />
                 <Text>Home Component</Text>
 
@@ -41,7 +41,6 @@ class Home extends React.Component {
                     onPress={() => navigation.navigate('About', {companyName: 'TechDevCol'})}
                 />
                 <Products></Products>
-                <Text>asd</Text>
             </View>
         );
     }
@@ -51,7 +50,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#ccc',
-        alignItems: 'center',
         justifyContent: 'center',
     },
 });

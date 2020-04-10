@@ -3,12 +3,15 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {NavigationContainer} from "@react-navigation/native";
 import AppStackNavigation from "./src/navigations";
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function App() {
   return (
-      <NavigationContainer>
+    <SafeAreaProvider>
+       <NavigationContainer>
         <AppStackNavigation/>
       </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
 
