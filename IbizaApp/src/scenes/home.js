@@ -1,10 +1,21 @@
 import React from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
+import firebaseClient from "../services/firebaseClient";
 
 class Home extends React.Component {
     static navigationOptions = {title: "Home"};
 
     componentDidMount() {
+        this.testFirestore();
+    }
+    testFirestore(){
+        firebaseClient
+            .firestoreDb
+            .collection('products')
+            .onSnapshot(products => {
+                console.log('---------------------');
+                products.forEach(product => console.log(product.data()));
+            });
     }
 
     render() {

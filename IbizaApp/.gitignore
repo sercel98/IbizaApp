@@ -12,3 +12,4 @@ web-report/
 .idea
 # macOS
 .DS_Store
+src/config/firebaseConfig.js
