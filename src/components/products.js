@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, FlatList, Dimensions } from 'react-native';
+import { Searchbar } from 'react-native-paper';
+
 
 const data = [
   { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' }, { key: 'I' }, { key: 'J' },
@@ -7,9 +9,11 @@ const data = [
   // { key: 'L' },
 ];
 
-const formatData = (data, numColumns) => {
-  const numberOfFullRows = Math.floor(data.length / numColumns);
 
+
+const formatData = (data, numColumns) => {
+
+  const numberOfFullRows = Math.floor(data.length / numColumns);
   let numberOfElementsLastRow = data.length - (numberOfFullRows * numColumns);
   while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
     data.push({ key: `blank-${numberOfElementsLastRow}`, empty: true });
@@ -21,14 +25,21 @@ const formatData = (data, numColumns) => {
 
 const numColumns = 2;
 export default class Products extends Component {
+
+  state = {
+    searchQuery: '',
+  };
+  
+  _onChangeSearch = query =>{
+    this.setState({ searchQuery: query });
+    console.log(this.state.searchQuery);
+  } 
   renderItem = ({ item, index }) => {
     if (item.empty === true) {
       return <View style={[styles.item, styles.itemInvisible]} />;
     }
     return (
-      <View
-        style={styles.item}
-      >
+      <View style={styles.item} >
         <Text style={styles.itemText}>{item.key}</Text>
       </View>
     );
@@ -36,12 +47,21 @@ export default class Products extends Component {
 
   render() {
     return (
-      <FlatList
-        data={formatData(data, numColumns)}
-        style={styles.container}
-        renderItem={this.renderItem}
-        numColumns={numColumns}
-      />
+      <View>
+        <Searchbar style= {styles.searchInput}
+          placeholder="Search"
+          onChangeText={this._onChangeSearch}
+          value={this.state.searchQuery}
+          placeholderTextColor="#BBB"
+          iconColor='#BBB'
+        />
+        <FlatList
+          data={formatData(data, numColumns)}
+          style={styles.container}
+          renderItem={this.renderItem}
+          numColumns={numColumns}
+        />
+      </View>
     );
   }
 }
@@ -59,10 +79,19 @@ const styles = StyleSheet.create({
     margin: 1,
     height: Dimensions.get('window').width / numColumns - 20, // approximate a square
   },
+  itemInput: {},
   itemInvisible: {
     backgroundColor: 'transparent',
   },
   itemText: {
     color: '#fff',
-  },
+  }, 
+  searchInput: {
+    backgroundColor: '#2C2C2C', 
+    width: '90%', 
+    borderRadius: 20, 
+    marginLeft: "auto",
+    marginRight: "auto",
+    marginTop: 10
+  }
 });
