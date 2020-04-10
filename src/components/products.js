@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, FlatList, Dimensions } from 'react-native';
 import { Searchbar } from 'react-native-paper';
-
+import ProductCard from './productCard'
 
 const data = [
   { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' }, { key: 'I' }, { key: 'J' },
@@ -33,19 +33,15 @@ export default class Products extends Component {
   _onChangeSearch = query =>{
     this.setState({ searchQuery: query });
     console.log(this.state.searchQuery);
-  } 
+  };
   renderItem = ({ item, index }) => {
-    if (item.empty === true) {
-      return <View style={[styles.item, styles.itemInvisible]} />;
-    }
     return (
-      <View style={styles.item} >
-        <Text style={styles.itemText}>{item.key}</Text>
-      </View>
+      <ProductCard product={item} index={index}/>
     );
   };
 
   render() {
+    const {products} = this.props;
     return (
       <View>
         <Searchbar style= {styles.searchInput}
@@ -56,7 +52,7 @@ export default class Products extends Component {
           iconColor='#BBB'
         />
         <FlatList
-          data={formatData(data, numColumns)}
+          data={products}
           style={styles.container}
           renderItem={this.renderItem}
           numColumns={numColumns}
@@ -71,21 +67,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     marginHorizontal: 20
   },
-  item: {
-    backgroundColor: '#000',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    margin: 1,
-    height: Dimensions.get('window').width / numColumns - 20, // approximate a square
-  },
   itemInput: {},
-  itemInvisible: {
-    backgroundColor: 'transparent',
-  },
-  itemText: {
-    color: '#fff',
-  }, 
   searchInput: {
     backgroundColor: '#2C2C2C', 
     width: '90%', 

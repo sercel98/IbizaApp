@@ -1,46 +1,27 @@
 import React from 'react';
 import {Button, StyleSheet, Text, View, StatusBar} from 'react-native';
 import firebaseClient from "../services/firebaseClient";
-import Header from '../shared/header';
 import Products from '../components/products'
+import productService from '../services/productService';
 
 class Home extends React.Component {
 
-    /*static navigationOptions = {
-        headerTitle: () => <Header/>,
-        headerStyle: {
-            backgroundColor: '#000',
-            justifyContent: 'center',
-            alignItems: 'center'
-        },
-  
-    };*/
+    constructor(props){
+        super(props);
+        this.productService = productService;
+        this.state = {
+            products: []
+        }
+    }
 
     componentDidMount() {
-        this.testFirestore();
+        this.setState({products: this.productService.testingProducts});
     }
-    testFirestore(){
-        firebaseClient
-            .firestoreDb
-            .collection('products')
-            .onSnapshot(products => {
-                console.log('---------------------');
-                products.forEach(product => console.log(product.data()));
-            });
-    }
-
     render() {
-        const {navigation} = this.props;
+        const {products} = this.state;
         return (
             <View style={styles.container} >
-                <StatusBar  barStyle="light-content" />
-                <Text>Home Component</Text>
-
-                <Button
-                    title="Go to About"
-                    onPress={() => navigation.navigate('About', {companyName: 'TechDevCol'})}
-                />
-                <Products></Products>
+                <Products products={products}/>
             </View>
         );
     }
