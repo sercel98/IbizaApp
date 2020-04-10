@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import { StyleSheet, Text, View, FlatList, Dimensions } from 'react-native';
-import Product from 'product'
 
 const data = [
   { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' }, { key: 'I' }, { key: 'J' },
@@ -42,7 +41,6 @@ export default class Products extends Component {
         style={styles.container}
         renderItem={this.renderItem}
         numColumns={numColumns}
-        contentContainerStyle={{ paddingBottom: 40}}
       />
     );
   }
@@ -54,7 +52,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 20
   },
   item: {
-    backgroundColor: '#ccc',
+    backgroundColor: '#000',
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
