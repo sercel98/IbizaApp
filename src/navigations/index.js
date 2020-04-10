@@ -1,7 +1,7 @@
 import React from "react";
 import {createStackNavigator} from "@react-navigation/stack";
 import Home from "../scenes/home";
-import About from "../scenes/About";
+import About from "../scenes/about";
 import Header from "../shared/header";
 
 const Stack = createStackNavigator();

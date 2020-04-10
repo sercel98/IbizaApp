@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, StyleSheet, Text, View, StatusBar} from 'react-native';
 import firebaseClient from "../services/firebaseClient";
 import Header from '../shared/header';
+import Products from '../components/products'
 
 class Home extends React.Component {
 
@@ -31,13 +32,16 @@ class Home extends React.Component {
     render() {
         const {navigation} = this.props;
         return (
-            <View style={styles.container} >
+            <View>
                 <StatusBar  barStyle="light-content" />
                 <Text>Home Component</Text>
+
                 <Button
                     title="Go to About"
                     onPress={() => navigation.navigate('About', {companyName: 'TechDevCol'})}
                 />
+                <Products></Products>
+                <Text>asd</Text>
             </View>
         );
     }
@@ -46,7 +50,7 @@ class Home extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#000',
+        backgroundColor: '#ccc',
         alignItems: 'center',
         justifyContent: 'center',
     },
