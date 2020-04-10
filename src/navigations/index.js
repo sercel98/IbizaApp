@@ -7,7 +7,7 @@ const Stack = createStackNavigator();
 export default function AppStackNavigation() {
     return (
         <Stack.Navigator initialRouteName="Home">
-            <Stack.Screen name="Home" component={Home} />
+            <Stack.Screen name="Home" component={Home}  options = {Home.navigationOptions}  />
             <Stack.Screen name="About" component={About} />
         </Stack.Navigator>
     );

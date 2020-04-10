@@ -1,9 +1,19 @@
 import React from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {Button, StyleSheet, Text, View, StatusBar} from 'react-native';
 import firebaseClient from "../services/firebaseClient";
+import Header from '../shared/header';
 
 class Home extends React.Component {
-    static navigationOptions = {title: "Home"};
+
+    static navigationOptions = {
+        headerTitle: () => <Header/>,
+        headerStyle: {
+            backgroundColor: '#000',
+            justifyContent: 'center',
+            alignItems: 'center'
+        },
+  
+    };
 
     componentDidMount() {
         this.testFirestore();
@@ -21,7 +31,8 @@ class Home extends React.Component {
     render() {
         const {navigation} = this.props;
         return (
-            <View style={styles.container}>
+            <View style={styles.container} >
+                <StatusBar  barStyle="light-content" />
                 <Text>Home Component</Text>
                 <Button
                     title="Go to About"
@@ -35,7 +46,7 @@ class Home extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#000',
         alignItems: 'center',
         justifyContent: 'center',
     },
