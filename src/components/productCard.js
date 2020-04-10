@@ -10,7 +10,7 @@ function ProductCard(props) {
   }
   return (
     <View style={styles.container} >
-      <Text style={styles.itemText}>{product.id}</Text>
+      <Text style={styles.itemText}>{product.name}</Text>
     </View>
   );
 }

@@ -25,6 +25,22 @@
             "alcohol": 4.3, 
             "image": "poker.jpg"
 
+        },
+        {
+            "id": 4,
+            "name": "Six pack de Cerveza Corona", 
+            "price": 2000, 
+            "volume":"360 mL",
+            "alcohol": 4.3, 
+            "image": "poker.jpg"
+        },
+        {
+            "id": 5,
+            "name": "Six pack de Cerveza budweiser", 
+            "price": 2000, 
+            "volume":"360 mL",
+            "alcohol": 4.3, 
+            "image": "poker.jpg"
         }
     ]
 }

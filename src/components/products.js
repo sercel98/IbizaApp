@@ -26,14 +26,6 @@ const formatData = (data, numColumns) => {
 const numColumns = 2;
 export default class Products extends Component {
 
-  state = {
-    searchQuery: '',
-  };
-  
-  _onChangeSearch = query =>{
-    this.setState({ searchQuery: query });
-    console.log(this.state.searchQuery);
-  };
   renderItem = ({ item, index }) => {
     return (
       <ProductCard product={item} index={index}/>
@@ -44,13 +36,6 @@ export default class Products extends Component {
     const {products} = this.props;
     return (
       <View>
-        <Searchbar style= {styles.searchInput}
-          placeholder="Search"
-          onChangeText={this._onChangeSearch}
-          value={this.state.searchQuery}
-          placeholderTextColor="#BBB"
-          iconColor='#BBB'
-        />
         <FlatList
           data={products}
           style={styles.container}
@@ -68,12 +53,4 @@ const styles = StyleSheet.create({
     marginHorizontal: 20
   },
   itemInput: {},
-  searchInput: {
-    backgroundColor: '#2C2C2C', 
-    width: '90%', 
-    borderRadius: 20, 
-    marginLeft: "auto",
-    marginRight: "auto",
-    marginTop: 10
-  }
 });
