@@ -1,13 +1,15 @@
 import React from 'react'
-import { StyleSheet,  Text, View, Image } from 'react-native'
-import { MaterialIcons } from '@expo/vector-icons'
+import {Image, StyleSheet, View} from 'react-native'
+import {MaterialIcons} from '@expo/vector-icons'
 
-export default function Header(){
+export default function Header(props) {
+    const {navigation, route} = props;
     return (
-        <View style= {styles.header} >
-            <MaterialIcons name= 'menu' size={28} onPress= {openFilter} style={styles.headerIcon}></MaterialIcons>
-            <Image style={styles.headerLogo} source={require('../../assets/images/homeLogo.png')} />
-            <MaterialIcons name= 'shopping-cart' size={28} onPress= {openCartDetail} style={styles.headerIcon}></MaterialIcons>
+        <View style={styles.header}>
+            <MaterialIcons name='menu' size={28} onPress={openFilter} style={styles.headerIcon}></MaterialIcons>
+            <Image style={styles.headerLogo} source={require('../../assets/images/homeLogo.png')}/>
+            <MaterialIcons name='shopping-cart' size={28} onPress={openCartDetail}
+                           style={styles.headerIcon}></MaterialIcons>
         </View>
     );
 }
@@ -22,20 +24,16 @@ const openCartDetail = () => {
 
 const styles = StyleSheet.create({
     header: {
-        width: '100%', 
-        height: '100%', 
-        flexDirection: 'row', 
-        alignItems: 'center',
+        flexDirection: 'row',
         justifyContent: "space-between",
-        backgroundColor: '#000'
-
-    }, 
+        backgroundColor: '#000',
+        padding: 10,
+    },
     headerLogo: {
-        width: 112, 
-        height: 35, 
-    }, 
+        width: 112,
+        height: 35,
+    },
     headerIcon: {
         color: '#fff'
     }
-
-})
+});

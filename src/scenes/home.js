@@ -5,7 +5,7 @@ import Header from '../shared/header';
 
 class Home extends React.Component {
 
-    static navigationOptions = {
+    /*static navigationOptions = {
         headerTitle: () => <Header/>,
         headerStyle: {
             backgroundColor: '#000',
@@ -13,7 +13,7 @@ class Home extends React.Component {
             alignItems: 'center'
         },
   
-    };
+    };*/
 
     componentDidMount() {
         this.testFirestore();
