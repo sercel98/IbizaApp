@@ -32,7 +32,6 @@ class Home extends React.Component {
         const {navigation} = this.props;
         return (
             <View style={styles.container} >
-                <StatusBar  barStyle="light-content" />
                 <Text>Home Component</Text>
                 <Button
                     title="Go to About"
