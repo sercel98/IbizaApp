@@ -25,7 +25,9 @@ const formatData = (data, numColumns) => {
 
 const numColumns = 2;
 export default class Products extends Component {
-
+  constructor(props){
+    super(props);
+  }
   renderItem = ({ item, index }) => {
     return (
       <ProductCard product={item} index={index}/>
@@ -41,6 +43,7 @@ export default class Products extends Component {
           style={styles.container}
           renderItem={this.renderItem}
           numColumns={numColumns}
+          keyExtractor={item => item.id.toString()}
         />
       </View>
     );

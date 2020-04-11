@@ -1,17 +1,24 @@
 import React from "react";
-import { StyleSheet, Text, View,Dimensions } from "react-native";
-
+import { StyleSheet, Text, View,Dimensions, TouchableOpacity } from "react-native";
+import { useNavigation } from '@react-navigation/native';
 
 const numColumns = 2;
 function ProductCard(props) {
   const { product, index } = props;
+  
+  const navigation = useNavigation();
+  const onPress = () => {
+    navigation.navigate('ProductDetail', {
+      product
+    })
+  }
   if (product.empty === true) {
     return <View style={[styles.container, styles.itemInvisible]} />;
   }
   return (
-    <View style={styles.container} >
+    <TouchableOpacity onPress={onPress} style={styles.container} >
       <Text style={styles.itemText}>{product.name}</Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 
