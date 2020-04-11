@@ -3,6 +3,7 @@ import {createStackNavigator} from "@react-navigation/stack";
 import Home from "../scenes/home";
 import About from "../scenes/about";
 import Header from "../shared/header";
+import ProductDetail from "../scenes/product";
 
 const Stack = createStackNavigator();
 export default function AppStackNavigation() {
@@ -17,6 +18,7 @@ export default function AppStackNavigation() {
                          }}
         >
             <Stack.Screen name="Home" component={Home}/>
+            <Stack.Screen name="ProductDetail" component={ProductDetail} options={({ route }) => ({ title: route.params.name })}/>
             <Stack.Screen name="About" component={About}/>
         </Stack.Navigator>
     );

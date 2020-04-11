@@ -15,14 +15,16 @@ class Home extends React.Component {
     };
   }
   _onChangeSearch = (query) => {
+    console.log(query);
+    
     this.setState({ searchQuery: query });
     if(query) {
         this.setState({
-          products: this.state
-          .products
-          .filter(product => 
-              product.name.toLowerCase().includes(query.toLowerCase())
-              )
+            products: this.productService
+            .testingProducts
+            .filter(product => 
+                product.name.toLowerCase().includes(query.toLowerCase())
+                )
         });
     } else {
         this.setState({
@@ -44,6 +46,7 @@ class Home extends React.Component {
           value={this.state.searchQuery}
           placeholderTextColor="#BBB"
           iconColor="#BBB"
+          theme={{ colors: { text: "#BBB" } }}
         />
         <Products products={products} />
       </View>
@@ -58,12 +61,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
   },
   searchInput: {
-    backgroundColor: '#2C2C2C', 
-    width: '90%', 
-    borderRadius: 20, 
+    marginTop: 10,
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginTop: 10
+    width: '90%', 
+    borderRadius: 20, 
+    color: 'blue',
+    backgroundColor: '#2C2C2C',
   }
 });
 
