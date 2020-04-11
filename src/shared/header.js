@@ -1,6 +1,7 @@
 import React from 'react'
 import {Image, StyleSheet, View, StatusBar} from 'react-native'
 import {MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons'
+
 export default function Header(props) {
     const {navigation, route} = props;
     return (
@@ -19,7 +20,7 @@ const openFilter = () => {
 };
 
 const openCartDetail = () => {
-    console.log("hey again");
+        console.log("hey again");
 };
 
 const styles = StyleSheet.create({

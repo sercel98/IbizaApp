@@ -11,7 +11,7 @@ function ProductCard(props) {
   }
   return (
     <View style={styles.container} >
-      <Image style={styles.itemImage} source={require(`../../assets/images/${product.image}`)}></Image>
+      <Image style={styles.itemImage} source={require("../../assets/images/ron.jpeg")}></Image>
       <Text style={styles.itemText}>{product.name}</Text>
     </View>
   );

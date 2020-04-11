@@ -18,11 +18,11 @@ class Home extends React.Component {
     this.setState({ searchQuery: query });
     if(query) {
         this.setState({
-            products: this.state
-            .products
-            .filter(product => 
-                product.name.toLowerCase().includes(query.toLowerCase())
-                )
+          products: this.state
+          .products
+          .filter(product => 
+              product.name.toLowerCase().includes(query.toLowerCase())
+              )
         });
     } else {
         this.setState({
@@ -55,14 +55,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: "#ccc",
+    backgroundColor: '#ccc',
   },
   searchInput: {
     backgroundColor: '#2C2C2C', 
     width: '90%', 
     borderRadius: 20, 
-    marginLeft: "auto",
-    marginRight: "auto",
+    marginLeft: 'auto',
+    marginRight: 'auto',
     marginTop: 10
   }
 });

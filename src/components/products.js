@@ -2,26 +2,6 @@ import React, {Component} from 'react';
 import { StyleSheet, Text, View, FlatList, Dimensions } from 'react-native';
 import ProductCard from './productCard'
 
-const data = [
-  { key: 'A' }, { key: 'B' }, { key: 'C' }, { key: 'D' }, { key: 'E' }, { key: 'F' }, { key: 'G' }, { key: 'H' }, { key: 'I' }, { key: 'J' },
-  // { key: 'K' },
-  // { key: 'L' },
-];
-
-
-
-const formatData = (data, numColumns) => {
-
-  const numberOfFullRows = Math.floor(data.length / numColumns);
-  let numberOfElementsLastRow = data.length - (numberOfFullRows * numColumns);
-  while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
-    data.push({ key: `blank-${numberOfElementsLastRow}`, empty: true });
-    numberOfElementsLastRow++;
-  }
-
-  return data;
-};
-
 const numColumns = 2;
 export default class Products extends Component {
 
