@@ -5,11 +5,13 @@ import { StyleSheet, Text, View,Dimensions } from "react-native";
 const numColumns = 2;
 function ProductCard(props) {
   const { product, index } = props;
+  const url = product.image;
   if (product.empty === true) {
     return <View style={[styles.container, styles.itemInvisible]} />;
   }
   return (
     <View style={styles.container} >
+      <Image style={styles.itemImage} source={require(`../../assets/images/${product.image}`)}></Image>
       <Text style={styles.itemText}>{product.name}</Text>
     </View>
   );
@@ -23,7 +25,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flex: 1,
-        margin: 1,
+        margin: 15,
         height: Dimensions.get('window').width / numColumns - 20, // approximate a square
       },
       itemText: {
