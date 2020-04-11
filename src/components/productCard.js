@@ -22,9 +22,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#000',
         alignItems: 'center',
         justifyContent: 'center',
-        flex: 1,
+        textAlign: 'center',
         margin: 1,
         height: Dimensions.get('window').width / numColumns - 20, // approximate a square
+        width: Dimensions.get('window').width / numColumns - 20
       },
       itemText: {
         color: '#fff',

@@ -54,8 +54,9 @@ class Home extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    flexDirection: 'column',
     backgroundColor: "#ccc",
-    justifyContent: "center",
+    justifyContent: "space-between",
   },
   searchInput: {
     backgroundColor: '#2C2C2C', 
