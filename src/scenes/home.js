@@ -44,6 +44,7 @@ class Home extends React.Component {
           value={this.state.searchQuery}
           placeholderTextColor="#BBB"
           iconColor="#BBB"
+          theme={{ colors: { text: "#BBB" } }}
         />
         <Products products={products} />
       </View>
@@ -58,12 +59,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#ccc",
   },
   searchInput: {
-    backgroundColor: '#2C2C2C', 
-    width: '90%', 
-    borderRadius: 20, 
+    marginTop: 10,
     marginLeft: "auto",
     marginRight: "auto",
-    marginTop: 10
+    width: '90%', 
+    borderRadius: 20, 
+    color: "blue",
+    backgroundColor: '#2C2C2C',
   }
 });
 
