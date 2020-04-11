@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.8.6",
+    "@types/react-redux": "^7.1.7",
     "babel-preset-expo": "~8.1.0"
   },
   "private": true

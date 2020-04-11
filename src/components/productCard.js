@@ -17,7 +17,6 @@ function ProductCard(props) {
   }
   return (
     <TouchableOpacity onPress={onPress} style={styles.container} >
-      <Image style={styles.itemImage} source={require("../../assets/images/ron.jpeg")}></Image>
       <Text style={styles.itemText}>{product.name}</Text>
     </TouchableOpacity>
   );
