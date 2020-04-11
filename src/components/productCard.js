@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View,Dimensions, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View,Dimensions, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
 const numColumns = 2;
@@ -17,7 +17,11 @@ function ProductCard(props) {
   }
   return (
     <TouchableOpacity onPress={onPress} style={styles.container} >
+      <Image source={product.image} style={styles.image}/>
+      <View>
       <Text style={styles.itemText}>{product.name}</Text>
+      <Text style={styles.itemText}>{product.name}</Text>
+      </View>
     </TouchableOpacity>
   );
 }
@@ -39,5 +43,9 @@ const styles = StyleSheet.create({
       }, 
       itemInvisible: {
         backgroundColor: 'transparent',
+      },
+      image : {
+        height: Dimensions.get('window').width / numColumns - 20, // approximate a square
+        width: Dimensions.get('window').width / numColumns - 20
       }
 });
