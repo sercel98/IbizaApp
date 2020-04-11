@@ -15,11 +15,13 @@ class Home extends React.Component {
     };
   }
   _onChangeSearch = (query) => {
+    console.log(query);
+    
     this.setState({ searchQuery: query });
     if(query) {
         this.setState({
-            products: this.state
-            .products
+            products: this.productService
+            .testingProducts
             .filter(product => 
                 product.name.toLowerCase().includes(query.toLowerCase())
                 )
