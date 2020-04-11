@@ -56,7 +56,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     backgroundColor: "#ccc",
-    justifyContent: "space-between",
   },
   searchInput: {
     backgroundColor: '#2C2C2C', 
