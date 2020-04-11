@@ -18,7 +18,7 @@ export default function AppStackNavigation() {
                          }}
         >
             <Stack.Screen name="Home" component={Home}/>
-            <Stack.Screen name="ProductDetail" component={ProductDetail} options={({ route }) => ({ title: route.params.name })}/>
+            <Stack.Screen name="ProductDetail" component={ProductDetail}/>
             <Stack.Screen name="About" component={About}/>
         </Stack.Navigator>
     );
