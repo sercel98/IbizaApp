@@ -3,12 +3,14 @@ import { Text, StyleSheet, View, Button } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { addToCart, removeItem } from "../actions/cartActions";
+
 class ProductDetail extends Component {
   addToCart = () => {
     const { route } = this.props;
     const { product } = route.params;
     this.props.addToCart(product);
   };
+  
   render() {
     const { navigation, route } = this.props;
     const { product } = route.params;

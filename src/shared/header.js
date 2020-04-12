@@ -1,6 +1,6 @@
 import React from 'react'
 import {Image, StyleSheet, View, StatusBar} from 'react-native'
-import {MaterialIcons, MaterialCommunityIcons} from '@expo/vector-icons'
+import {MaterialIcons} from '@expo/vector-icons'
 import ShoppingCartIcon from '../components/ShoppingCartIcon';
 import { useRoute } from '@react-navigation/native';
 
@@ -12,13 +12,9 @@ export default function Header(props) {
     const openFilter = () => {
         console.log("hey");
     };
-    
-    const openCartDetail = () => {
-        console.log("hey again");
-    };
 
     let leftIcon = <MaterialIcons name='filter-list' size={28} onPress={openFilter} style={styles.headerIcon}></MaterialIcons>;
-    if (route.name == "ProductDetail") {
+    if (route.name != "Home") {
         leftIcon = <MaterialIcons name='keyboard-return' size={28} onPress={goBack} style={styles.headerIcon}></MaterialIcons>;
     }
     return (
