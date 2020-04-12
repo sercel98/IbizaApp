@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {StyleSheet, Text, View} from "react-native";
+import {StyleSheet, Text, View, TouchableOpacity} from "react-native";
 import {MaterialIcons} from "@expo/vector-icons";
 import {useNavigation} from "@react-navigation/native";
 
@@ -12,17 +12,16 @@ const ShoppingCartIcon = (props) => {
     navigation.navigate("Cart");
   };
   return (
-      <View>
+      <TouchableOpacity onPress={openCartDetail}>
         <View style={styles.productCounter}>
           <Text style={styles.textCounter}>{cartItems.length}</Text>
         </View>
         <MaterialIcons
-            onPress={openCartDetail}
             name="shopping-cart"
             size={28}
             style={styles.headerIcon}
         />
-      </View>
+      </TouchableOpacity>
   );
 };
 
