@@ -17,9 +17,11 @@ class ProductDetail extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.itemText}> {product.name}</Text>
+        <Text>cantidad</Text>
         <Button
-          title="Add to cart"
+          title="Añadir al carrito"
           onPress={this.addToCart}
+          style={styles.btnAddToCart}
         />
       </View>
     );
@@ -39,10 +41,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#ccc",
+    justifyContent: "space-around",
     alignItems: "center",
-    justifyContent: "center",
   },
   itemText: {
     color: "#fff",
   },
+  btnAddToCart: {
+
+  }
 });
