@@ -1,8 +1,9 @@
 import React from "react";
-import { connect } from "react-redux";
-import { View, StyleSheet, Text } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import {connect} from "react-redux";
+import {StyleSheet, Text, View} from "react-native";
+import {MaterialIcons} from "@expo/vector-icons";
+import {useNavigation} from "@react-navigation/native";
+
 const ShoppingCartIcon = (props) => {
   const navigation = useNavigation();
   const { cartItems } = props;
@@ -11,17 +12,17 @@ const ShoppingCartIcon = (props) => {
     navigation.navigate("Cart");
   };
   return (
-    <View>
-      <View style={styles.productCounter}>
-        <Text style={styles.textCounter}>{cartItems.length}</Text>
+      <View>
+        <View style={styles.productCounter}>
+          <Text style={styles.textCounter}>{cartItems.length}</Text>
+        </View>
+        <MaterialIcons
+            onPress={openCartDetail}
+            name="shopping-cart"
+            size={28}
+            style={styles.headerIcon}
+        />
       </View>
-      <MaterialIcons
-        onPress={openCartDetail}
-        name="shopping-cart"
-        size={28}
-        style={styles.headerIcon}
-      ></MaterialIcons>
-    </View>
   );
 };
 

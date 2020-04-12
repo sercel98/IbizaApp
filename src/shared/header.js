@@ -13,16 +13,16 @@ export default function Header(props) {
         console.log("hey");
     };
 
-    let leftIcon = <MaterialIcons name='filter-list' size={28} onPress={openFilter} style={styles.headerIcon}></MaterialIcons>;
-    if (route.name != "Home") {
-        leftIcon = <MaterialIcons name='keyboard-return' size={28} onPress={goBack} style={styles.headerIcon}></MaterialIcons>;
+    let leftIcon = <MaterialIcons name='filter-list' size={28} onPress={openFilter} style={styles.headerIcon}/>;
+    if (route.name !== "Home") {
+        leftIcon = <MaterialIcons name='keyboard-return' size={28} onPress={goBack} style={styles.headerIcon}/>;
     }
     return (
         <View style={styles.header}>
             <StatusBar  barStyle="light-content" />
             {leftIcon}
             <Image style={styles.headerLogo} source={require('../../assets/images/homeLogo.png')}/>
-            <ShoppingCartIcon></ShoppingCartIcon>
+            <ShoppingCartIcon/>
         </View>
     );
 }
