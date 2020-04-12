@@ -3,6 +3,7 @@ import { Text, StyleSheet, View, Button, Image, Dimensions } from "react-native"
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { addToCart, removeItem } from "../actions/cartActions";
+import AsyncImage from '../shared/AsyncImage'
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -20,7 +21,7 @@ class ProductDetail extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.product}>
-          <Image source={product.image} style={styles.image}/>
+          <AsyncImage style={styles.itemImage} image={product.image}></AsyncImage>
           <View style={styles.productDetail}>
             <View style={styles.productDesc}>
               <Text style={styles.productName}> {product.name}</Text>
@@ -113,5 +114,9 @@ const styles = StyleSheet.create({
   },  
   btnAddToCart: {
 
+  }, 
+  itemImage: {
+    height:200, 
+    width:200
   }
 });

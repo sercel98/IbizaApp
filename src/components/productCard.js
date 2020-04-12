@@ -1,5 +1,6 @@
 import React from "react";
 import { StyleSheet, Text, View,Dimensions, TouchableOpacity, Image } from "react-native";
+import  AsyncImage  from "../shared/AsyncImage"
 import { useNavigation } from '@react-navigation/native';
 
 const screenHeight = Dimensions.get('window').height;
@@ -20,7 +21,7 @@ function ProductCard(props) {
   }
   return (
     <TouchableOpacity onPress={onPress} style={styles.container} >
-      <Image source={product.image} style={styles.image}/>
+      <AsyncImage image={product.image} style={styles.image}></AsyncImage>
       <View style={styles.product}>
         <Text style={styles.productPrice}>${product.price}</Text>
         <Text style={styles.productName}>{product.name}</Text>
