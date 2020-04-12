@@ -2,7 +2,22 @@ import React, {Component} from 'react';
 import { StyleSheet, Text, View, FlatList, Dimensions } from 'react-native';
 import ProductCard from './productCard'
 
-const numColumns = 2;
+const screenHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
+const numColumns = screenWidth < 992 ? 3 : 4;
+
+const formatData = (data, numColumns) => {
+  const numberOfFullRows = Math.floor(data.length / numColumns);
+
+  let numberOfElementsLastRow = data.length - (numberOfFullRows * numColumns);
+  while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
+    data.push({ id: '-1', name: "-1", empty: true });
+    numberOfElementsLastRow++;
+  }
+
+  return data;
+};
+
 export default class Products extends Component {
   constructor(props){
     super(props);
@@ -18,7 +33,7 @@ export default class Products extends Component {
     return (
       <View style={styles.root}> 
         <FlatList
-          data={products}
+          data={formatData(products, numColumns)}
           style={styles.container}
           renderItem={this.renderItem}
           numColumns={numColumns}
@@ -30,12 +45,11 @@ export default class Products extends Component {
 }
 
 const styles = StyleSheet.create({
-  root: {
-    flex: 1
-  },
   container: {
     marginVertical: 20,
     marginHorizontal: 20
   },
-  itemInput: {},
+  root: {
+    flex: 1,
+  }
 });

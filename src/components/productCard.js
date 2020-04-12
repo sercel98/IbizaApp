@@ -2,7 +2,10 @@ import React from "react";
 import { StyleSheet, Text, View,Dimensions, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 
-const numColumns = 2;
+const screenHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
+const numColumns = screenWidth < 992 ? 3 : 4;
+
 function ProductCard(props) {
   const { product, index } = props;
   
@@ -18,8 +21,9 @@ function ProductCard(props) {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container} >
       <Image source={product.image} style={styles.image}/>
-      <View>
-      <Text style={styles.itemText}>{product.name}</Text>
+      <View style={styles.product}>
+        <Text style={styles.productPrice}>${product.price}</Text>
+        <Text style={styles.productName}>{product.name}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -28,21 +32,37 @@ function ProductCard(props) {
 export default ProductCard;
 
 const styles = StyleSheet.create({
-    container: {
-        width: Dimensions.get('window').width / numColumns - 20,
-        justifyContent: 'space-between',
-        textAlign: 'center',
-        alignItems: 'center',
-        backgroundColor: '#000',
-      },
-      itemText: {
-        color: '#fff',
-      }, 
-      itemInvisible: {
-        backgroundColor: 'transparent',
-      },
-      image : {
-        height: Dimensions.get('window').width / numColumns - 20, // approximate a square
-        width: Dimensions.get('window').width / numColumns - 20
-      }
+  container: {
+    marginHorizontal: 5,
+    marginBottom: 20,
+    flex: 1 / numColumns,
+    borderRadius: 5,
+    backgroundColor: '#000',
+  },
+  product: {
+    padding: 3,
+    flex: 1,
+    justifyContent:'center',
+  },
+  productPrice: {
+    fontSize: 9,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#FFF',
+  }, 
+  productName: {
+    fontSize: 9,
+    textAlign: 'center',
+    color: '#CCC',
+  }, 
+  itemInvisible: {
+    backgroundColor: 'transparent',
+  },
+  image : {
+    height: screenWidth / numColumns, // approximate a square
+    width: '100%',
+    resizeMode: 'cover',
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+  }
 });
