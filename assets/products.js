@@ -5,7 +5,7 @@ const products = [
     price: 20200,
     volume: "750 mL",
     alcohol: 38.5,
-    image: require('./images/bacardi.jpeg'),
+    image: 'bacardi.jpeg'
   },
   {
     id: 2,
@@ -13,7 +13,7 @@ const products = [
     price: 20200,
     volume: "1 lt",
     alcohol: 26,
-    image: require('./images/ron.jpeg')
+    image:'ron.jpeg'
   },
   {
     id: 3,
@@ -21,7 +21,7 @@ const products = [
     price: 13000,
     volume: "360 mL",
     alcohol: 4.3,
-    image: require('./images/poker.jpg')
+    image: 'poker.jpg'
   },
   {
     id: 4,
@@ -29,7 +29,7 @@ const products = [
     price: 2000,
     volume: "360 mL",
     alcohol: 4.3,
-    image: require('./images/poker.jpg')
+    image: 'poker.jpg'
   },
   {
     id: 5,
@@ -37,7 +37,7 @@ const products = [
     price: 2000,
     volume: "360 mL",
     alcohol: 4.3,
-    image: require('./images/poker.jpg')
+    image:'poker.jpg'
   },
   {
     id: 6,
@@ -45,7 +45,7 @@ const products = [
     price: 20200,
     volume: "750 mL",
     alcohol: 38.5,
-    image: require('./images/bacardi.jpeg'),
+    image: 'bacardi.jpeg'
   },
   {
     id: 7,
@@ -53,7 +53,7 @@ const products = [
     price: 20200,
     volume: "1 lt",
     alcohol: 26,
-    image: require('./images/ron.jpeg')
+    image: 'ron.jpeg'
   },
   {
     id: 8,
@@ -61,7 +61,7 @@ const products = [
     price: 13000,
     volume: "360 mL",
     alcohol: 4.3,
-    image: require('./images/poker.jpg')
+    image: 'poker.jpg'
   }
 ];
 export default function getProducts(){
