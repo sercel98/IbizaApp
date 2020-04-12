@@ -20,7 +20,6 @@ function ProductCard(props) {
       <Image source={product.image} style={styles.image}/>
       <View>
       <Text style={styles.itemText}>{product.name}</Text>
-      <Text style={styles.itemText}>{product.name}</Text>
       </View>
     </TouchableOpacity>
   );
@@ -30,13 +29,11 @@ export default ProductCard;
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#000',
-        alignItems: 'center',
-        justifyContent: 'center',
+        width: Dimensions.get('window').width / numColumns - 20,
+        justifyContent: 'space-between',
         textAlign: 'center',
-        margin: 1,
-        height: Dimensions.get('window').width / numColumns - 20, // approximate a square
-        width: Dimensions.get('window').width / numColumns - 20
+        alignItems: 'center',
+        backgroundColor: '#000',
       },
       itemText: {
         color: '#fff',
