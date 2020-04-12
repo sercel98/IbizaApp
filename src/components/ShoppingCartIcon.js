@@ -4,10 +4,11 @@ import { View, StyleSheet, Text } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 
 const ShoppingCartIcon = (props) => {
+    const {cartItems} = props;
     return (
         <View>
             <View style={styles.productCounter}>
-    <Text style = {styles.textCounter}>{props.cartItems}</Text>
+    <Text style = {styles.textCounter}>{cartItems.length}</Text>
             </View>
             <MaterialIcons name='shopping-cart' size={28}
                 style={styles.headerIcon}></MaterialIcons>
@@ -17,11 +18,11 @@ const ShoppingCartIcon = (props) => {
 
 const mapStateToProps= (state) =>{
     return {
-        cartItems: state
+        cartItems: state.cart.items
     }
 }
 
-export default connect()(ShoppingCartIcon);
+export default connect(mapStateToProps)(ShoppingCartIcon);
 
 const styles = StyleSheet.create({
   

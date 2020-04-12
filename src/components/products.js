@@ -16,7 +16,7 @@ export default class Products extends Component {
   render() {
     const {products} = this.props;
     return (
-      <View>
+      <View style={styles.root}> 
         <FlatList
           data={products}
           style={styles.container}
@@ -30,6 +30,9 @@ export default class Products extends Component {
 }
 
 const styles = StyleSheet.create({
+  root: {
+    flex: 1
+  },
   container: {
     marginVertical: 20,
     marginHorizontal: 20
