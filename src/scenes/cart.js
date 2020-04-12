@@ -1,9 +1,10 @@
 import React from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import {  removeItem } from "../actions/cartActions";
-import { Linking } from 'expo';
+import {Button, StyleSheet, Text, View} from "react-native";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {removeItem} from "../actions/cartActions";
+import {Linking} from 'expo';
+
 function Cart(props) {
   const { cartItems } = props;
 
@@ -17,14 +18,13 @@ function Cart(props) {
     </View>
   );
 }
-const sendCartToWhatsappMessage = (cartItems)=> {
+
+const sendCartToWhatsappMessage = (cartItems) => {
   const number = 3042141840;
   const message = buildMessage(cartItems);
-  Linking
-  .openURL(`whatsapp://send?phone=57${number}&text=${message}`)
-  .then(() => {
-
-  }).catch(err=> alert("Asegurese de instalar Whatsapp"));
+  Linking.openURL(`whatsapp://send?phone=57${number}&text=${message}`)
+      .then(() => {
+      }).catch(err => alert("Asegurese de instalar Whatsapp"));
 }
 const buildMessage = (cartItems)=> {
   return JSON.stringify(cartItems);
