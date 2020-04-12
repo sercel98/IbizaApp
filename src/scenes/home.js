@@ -64,9 +64,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 'auto',
     marginRight: 'auto',
-    width: '90%', 
+    width: '70%', 
     borderRadius: 20, 
-    color: 'blue',
     backgroundColor: '#2C2C2C',
   }
 });
