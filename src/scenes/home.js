@@ -4,7 +4,6 @@ import firebaseClient from "../services/firebaseClient";
 import Products from "../components/products";
 import { Searchbar } from "react-native-paper";
 import productService from "../services/productService";
-
 class Home extends React.Component {
   constructor(props) {
     super(props);
@@ -16,25 +15,27 @@ class Home extends React.Component {
   }
   _onChangeSearch = (query) => {
     console.log(query);
-    
+
     this.setState({ searchQuery: query });
-    if(query) {
-        this.setState({
-            products: this.productService
-            .testingProducts
-            .filter(product => 
-                product.name.toLowerCase().includes(query.toLowerCase())
-                )
-        });
+    if (query) {
+      this.setState({
+        products: this.productService
+          .testingProducts
+          .filter(product =>
+            product.name.toLowerCase().includes(query.toLowerCase())
+          )
+      });
     } else {
-        this.setState({
-            products: this.productService.testingProducts
-        });
+      this.setState({
+        products: this.productService.testingProducts
+      });
     }
   };
+
   componentDidMount() {
     this.setState({ products: this.productService.testingProducts });
   }
+  
   render() {
     const { products } = this.state;
     return (
@@ -64,8 +65,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginLeft: 'auto',
     marginRight: 'auto',
-    width: '70%', 
-    borderRadius: 20, 
+    width: '70%',
+    borderRadius: 20,
     backgroundColor: '#2C2C2C',
   }
 });

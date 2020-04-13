@@ -15,7 +15,7 @@ class ProductDetail extends Component {
     const { product } = route.params;
     this.props.addToCart(product);
   };
-  
+
   render() {
     const { navigation, route } = this.props;
     const { product } = route.params;
@@ -35,7 +35,7 @@ class ProductDetail extends Component {
           </View>
         </View>
         <Text>- 2 +</Text>
-        <Button onPress={this.addToCart} color= 'white' style={styles.btnAddToCart}>
+        <Button onPress={this.addToCart} color='white' style={styles.btnAddToCart}>
           Añadir al carrito
         </Button>
       </View>
@@ -51,7 +51,7 @@ const mapDispatchToProps = (dispatch) =>
     },
     dispatch
   );
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
   product: {
     alignItems: 'center',
   },
-  image : {
+  image: {
     height: screenWidth / 1.5,
     width: screenWidth / 1.5,
     maxHeight: 300,
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#FFF',
-  },  
+  },
   btnAddToCart: {
     width: '60%',
     padding: 10,
@@ -122,3 +122,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#E93A3B'
   }
 });
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);
