@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { Text, StyleSheet, View, Button, Image, Dimensions } from "react-native";
+import { Text, StyleSheet, View, Dimensions } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { addToCart, removeItem } from "../actions/cartActions";
-import AsyncImage from '../shared/AsyncImage'
+import AsyncImage from '../shared/AsyncImage';
+import { Button } from 'react-native-paper';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -21,7 +22,7 @@ class ProductDetail extends Component {
     return (
       <View style={styles.container}>
         <View style={styles.product}>
-          <AsyncImage style={styles.itemImage} image={product.image}></AsyncImage>
+          <AsyncImage style={styles.image} image={product.image}></AsyncImage>
           <View style={styles.productDetail}>
             <View style={styles.productDesc}>
               <Text style={styles.productName}> {product.name}</Text>
@@ -33,12 +34,10 @@ class ProductDetail extends Component {
             </View>
           </View>
         </View>
-        <Text>cantidad</Text>
-        <Button
-          title="Añadir al carrito"
-          onPress={this.addToCart}
-          style={styles.btnAddToCart}
-        />
+        <Text>- 2 +</Text>
+        <Button onPress={this.addToCart} color= 'white' style={styles.btnAddToCart}>
+          Añadir al carrito
+        </Button>
       </View>
     );
   }
@@ -68,12 +67,16 @@ const styles = StyleSheet.create({
   image : {
     height: screenWidth / 1.5,
     width: screenWidth / 1.5,
+    maxHeight: 300,
+    maxWidth: 300,
     resizeMode: 'cover',
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
   },
   productDetail: {
     width: screenWidth / 1.2,
+    maxHeight: 350,
+    maxWidth: 350,
     padding: 10,
     flex: 1,
     flexDirection: 'row',
@@ -113,10 +116,9 @@ const styles = StyleSheet.create({
     color: '#FFF',
   },  
   btnAddToCart: {
-
-  }, 
-  itemImage: {
-    height:200, 
-    width:200
+    width: '60%',
+    padding: 10,
+    borderRadius: 10,
+    backgroundColor: '#E93A3B'
   }
 });
