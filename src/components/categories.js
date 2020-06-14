@@ -5,16 +5,22 @@ import CategoryItem from './categoryItem'
 const screenWidth = Dimensions.get('window').width;
 const numColumns = screenWidth < 992 ? 3 : 4;
 
+const categoryFilter =() => {
+  console.log("HOla desde categories")
+}; 
+
 
 export default class categories extends Component {
 
   constructor(props) {
-    super(props);
+    super(props);  
+
   }
+
 
   renderItem = ({ item, index }) => {
     return (
-      <CategoryItem category={item} index={index} />
+      <CategoryItem applyCategoryFilter={categoryFilter} category={item} index={index} />
     );
   };
 

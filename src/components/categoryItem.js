@@ -5,15 +5,12 @@ import { useNavigation } from '@react-navigation/native';
 
 const categoryItem = (props) => {
     
+    console.log(props)
     const { category, index } = props;
     const navigation = useNavigation();
+   
     const onPress = () => {
-       /*
-
-        navigation.navigate('ProductDetail', {
-            product
-        })
-        */
+      this.props.applyCategoryFilter(this.category)
     }
 
     return (
