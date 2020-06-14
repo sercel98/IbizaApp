@@ -17,7 +17,7 @@ const ShoppingCartIcon = (props) => {
       </View>
       <MaterialIcons
         name="shopping-cart"
-        size={28}
+        size={30}
         style={styles.headerIcon}
       />
     </TouchableOpacity>
@@ -33,8 +33,8 @@ const mapStateToProps = (state) => {
 const styles = StyleSheet.create({
   productCounter: {
     position: "absolute",
-    height: 15,
-    width: 15,
+    height: 16,
+    width: 16,
     borderRadius: 15,
     backgroundColor: "red",
     justifyContent: "center",
@@ -46,10 +46,11 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginLeft: "auto",
     marginRight: "auto",
-    fontSize: 11,
+    fontSize: 10,
   },
   headerIcon: {
     color: "#fff",
+    paddingTop: 2
   },
 });
 

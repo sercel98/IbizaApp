@@ -13,26 +13,27 @@ export default function Header(props) {
         navigation.navigate("Login");
     }
 
-    let leftIcon = <MaterialIcons name='filter-list' size={28} onPress={goLogin} style={styles.headerIcon} />;
+    let leftIcon = <MaterialIcons name='person' size={30} onPress={goLogin} style={styles.headerIcon} />;
     if (route.name !== "Home") {
-        leftIcon = <MaterialIcons name='keyboard-return' size={28} onPress={goBack} style={styles.headerIcon} />;
+        leftIcon = <MaterialIcons name='keyboard-return' size={30} onPress={goBack} style={styles.headerIcon} />;
     }
     return (
         <View style={styles.header}>
             <StatusBar barStyle="light-content" />
             {leftIcon}
             <Image style={styles.headerLogo} source={require('../../assets/images/homeLogo.png')} />
-            <ShoppingCartIcon />
+            <ShoppingCartIcon/>
         </View>
     );
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({  
     header: {
         flexDirection: 'row',
         justifyContent: "space-between",
         backgroundColor: '#000',
-        padding: 10,
+        paddingHorizontal: 22,
+        paddingVertical: 15,
     },
     headerLogo: {
         width: 112,
@@ -40,5 +41,6 @@ const styles = StyleSheet.create({
     },
     headerIcon: {
         color: '#fff',
+        paddingTop: 2
     }
 });

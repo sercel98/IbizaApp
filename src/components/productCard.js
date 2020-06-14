@@ -40,20 +40,23 @@ const styles = StyleSheet.create({
     backgroundColor: '#000',
   },
   product: {
-    padding: 3,
+    paddingVertical: 5,
+    paddingRight: 8,
+    
     flex: 1,
     justifyContent: 'center',
   },
   productPrice: {
-    fontSize: 9,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontSize: 13,
+    fontWeight: '700',
+    textAlign: 'right',
     color: '#FFF',
   },
   productName: {
-    fontSize: 9,
-    textAlign: 'center',
-    color: '#CCC',
+    fontSize: 11,
+    textAlign: 'right',
+    fontWeight: '300',
+    color: '#DDD',
   },
   itemInvisible: {
     backgroundColor: 'transparent',

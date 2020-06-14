@@ -71,13 +71,14 @@ class Home extends React.Component {
       <View style={styles.container}>
         <Searchbar
           style={styles.searchInput}
-          placeholder="Search"
+          placeholder="Buscar"
           onChangeText={this._onChangeSearch}
           value={this.state.searchQuery}
           placeholderTextColor="#BBB"
           iconColor="#BBB"
           theme={{ colors: { text: "#BBB" } }}
         />
+        <Text style={styles.titleProducts} >Productos</Text>
         <Products products={products} />
       </View>
     );
@@ -91,12 +92,19 @@ const styles = StyleSheet.create({
     backgroundColor: '#ccc',
   },
   searchInput: {
-    marginTop: 10,
+    marginTop: 15,
     marginLeft: 'auto',
     marginRight: 'auto',
     width: '88%',
-    borderRadius: 20,
+    borderRadius: 5,
     backgroundColor: '#2C2C2C',
+  }, 
+  titleProducts: {
+      margin: 15,
+      marginLeft: 21, 
+      fontSize: 22, 
+      fontWeight: "700", 
+      //fontFamily:   Montserrat,
   }
 });
 

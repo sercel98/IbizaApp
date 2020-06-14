@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View, FlatList, Dimensions } from 'react-native';
+import { StyleSheet, View, FlatList, Dimensions } from 'react-native';
 import ProductCard from './productCard'
 
 const screenHeight = Dimensions.get('window').height;
@@ -39,6 +39,7 @@ export default class Products extends Component {
           style={styles.container}
           renderItem={this.renderItem}
           numColumns={numColumns}
+          //scrollEnabled={false}
           keyExtractor={item => item.id.toString()}
         />
       </View>
@@ -48,8 +49,7 @@ export default class Products extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
-    marginHorizontal: 20
+    marginHorizontal: 21
   },
   root: {
     flex: 1,
