@@ -9,11 +9,11 @@ export default function Header(props) {
     const route = useRoute();
 
     const goBack = () => navigation.goBack();
-    const openFilter = () => {
-        console.log("hey");
-    };
+    const goLogin = () => {
+        navigation.navigate("Login");
+    }
 
-    let leftIcon = <MaterialIcons name='filter-list' size={28} onPress={openFilter} style={styles.headerIcon} />;
+    let leftIcon = <MaterialIcons name='filter-list' size={28} onPress={goLogin} style={styles.headerIcon} />;
     if (route.name !== "Home") {
         leftIcon = <MaterialIcons name='keyboard-return' size={28} onPress={goBack} style={styles.headerIcon} />;
     }

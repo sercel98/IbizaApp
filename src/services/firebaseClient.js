@@ -6,6 +6,7 @@ class FirebaseClient {
         firebase.initializeApp(firebaseConfig);
         this._firestoreDb = firebase.firestore();
         this._storage = firebase.storage();
+        this._auth = firebase.auth()
     }
 
     get firestoreDb() {
@@ -14,6 +15,10 @@ class FirebaseClient {
 
     get storage() {
         return this._storage;
+    }
+
+    get auth() {
+        return this._auth;
     }
 }
 const firebaseClient = new FirebaseClient();
