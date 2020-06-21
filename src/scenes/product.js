@@ -5,15 +5,36 @@ import { bindActionCreators } from "redux";
 import { addToCart, removeItem } from "../actions/cartActions";
 import AsyncImage from '../shared/AsyncImage';
 import { Button } from 'react-native-paper';
+import { AntDesign } from '@expo/vector-icons'; 
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 class ProductDetail extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { count: 1 };
+  }
+
   addToCart = () => {
     const { route } = this.props;
     const { product } = route.params;
     this.props.addToCart(product);
+  };
+
+  reduceProductCount = () => {
+    if(this.state.count > 1) {
+      this.setState({
+        count: this.state.count - 1,
+      });
+    }
+
+  };
+
+  increaseProductCount = () => {
+    this.setState({
+      count: this.state.count + 1,
+    });
   };
 
   render() {
@@ -34,7 +55,15 @@ class ProductDetail extends Component {
             </View>
           </View>
         </View>
-        <Text>- 2 +</Text>
+        <View style={styles.countContainer}>
+          <Button onPress={this.reduceProductCount} color='black' style={styles.btnReduce}> 
+            <AntDesign name="caretleft" size={25} color="black" />
+          </Button>
+          <Text style={styles.countText}>{this.state.count}</Text>
+          <Button onPress={this.increaseProductCount} color='black' style={styles.btnIncrease}>
+            <AntDesign name="caretright" size={25} color="black" />
+          </Button>
+        </View>
         <Button onPress={this.addToCart} color='white' style={styles.btnAddToCart}>
           Añadir al carrito
         </Button>
@@ -86,10 +115,18 @@ const styles = StyleSheet.create({
   productDesc: {
     width: '50%',
     paddingRight: 10,
-    textAlign: 'right',
+    //Esto tira una warning: textAlign: 'right',
     borderRightWidth: 2,
     borderRightColor: '#BBBBBB'
   },
+  countText: {
+    fontSize: 35,
+    fontWeight: "bold"
+   },
+  countContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  }, 
   productPriceDesc: {
     width: '50%',
     justifyContent: 'center',
