@@ -1,38 +1,39 @@
 import React from 'react'
-import {Image, StyleSheet, View, StatusBar} from 'react-native'
-import {MaterialIcons} from '@expo/vector-icons'
+import { Image, StyleSheet, View, StatusBar } from 'react-native'
+import { MaterialIcons } from '@expo/vector-icons'
 import ShoppingCartIcon from '../components/ShoppingCartIcon';
 import { useRoute } from '@react-navigation/native';
 
 export default function Header(props) {
-    const {navigation} = props;
+    const { navigation } = props;
     const route = useRoute();
 
     const goBack = () => navigation.goBack();
-    const openFilter = () => {
-        console.log("hey");
-    };
+    const goLogin = () => {
+        navigation.navigate("Login");
+    }
 
-    let leftIcon = <MaterialIcons name='filter-list' size={28} onPress={openFilter} style={styles.headerIcon}/>;
+    let leftIcon = <MaterialIcons name='person' size={30} onPress={goLogin} style={styles.headerIcon} />;
     if (route.name !== "Home") {
-        leftIcon = <MaterialIcons name='keyboard-return' size={28} onPress={goBack} style={styles.headerIcon}/>;
+        leftIcon = <MaterialIcons name='keyboard-return' size={30} onPress={goBack} style={styles.headerIcon} />;
     }
     return (
         <View style={styles.header}>
-            <StatusBar  barStyle="light-content" />
+            <StatusBar barStyle="light-content" />
             {leftIcon}
-            <Image style={styles.headerLogo} source={require('../../assets/images/homeLogo.png')}/>
+            <Image style={styles.headerLogo} source={require('../../assets/images/homeLogo.png')} />
             <ShoppingCartIcon/>
         </View>
     );
 }
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create({  
     header: {
         flexDirection: 'row',
         justifyContent: "space-between",
         backgroundColor: '#000',
-        padding: 10,
+        paddingHorizontal: 22,
+        paddingVertical: 15,
     },
     headerLogo: {
         width: 112,
@@ -40,5 +41,6 @@ const styles = StyleSheet.create({
     },
     headerIcon: {
         color: '#fff',
+        paddingTop: 2
     }
 });

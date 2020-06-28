@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import { StyleSheet, Text, View, FlatList, Dimensions } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, View, FlatList, Dimensions } from 'react-native';
 import ProductCard from './productCard'
 
 const screenHeight = Dimensions.get('window').height;
@@ -7,29 +7,31 @@ const screenWidth = Dimensions.get('window').width;
 const numColumns = screenWidth < 992 ? 3 : 4;
 
 const formatData = (data, numColumns) => {
-  const numberOfFullRows = Math.floor(data.length / numColumns);
 
+  const numberOfFullRows = Math.floor(data.length / numColumns);
   let numberOfElementsLastRow = data.length - (numberOfFullRows * numColumns);
+
   while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
     data.push({ id: '-1', name: "-1", empty: true });
     numberOfElementsLastRow++;
   }
-
   return data;
 };
 
 export default class Products extends Component {
-  constructor(props){
+
+  constructor(props) {
     super(props);
   }
+
   renderItem = ({ item, index }) => {
     return (
-      <ProductCard product={item} index={index}/>
+      <ProductCard product={item} index={index} />
     );
   };
 
   render() {
-    const {products} = this.props;
+    const { products } = this.props;
     return (
       <FlatList
         data={formatData(products, numColumns)}

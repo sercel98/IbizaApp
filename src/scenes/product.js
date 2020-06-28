@@ -126,7 +126,7 @@ const mapDispatchToProps = (dispatch) =>
     },
     dispatch
   );
-export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
   product: {
     alignItems: 'center',
   },
-  image : {
+  image: {
     height: screenWidth / 1.5,
     width: screenWidth / 1.5,
     maxHeight: 300,

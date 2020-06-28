@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Image, View, ActivityIndicator } from 'react-native'
 import firebaseClient from '../services/firebaseClient'
-
 export default class AsyncImage extends Component {
 
     constructor(props) {
