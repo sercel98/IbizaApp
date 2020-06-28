@@ -41,7 +41,7 @@ class Home extends React.Component {
       <View style={styles.container}>
         <Searchbar
           style={styles.searchInput}
-          placeholder="Search"
+          placeholder="Buscar"
           onChangeText={this._onChangeSearch}
           value={this.state.searchQuery}
           placeholderTextColor="#BBB"
@@ -58,14 +58,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#ccc',
+    backgroundColor: '#000',
   },
   searchInput: {
     marginTop: 10,
     marginLeft: 'auto',
     marginRight: 'auto',
-    width: '70%', 
-    borderRadius: 20, 
+    width: '90%', 
+    borderRadius: 8, 
     backgroundColor: '#2C2C2C',
   }
 });

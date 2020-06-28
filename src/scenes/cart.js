@@ -7,6 +7,7 @@ import {Linking} from 'expo';
 
 function Cart(props) {
   const { cartItems } = props;
+  console.log(cartItems)
 
   return (
     <View style={styles.container}>
@@ -37,7 +38,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators(
     {
-      removeItem,
+      removeItem
     },
     dispatch
   );

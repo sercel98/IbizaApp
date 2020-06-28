@@ -31,25 +31,22 @@ export default class Products extends Component {
   render() {
     const {products} = this.props;
     return (
-      <View style={styles.root}> 
-        <FlatList
-          data={formatData(products, numColumns)}
-          style={styles.container}
-          renderItem={this.renderItem}
-          numColumns={numColumns}
-          keyExtractor={item => item.id.toString()}
-        />
-      </View>
+      <FlatList
+        data={formatData(products, numColumns)}
+        style={styles.container}
+        renderItem={this.renderItem}
+        numColumns={numColumns}
+        showsHorizontalScrollIndicator={false}
+        keyExtractor={item => item.id.toString()}
+      />
     );
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
-    marginHorizontal: 20
-  },
-  root: {
     flex: 1,
+    paddingHorizontal: 20,
+    marginVertical: 20
   }
 });

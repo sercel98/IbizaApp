@@ -22,10 +22,6 @@ function ProductCard(props) {
   return (
     <TouchableOpacity onPress={onPress} style={styles.container} >
       <AsyncImage image={product.image} style={styles.image}></AsyncImage>
-      <View style={styles.product}>
-        <Text style={styles.productPrice}>${product.price}</Text>
-        <Text style={styles.productName}>{product.name}</Text>
-      </View>
     </TouchableOpacity>
   );
 }
@@ -34,36 +30,19 @@ export default ProductCard;
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 5,
-    marginBottom: 20,
-    flex: 1 / numColumns,
-    borderRadius: 5,
-    backgroundColor: '#000',
-  },
-  product: {
-    padding: 3,
+    marginHorizontal: 4,
+    marginBottom: 10,
     flex: 1,
-    justifyContent:'center',
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: screenWidth / numColumns, // approximate a square
   },
-  productPrice: {
-    fontSize: 9,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#FFF',
-  }, 
-  productName: {
-    fontSize: 9,
-    textAlign: 'center',
-    color: '#CCC',
-  }, 
   itemInvisible: {
     backgroundColor: 'transparent',
   },
   image : {
     height: screenWidth / numColumns, // approximate a square
     width: '100%',
-    resizeMode: 'cover',
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
+    resizeMode: 'cover'
   }
 });
