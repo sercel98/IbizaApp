@@ -34,6 +34,7 @@ class ProductDetail extends Component {
   addToCart = () => {
     const { route } = this.props;
     const { product } = route.params;
+    console.log(this.props)
     let quantity = this.state.quantityOfProduct;
 
     this.props.removeItem(product);
@@ -264,3 +265,5 @@ const alertStyles = StyleSheet.create({
     color: '#FFFFFF',
   },
 });
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);

@@ -100,10 +100,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#2C2C2C',
   }, 
   titleProducts: {
-      margin: 15,
+      marginTop: 15,
       marginLeft: 21, 
       fontSize: 22, 
       fontWeight: "700", 
+      color: 'white'
       //fontFamily:   Montserrat,
   }
 });
