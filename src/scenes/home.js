@@ -89,21 +89,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: '#ccc',
+    backgroundColor: '#000',
   },
   searchInput: {
     marginTop: 15,
     marginLeft: 'auto',
     marginRight: 'auto',
-    width: '88%',
-    borderRadius: 5,
+    width: '90%', 
+    borderRadius: 8, 
     backgroundColor: '#2C2C2C',
   }, 
   titleProducts: {
-      margin: 15,
+      marginTop: 15,
       marginLeft: 21, 
       fontSize: 22, 
       fontWeight: "700", 
+      color: 'white'
       //fontFamily:   Montserrat,
   }
 });

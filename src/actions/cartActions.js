@@ -1,8 +1,7 @@
 import { ADD_TO_CART, REMOVE_FROM_CART, EMPTY_CART } from "./types";
-
-export const addToCart = (product) => ({
+export const addToCart = (product, quantity) => ({
   type: ADD_TO_CART,
-  payload: product,
+  payload: {product, quantity},
 });
 export const removeItem = (product) => ({
   type: REMOVE_FROM_CART,

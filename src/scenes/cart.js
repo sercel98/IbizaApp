@@ -7,6 +7,8 @@ import { Linking } from 'expo';
 
 function Cart(props) {
   const { cartItems } = props;
+  console.log(cartItems)
+
   return (
     <View style={styles.container}>
       <Text>Cart detail. Current products {cartItems.length}</Text>
