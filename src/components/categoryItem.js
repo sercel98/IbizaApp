@@ -1,35 +1,45 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import { useNavigation } from '@react-navigation/native';
-
+import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import { Button } from 'react-native-paper';
 
 const categoryItem = (props) => {
-    
-    console.log(props)
-    const { category, index } = props;
-    const navigation = useNavigation();
-   
-    const onPress = () => {
-      this.props.applyCategoryFilter(this.category)
-    }
 
-    return (
-    <TouchableOpacity onPress={onPress} style={styles.container} >
+  console.log(props)
+  const { category } = props;
+
+
+  return (
+
+    <TouchableOpacity style={styles.container} >
       <View style={styles.category}>
-        <Text style={styles.categoryName}>{category.name}</Text>
+        <Button style={styles.categoryButton}><Image></Image></Button>
       </View>
+      <Text style={styles.categoryName}>{category.name}</Text>
     </TouchableOpacity>
+
   );
-   
+
 }
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
-    marginHorizontal: 20
+
+    marginVertical: 10,
+    marginHorizontal: 20,
+    justifyContent: "center",
+    alignItems: 'center',
+    borderRadius: 100
   },
-  root: {
-    flex: 1,
+  categoryName: {
+    color: 'white'
+  },
+  categoryButton: {
+    backgroundColor: 'red',
+    borderWidth: 1,
+    width: 60,
+    height: 60,
+    borderRadius: 30
   }
+
 });
 
 export default categoryItem

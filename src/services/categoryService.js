@@ -2,13 +2,13 @@ import getCategories from '../../assets/categories';
 
 class CategoryService {
 
-    constructor() {
-        this._testingCategories = getCategories();
-    }
+	constructor() {
+		this._categories = getCategories();
+	}
 
-    get testingCategories() {
-        return this._testingCategories;
-    }
+	get categories() {
+		return this._categories;
+	}
 }
 
 const categoryService = new CategoryService();
