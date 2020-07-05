@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View , Text} from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import firebaseClient from "../services/firebaseClient";
 import Products from "../components/products";
 import Categories from "../components/categories"
@@ -8,33 +8,32 @@ import productService from "../services/productService";
 import categoryService from "../services/categoryService"
 
 class Home extends React.Component {
+
   constructor(props) {
     super(props);
     this.productService = productService;
-    this.categoryService = categoryService
+    this.categoryService = categoryService;
     this.state = {
       products: [],
       searchQuery: "",
-      categoryApplied: null,
-      categories: [],
+      categoryApplied: "",
     };
   }
+  //revisar lógica
   _onChangeSearch = (query) => {
-    console.log(query);
-
     this.setState({ searchQuery: query });
     if (query) {
       this.setState({
         products: this.productService
-          .testingProducts
+          .products
           .filter(product =>
             product.name.toLowerCase().includes(query.toLowerCase())
           )
       });
     } else {
       this.setState({
-        products: this.productService.testingProducts,
-        categories: this.categoryService.testingCategories
+        products: this.productService.products,
+        categories: this.categoryService.categories
       });
     }
   };
@@ -43,26 +42,26 @@ class Home extends React.Component {
     console.log(category);
 
     this.setState({ categoryApplied: category });
+
     if (category) {
       this.setState({
         products: this.productService
           .testingProducts
           .filter(product =>
-            product.categoryId===(category.id)
+            product.categoryId === (category)
           )
       });
     } else {
       this.setState({
-        products: this.productService.testingProducts
+        products: this.productService.products
       });
     }
   };
 
   componentDidMount() {
-    this.setState({ products: this.productService.testingProducts, 
-      categories: this.categoryService.testingCategories});
+    this.setState({ products: this.productService.products, categories: this.categoryService.categories });
   }
-  
+
   render() {
     const { products } = this.state;
     const { categories } = this.state;
@@ -78,6 +77,8 @@ class Home extends React.Component {
           iconColor="#BBB"
           theme={{ colors: { text: "#BBB" } }}
         />
+        <Text style={styles.titleCategories} >Categories</Text>
+        <Categories categories={categories}></Categories>
         <Text style={styles.titleProducts} >Productos</Text>
         <Products products={products} />
       </View>
@@ -95,17 +96,25 @@ const styles = StyleSheet.create({
     marginTop: 15,
     marginLeft: 'auto',
     marginRight: 'auto',
-    width: '90%', 
-    borderRadius: 8, 
+    width: '90%',
+    borderRadius: 8,
     backgroundColor: '#2C2C2C',
-  }, 
+  },
   titleProducts: {
-      marginTop: 15,
-      marginLeft: 21, 
-      fontSize: 22, 
-      fontWeight: "700", 
-      color: 'white'
-      //fontFamily:   Montserrat,
+    marginTop: 15,
+    marginLeft: 21,
+    fontSize: 22,
+    fontWeight: "700",
+    color: 'white'
+    //fontFamily:   Montserrat,
+  },
+  titleCategories: {
+    marginTop: 15,
+    marginLeft: 21,
+    fontSize: 22,
+    fontWeight: "700",
+    color: 'white'
+    //fontFamily:   Montserrat,
   }
 });
 

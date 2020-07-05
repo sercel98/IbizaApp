@@ -10,21 +10,21 @@ import Login from "../scenes/login";
 const Stack = createStackNavigator();
 
 export default function AppStackNavigation() {
-    return (
-        <Stack.Navigator initialRouteName="Home"
-            screenOptions={{
-                headerStyle: {
-                    backgroundColor: '#000',
-                },
-                gestureEnabled: true,
-                header: (props) => (<Header {...props} />)
-            }}
-        >
-            <Stack.Screen name="Home" component={Home} />
-            <Stack.Screen name="ProductDetail" component={ProductDetail} />
-            <Stack.Screen name="Cart" component={Cart} />
-            <Stack.Screen name="About" component={About} />
-            <Stack.Screen name="Login" component={Login} />
-        </Stack.Navigator>
-    );
+	return (
+		<Stack.Navigator initialRouteName="Home"
+			screenOptions={{
+				headerStyle: {
+					backgroundColor: '#000',
+				},
+				gestureEnabled: true,
+				header: (props) => (<Header {...props} />)
+			}}
+		>
+			<Stack.Screen name="Home" component={Home} />
+			<Stack.Screen name="ProductDetail" component={ProductDetail} />
+			<Stack.Screen name="Cart" component={Cart} />
+			<Stack.Screen name="About" component={About} />
+			<Stack.Screen name="Login" component={Login} />
+		</Stack.Navigator>
+	);
 }

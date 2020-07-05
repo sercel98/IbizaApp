@@ -6,13 +6,11 @@ const categoryItem = (props) => {
 
   console.log(props)
   const { category } = props;
-
-
   return (
-
     <TouchableOpacity style={styles.container} >
       <View style={styles.category}>
-        <Button style={styles.categoryButton}><Image></Image></Button>
+        <Button style={styles.categoryButton}><Image style={{ width: 30, height: 30 }}
+          source={require('../../assets/images/userIcon.png')} /></Button>
       </View>
       <Text style={styles.categoryName}>{category.name}</Text>
     </TouchableOpacity>
@@ -22,7 +20,6 @@ const categoryItem = (props) => {
 }
 const styles = StyleSheet.create({
   container: {
-
     marginVertical: 10,
     marginHorizontal: 20,
     justifyContent: "center",

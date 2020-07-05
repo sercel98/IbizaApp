@@ -5,13 +5,9 @@ import { bindActionCreators } from "redux";
 import { addToCart, removeItem } from "../actions/cartActions";
 import AsyncImage from '../shared/AsyncImage';
 import { Button } from 'react-native-paper';
-<<<<<<< HEAD
-import { AntDesign } from '@expo/vector-icons'; 
-=======
 import { AntDesign } from '@expo/vector-icons';
 import { FancyAlert } from 'react-native-expo-fancy-alerts';
 import { Ionicons } from '@expo/vector-icons';
->>>>>>> f9e38552a798aab3a6ffbfa12f87edee8bd891bb
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -19,11 +15,6 @@ const screenWidth = Dimensions.get('window').width;
 class ProductDetail extends Component {
   constructor(props) {
     super(props);
-<<<<<<< HEAD
-    this.state = { count: 1 };
-  }
-
-=======
     this.state = {
       quantityOfProduct: 1,
       visible: false
@@ -31,16 +22,15 @@ class ProductDetail extends Component {
   }
 
   incrementProduct = () => {
-    this.setState({quantityOfProduct: this.state.quantityOfProduct + 1});
+    this.setState({ quantityOfProduct: this.state.quantityOfProduct + 1 });
   }
 
   decrementProduct = () => {
-    if(this.state.quantityOfProduct > 1) {
-      this.setState({quantityOfProduct: this.state.quantityOfProduct - 1});
+    if (this.state.quantityOfProduct > 1) {
+      this.setState({ quantityOfProduct: this.state.quantityOfProduct - 1 });
     }
   }
-  
->>>>>>> f9e38552a798aab3a6ffbfa12f87edee8bd891bb
+
   addToCart = () => {
     const { route } = this.props;
     const { product } = route.params;
@@ -49,33 +39,15 @@ class ProductDetail extends Component {
 
     this.props.removeItem(product);
     this.props.addToCart(product, quantity)
-    this.setState({visible: true})
+    this.setState({ visible: true })
   };
 
-<<<<<<< HEAD
-  reduceProductCount = () => {
-    if(this.state.count > 1) {
-      this.setState({
-        count: this.state.count - 1,
-      });
-    }
-
-  };
-
-  increaseProductCount = () => {
-    this.setState({
-      count: this.state.count + 1,
-    });
-  };
-
-=======
   closeAlert = () => {
     const { navigation } = this.props;
-    this.setState({visible: false})
+    this.setState({ visible: false })
     navigation.goBack();
   }
-  
->>>>>>> f9e38552a798aab3a6ffbfa12f87edee8bd891bb
+
   render() {
     const { navigation, route } = this.props;
     const { product } = route.params;
@@ -84,7 +56,7 @@ class ProductDetail extends Component {
         <FancyAlert
           visible={this.state.visible}
           icon={
-            <View style={[ alertStyles.icon, { borderRadius: 32 } ]}>
+            <View style={[alertStyles.icon, { borderRadius: 32 }]}>
               <Ionicons
                 name={Platform.select({ ios: 'ios-checkmark', android: 'md-checkmark' })}
                 size={36}
@@ -121,8 +93,8 @@ class ProductDetail extends Component {
           <Text style={styles.textQuantity}>Cantidad</Text>
           <View style={styles.quantityView}>
             <View>
-              <AntDesign 
-                name='caretleft' 
+              <AntDesign
+                name='caretleft'
                 size={30}
                 onPress={this.decrementProduct}
                 style={styles.decrementIcon}
@@ -130,8 +102,8 @@ class ProductDetail extends Component {
             </View>
             <Text style={styles.quantity}>{this.state.quantityOfProduct}</Text>
             <View>
-              <AntDesign 
-                name='caretright' 
+              <AntDesign
+                name='caretright'
                 size={30}
                 onPress={this.incrementProduct}
                 style={styles.decrementIcon}
@@ -139,7 +111,7 @@ class ProductDetail extends Component {
             </View>
           </View>
         </View>
-        <Button onPress={this.addToCart} color= 'white' style={styles.btnAddToCart}>
+        <Button onPress={this.addToCart} color='white' style={styles.btnAddToCart}>
           Añadir al carrito
         </Button>
       </View>
@@ -186,27 +158,22 @@ const styles = StyleSheet.create({
   productDesc: {
     width: '49%',
     paddingRight: 10,
-<<<<<<< HEAD
-    //Esto tira una warning: textAlign: 'right',
-    borderRightWidth: 2,
-=======
     paddingVertical: 8
   },
   separator: {
     borderLeftWidth: 1,
     borderLeftColor: '#BBBBBB',
     borderRightWidth: 1,
->>>>>>> f9e38552a798aab3a6ffbfa12f87edee8bd891bb
     borderRightColor: '#BBBBBB'
   },
   countText: {
     fontSize: 35,
     fontWeight: "bold"
-   },
+  },
   countContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between'
-  }, 
+  },
   productPriceDesc: {
     width: '49%',
     justifyContent: 'center',
