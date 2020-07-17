@@ -22,7 +22,7 @@ function ProductCard(props) {
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.container} >
-      <AsyncImage image={product.image} style={styles.image}></AsyncImage>
+      <AsyncImage image={product.image} folder={'products'} style={styles.image}></AsyncImage>
     </TouchableOpacity>
   );
 }

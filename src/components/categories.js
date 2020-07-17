@@ -4,8 +4,6 @@ import CategoryItem from './categoryItem'
 import { ScrollView } from 'react-native-gesture-handler';
 
 const screenWidth = Dimensions.get('window').width;
-const numColumns = screenWidth < 992 ? 3 : 4;
-
 
 
 export default class categories extends Component {
@@ -24,24 +22,17 @@ export default class categories extends Component {
 
 	render() {
 		const { categories } = this.props;
-		const OFFSET = 500
-
 		return (
 			<View style={styles.categoriesContainer}>
-				<ScrollView
-					horizontal={true}
-					showsHorizontalScrollIndicator={false}
-					contentContainerStyle={{ marginRight: OFFSET }}>
-					<View>
-						<FlatList
-							data={categories}
-							style={styles.container}
-							renderItem={this.renderItem}
-							numColumns={numColumns}
-							keyExtractor={item => item.id.toString()}
-						/>
-					</View>
-				</ScrollView>
+				<View>
+					<FlatList
+						data={categories}
+						style={styles.container}
+						renderItem={this.renderItem}
+						numColumns={4}
+						keyExtractor={item => item.id.toString()}
+					/>
+				</View>
 			</View>
 		);
 	}
@@ -50,10 +41,11 @@ export default class categories extends Component {
 
 const styles = StyleSheet.create({
 	categoriesContainer: {
-		flexDirection: 'row'
+		flexDirection: 'row',
+		justifyContent: 'center'
 	},
 	container: {
-
+		marginTop: 10,
 	}
 
 });

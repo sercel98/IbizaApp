@@ -27,7 +27,7 @@ export default class AsyncImage extends Component {
 		if (this.state.mounted == true) {
 
 			const ref = firebaseClient.storage.ref()
-			const folderRef = ref.child('products')
+			const folderRef = ref.child(this.props.folder)
 			const imageRef = folderRef.child(this.state.image);
 			console.log(imageRef.name)
 
@@ -36,7 +36,7 @@ export default class AsyncImage extends Component {
 				this.setState({ loading: false })
 			}).catch(error => {
 				//TO DO: Arreglar esto por si una url se ingresa mal muestre le notfound
-				this.setState({ url: "products/notfound.png" })
+				this.setState({ url: this.props.folder+"/notfound.png" })
 				this.setState({ loading: false })
 			})
 		}

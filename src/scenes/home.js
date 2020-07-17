@@ -77,7 +77,7 @@ class Home extends React.Component {
           iconColor="#BBB"
           theme={{ colors: { text: "#BBB" } }}
         />
-        <Text style={styles.titleCategories} >Categories</Text>
+        <Text style={styles.titleCategories} >Categorias</Text>
         <Categories categories={categories}></Categories>
         <Text style={styles.titleProducts} >Productos</Text>
         <Products products={products} />

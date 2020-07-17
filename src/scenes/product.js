@@ -76,7 +76,7 @@ class ProductDetail extends Component {
         </FancyAlert>
 
         <View style={styles.product}>
-          <AsyncImage style={styles.image} image={product.image}></AsyncImage>
+          <AsyncImage style={styles.image} image={product.image} folder={'products'} ></AsyncImage>
           <View style={styles.productDetail}>
             <View style={styles.productDesc}>
               <Text style={styles.productName}> {product.name}</Text>

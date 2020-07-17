@@ -2,22 +2,22 @@ const categories = [
     {
         id: 1,
         name: "Cervezas",
-        image: './assets/images/cervezaIcon.jpeg'
+        image: 'beer.png'
     },
     {
         id: 2,
         name: "Vinos",
-        image: './assets/images/vinosIcon.jpeg'
+        image: 'wine.png'
     },
     {
         id: 3,
         name: "Gaseosas",
-        image: './assets/images/gaseosasIcon.jpg'
+        image: 'soda.png'
     },
     {
         id: 4,
         name: "Otros",
-        image: './assets/images/otrosIcon.jpg'
+        image: 'glass.png'
     }
 ];
 export default function getCategories() {
