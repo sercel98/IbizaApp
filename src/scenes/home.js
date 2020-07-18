@@ -1,6 +1,5 @@
 import React from "react";
 import { StyleSheet, View, Text } from "react-native";
-import firebaseClient from "../services/firebaseClient";
 import Products from "../components/products";
 import Categories from "../components/categories"
 import { Searchbar } from "react-native-paper";
@@ -65,7 +64,6 @@ class Home extends React.Component {
   render() {
     const { products } = this.state;
     const { categories } = this.state;
-    console.log(categories)
     return (
       <View style={styles.container}>
         <Searchbar
@@ -77,8 +75,6 @@ class Home extends React.Component {
           iconColor="#BBB"
           theme={{ colors: { text: "#BBB" } }}
         />
-        <Text style={styles.titleCategories} >Categorias</Text>
-        <Categories categories={categories}></Categories>
         <Text style={styles.titleProducts} >Productos</Text>
         <Products products={products} />
       </View>

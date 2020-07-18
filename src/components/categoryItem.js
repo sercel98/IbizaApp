@@ -1,12 +1,13 @@
 import React from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { Button } from 'react-native-paper';
-import AsyncImage from "../shared/AsyncImage"
+import AsyncImage from "../shared/AsyncImage";
+import Home from "../scenes/home";
 
 const categoryItem = (props) => {
 
-  console.log(props)
   const { category } = props;
+
   return (
     <View>
       <TouchableOpacity style={styles.container} >
@@ -14,15 +15,15 @@ const categoryItem = (props) => {
           <Button style={styles.categoryButton}>
             <AsyncImage image={category.image} folder={'categories'} style={styles.image}></AsyncImage>
           </Button>
-          <Text style={styles.categoryName}>{category.name}</Text>
         </View>
       </TouchableOpacity>
+      <Text style={styles.categoryName}> {category.name} </Text>   
     </View>
   );
 
 }
 const styles = StyleSheet.create({
-  container: {
+  container: { 
     marginHorizontal: 10,
     justifyContent: 'center',
     alignItems: 'center'
