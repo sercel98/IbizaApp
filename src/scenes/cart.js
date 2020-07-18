@@ -1,35 +1,33 @@
 import React from "react";
-import { Button, StyleSheet, Text, View } from "react-native";
+import { FlatList, Button, StyleSheet, Text, View } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { CartItemDetail } from "../components/cartItemDetail"
 import { removeItem } from "../actions/cartActions";
-import { Linking } from 'expo';
 
 function Cart(props) {
+
   const { cartItems } = props;
-  console.log(cartItems)
+
+  renderCartItem = ({ item }) => {
+    return (
+      <View></View>
+    );
+  };
 
   return (
     <View style={styles.container}>
       <Text>Cart detail. Current products {cartItems.length}</Text>
-      <Button
-        title="Open WhatsApp"
-        onPress={() => sendCartToWhatsappMessage(cartItems)}
+      <FlatList
+        data={cartItems}
+        style={styles.container}
+        renderItem={this.renderCartItem}
+        numColumns={1}
+        showsHorizontalScrollIndicator={false}
+        keyExtractor={item => item.id.toString()}
       />
     </View>
   );
-}
-
-const sendCartToWhatsappMessage = (cartItems) => {
-  const number = 3042141840;
-  const message = buildMessage(cartItems);
-  Linking.openURL(`whatsapp://send?phone=57${number}&text=${message}`)
-    .then(() => {
-    }).catch(err => alert("Asegurese de instalar Whatsapp"));
-}
-
-const buildMessage = (cartItems) => {
-  return JSON.stringify(cartItems);
 }
 
 const mapStateToProps = (state) => {

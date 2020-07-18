@@ -24,15 +24,13 @@ export default class categories extends Component {
 		const { categories } = this.props;
 		return (
 			<View style={styles.categoriesContainer}>
-				<View>
-					<FlatList
-						data={categories}
-						style={styles.container}
-						renderItem={this.renderItem}
-						numColumns={4}
-						keyExtractor={item => item.id.toString()}
-					/>
-				</View>
+				<FlatList
+					data={categories}
+					style={styles.container}
+					renderItem={this.renderItem}
+					numColumns={4}
+					keyExtractor={item => item.id.toString()}
+				/>
 			</View>
 		);
 	}
