@@ -15,12 +15,6 @@ function UserForm(props) {
   const openForm = () => {
     navigation.navigate("UserForm");
   }
-  
-  const renderCartItem = ({ item }) => {
-    return (
-      <CartItemDetail product={item}></CartItemDetail>
-    );
-  };
 
   return (
     <View style={styles.container}>
@@ -28,6 +22,7 @@ function UserForm(props) {
         <Text style={styles.tittleText}>Datos de envio</Text>
       </View>
       <View style={styles.fieldsContainer}>
+
         <Text style={styles.textInputTitle}>Nombre y Apellido:</Text>
         <TextInput
             style={styles.SectionStyle}
@@ -47,13 +42,16 @@ function UserForm(props) {
             style={styles.SectionStyle}
             autoCapitalize="none"
         />
-        <View style={styles.buttonContainer}>
-          <View style={styles.button}>
-            <Button
-                title= 'Enviar'
-                color='#FBBD40'
-            />
-          </View>
+
+        <View style={styles.button}>
+          <Button
+              titleStyle={{
+                color: 'red',
+                fontSize: 16,
+              }}
+              title= 'Enviar'
+              color='#FBBD40'
+          />
         </View>
       </View>
     </View>
@@ -76,8 +74,8 @@ const mapDispatchToProps = (dispatch) =>
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: "#000000",
-    justifyContent: "center",
   },
   fieldsContainer: {
     backgroundColor: "#000000",
@@ -86,7 +84,8 @@ const styles = StyleSheet.create({
   },
   tittleContainer: {
     alignItems: "flex-start",
-    marginTop: 10,
+    marginTop: 30,
+    marginLeft: 10,
   },
   tittleText: {
     textAlign: "left",
@@ -101,7 +100,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
-    borderWidth: 0.1,
+    borderWidth: 0.5,
     borderColor: '#000',
     height: 40,
     width: 340,
@@ -112,7 +111,7 @@ const styles = StyleSheet.create({
   textInputTitle: {
     width: 340,
     textAlign: 'left',
-    fontSize: 22,
+    fontSize: 21,
     lineHeight: 20,
     fontStyle: 'normal',
     fontWeight: 'normal',
@@ -120,10 +119,7 @@ const styles = StyleSheet.create({
   },
   button: {
     top: 50,
-    width: 300,
-  },
-  buttonContainer: {
-    backgroundColor: "#000000",
+    width: 370,
   },
 });
 

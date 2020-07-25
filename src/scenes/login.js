@@ -9,24 +9,33 @@ class Login extends React.Component {
 
 	constructor(props) {
 		super(props);
-		navigation = useNavigation();
 	}
+
 
 	handleLogin = () => {
+		const { navigation } = this.props;
+		let response = null;
 		console.log(this.state.email);
 		console.log(this.state.password);
-
 		firebaseClient.auth.signInWithEmailAndPassword(this.state.email, this.state.password).catch(function (error) {
-			//console.log(error.code);
-			state.errorMessage = "error fatal";
+			console.log(error.code);
+			response = error.code;
 		});
-		this.navigation.navigate('Admin');
-
+		//this.setState({errorMessage: response});
+		console.log(this.state.errorMessage);
+		if(this.state.errorMessage!=null){
+			navigation.navigate('Cart');
+		}else{
+			console.log("Contraseña incorrecta");
+		}
 	}
 
+
 	render() {
+		const { navigation } = this.props;
 		return (
 			<View style={styles.container}>
+
 				{this.state.errorMessage &&
 					<Text style={{ color: 'red' }}>
 						{this.state.errorMessage}
@@ -53,7 +62,6 @@ class Login extends React.Component {
 					/>
 				</View>
 
-
 				<Text style={styles.textInputTitle}>Contraseña:</Text>
 				<View style={styles.SectionStyle}>
 					<Image
@@ -73,7 +81,7 @@ class Login extends React.Component {
 					<Button
 						title="Iniciar Sesión"
 						color='#E93A3B'
-						onPress={this.handleLogin}
+						onPress={this.handleLogin()}
 					/>
 				</View>
 			</View>
