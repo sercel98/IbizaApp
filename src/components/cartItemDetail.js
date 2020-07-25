@@ -1,32 +1,32 @@
-import React, { Component }  from "react";
-import { StyleSheet,  View } from "react-native";
+import React from "react";
+import { StyleSheet, Button,   TouchableOpacity, Text } from "react-native";
 import AsyncImage from "../shared/AsyncImage"
 import { useNavigation } from '@react-navigation/native';
 
-export default class CartItemDetail extends Component {
+function CartItemDetail(props) {
 
-  constructor(props) {
-		super(props);
-    product = props;
-    navegation = useNavigation();
-	}
+  const { productItem } = props;
 
-  onEdit = () => {
+  const navigation = useNavigation();
+
+  const onEdit = () => {
     navigation.navigate('ProductDetail', {
-      product
+      productItem
     })
   }
 
-	render() {
+  const subtotal =  productItem.product.price * productItem.quantity; 
 
-    const { product } = this.props; 
-    <View style={styles.container} >
-      <AsyncImage image={product.image} folder={'products'} style={styles.image}></AsyncImage>
-        <Text></Text>
-    </View>
+  return (
 
-  }
-
+    <TouchableOpacity style={styles.container} >  
+      <AsyncImage style={styles.productDetailImage} image={productItem.product.image} folder={'products'} style={styles.image}></AsyncImage>
+      <Text style={styles.productDetailText}>{productItem.product.name}</Text>
+      <Text style={styles.productDetailText}>Cantidad: {productItem.quantity}</Text>
+      <Text style={styles.productDetailText}>Subtotal: {subtotal}</Text>
+      <Button color="#FBBD40"  title="Editar" onPress={onEdit}></Button>
+    </TouchableOpacity>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -36,15 +36,17 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    height: 200 , // approximate a square
+    height: 200,
   },
-  itemInvisible: {
-    backgroundColor: 'transparent',
+  productDetailText: {
+    color: '#FFF',
   },
   image: {
-    height: 50 , // approximate a square
-    width: '100%',
-    resizeMode: 'cover'
+    height: 90,
+    width: 90,
   }
+
+  
 });
 
+export default CartItemDetail;

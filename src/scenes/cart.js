@@ -11,25 +11,29 @@ function Cart(props) {
   const { cartItems } = props;
 
   const navigation = useNavigation();
-
-  const openForm = () => {
-    navigation.navigate("UserForm");
-  }
   
   const renderCartItem = ({ item }) => {
     return (
-      <CartItemDetail product={item}></CartItemDetail>
+    <CartItemDetail productItem={item}/>
     );
   };
 
   return (
     <View style={styles.container}>
-      <Text>Cart detail. Current products {cartItems.length}</Text>
-      <Button title="Realizar pedido" onPress={() => navigation.navigate('UserForm')} />
-
+      <Text style={styles.cartDetailTitle}>Cart detail {cartItems.length}</Text>
+      <FlatList data={cartItems} 
+        renderItem={renderCartItem}
+        keyExtractor={keyExtractor}/>
+      <View>
+      <Text style={styles.cartDetailTitle}>Total sin envío:  {cartItems.length}</Text>
+      <Button title="Realizar pedido" style={styles.userFormButton} onPress={() => navigation.navigate('UserForm')} />
+      
+      </View>
+      
     </View>
   );
 }
+const keyExtractor = (item, index) => index.toString();
 
 const mapStateToProps = (state) => {
   return {
@@ -48,10 +52,19 @@ const mapDispatchToProps = (dispatch) =>
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#000",
     alignItems: "center",
     justifyContent: "center",
   },
+  cartDetailTitle: {
+    color: "#FFF",
+
+  }, 
+  userFormButton: {
+    backgroundColor: "#FBBD40",
+    color: "#000"
+  }
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
