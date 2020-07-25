@@ -6,7 +6,7 @@ import Header from "../shared/header";
 import ProductDetail from "../scenes/product";
 import Cart from "../scenes/cart";
 import Login from "../scenes/login";
-import UserForm from "../scenes/userForm";
+import UserForm from "../scenes/userForm.js";
 
 const Stack = createStackNavigator();
 
