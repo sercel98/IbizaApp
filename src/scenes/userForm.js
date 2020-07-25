@@ -6,7 +6,7 @@ import CartItemDetail from "../components/cartItemDetail";
 import { removeItem } from "../actions/cartActions";
 import { useNavigation } from "@react-navigation/native";
 
-function Cart(props) {
+function UserForm(props) {
 
   const { cartItems } = props;
 
@@ -25,8 +25,6 @@ function Cart(props) {
   return (
     <View style={styles.container}>
       <Text>Cart detail. Current products {cartItems.length}</Text>
-      <Button title="Realizar pedido" onPress={() => navigation.navigate('UserForm')} />
-
     </View>
   );
 }
@@ -54,4 +52,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(UserForm);

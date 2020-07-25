@@ -1,28 +1,32 @@
-import React from "react";
-import { StyleSheet,  View, TouchableOpacity } from "react-native";
+import React, { Component }  from "react";
+import { StyleSheet,  View } from "react-native";
 import AsyncImage from "../shared/AsyncImage"
 import { useNavigation } from '@react-navigation/native';
 
-function CartItemDetail(props) {
+export default class CartItemDetail extends Component {
 
-  const { product } = props;
-  const navigation = useNavigation();
+  constructor(props) {
+		super(props);
+    product = props;
+    navegation = useNavigation();
+	}
 
-  const onEdit = () => {
+  onEdit = () => {
     navigation.navigate('ProductDetail', {
       product
     })
   }
 
-  const onDelete = () => {
-    
+	render() {
+
+    const { product } = this.props; 
+    <View style={styles.container} >
+      <AsyncImage image={product.image} folder={'products'} style={styles.image}></AsyncImage>
+        <Text></Text>
+    </View>
+
   }
 
-  return (
-    <TouchableOpacity style={styles.container} >
-      <AsyncImage image={product.image} folder={'products'} style={styles.image}></AsyncImage>
-    </TouchableOpacity>
-  );
 }
 
 const styles = StyleSheet.create({
@@ -44,4 +48,3 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CartItemDetail;

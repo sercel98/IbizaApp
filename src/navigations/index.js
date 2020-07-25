@@ -6,6 +6,7 @@ import Header from "../shared/header";
 import ProductDetail from "../scenes/product";
 import Cart from "../scenes/cart";
 import Login from "../scenes/login";
+import UserForm from "../scenes/userForm";
 
 const Stack = createStackNavigator();
 
@@ -25,6 +26,7 @@ export default function AppStackNavigation() {
 			<Stack.Screen name="Cart" component={Cart} />
 			<Stack.Screen name="About" component={About} />
 			<Stack.Screen name="Login" component={Login} />
+			<Stack.Screen name="UserForm" component={UserForm} />
 		</Stack.Navigator>
 	);
 }
