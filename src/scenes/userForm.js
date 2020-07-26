@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import {StyleSheet, Text, TextInput, Button, View, TouchableOpacity} from "react-native";
 import {connect} from "react-redux";
+import { useNavigation } from '@react-navigation/native';
 import {bindActionCreators} from "redux";
 import {emptyCart, removeItem} from "../actions/cartActions";
 import orderService from "../services/orderService"
 
 function UserForm(props) {
   const [userInfo, setUserInfo] = useState({});
+  const navigation = useNavigation();
   const {cartItems, emptyCart} = props;
   const handlePressSend = async () => {
     try {
@@ -14,6 +16,7 @@ function UserForm(props) {
       const orderId = await orderService.save(userInfo);
       emptyCart();
       alert('Pedido tomado con exito');
+      navigation.navigate('Home');
     } catch(e){
       console.log(e);
     }
@@ -58,9 +61,9 @@ function UserForm(props) {
               autoCompleteType="email"
               autoCapitalize="none"
           />
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Cart')}>
-          <Text style={styles.userFormButtonText} onPress={handlePressSend}>Enviar</Text>
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={handlePressSend}>
+            <Text style={styles.userFormButtonText}>Enviar</Text>
+            </TouchableOpacity>
         </View>
       </View>
   );
