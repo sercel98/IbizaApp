@@ -56,7 +56,6 @@ class Login extends React.Component {
 					<TextInput
 						style={{ flex: 1 }}
 						autoCapitalize="none"
-						placeholder="Email"
 						onChangeText={email => this.setState({ email })}
 						value={this.state.email}
 					/>
@@ -72,7 +71,6 @@ class Login extends React.Component {
 						secureTextEntry
 						style={{ flex: 1 }}
 						autoCapitalize="none"
-						placeholder="Contraseña"
 						onChangeText={password => this.setState({ password })}
 						value={this.state.password}
 					/>
@@ -105,7 +103,7 @@ const styles = StyleSheet.create({
 	textInputTitle: {
 		width: 340,
 		textAlign: 'left',
-		fontSize: 16,
+		fontSize: 20,
 		lineHeight: 20,
 		fontStyle: 'normal',
 		fontWeight: 'normal',
@@ -119,7 +117,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 		borderWidth: 0.5,
 		borderColor: '#000',
-		height: 40,
+		height: 50,
 		width: 340,
 		borderRadius: 5,
 		margin: 10,
@@ -137,9 +135,9 @@ const styles = StyleSheet.create({
 
 	button: {
 		marginTop: 50,
-		width: 370,
+		width: 340,
 		height: 60,
-		backgroundColor: "#FBBD40",
+		backgroundColor: "#E93A3B",
 		color: "#000",
 		borderRadius:10,
 		borderWidth: 1,
@@ -151,12 +149,14 @@ const styles = StyleSheet.create({
 		fontSize: 22,
 		fontWeight:"700",
 		textAlign:"center",
-		alignItems: "center"
+		alignItems: "center",
+		color: "#fff",
 	},
 
 	logoImage: {
-		bottom: 50,
-		alignItems: 'center',
+		bottom: 30,
+		width: "40%",
+		height: "40%",
 	}
 
 
