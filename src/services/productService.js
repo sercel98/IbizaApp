@@ -5,26 +5,17 @@ class ProductService {
 
 	constructor() {
 		this.db = firebaseClient.firestoreDb;
-		this._products = getProducts();
+		this._products = this.fetchProducts();
 	}
 
-	loadData = async () => {
-
-		let products = this.db.collection('productos');
-
-		let allProduct =  await products.get();
-		console.log("hola");
-
-		console.log(allProduct);
-		const documentData = allProduct.docs.map(document => document.data());
-		//console.log(documentData);
-
-		return documentData;
-	}
 
 	async fetchProducts(){ 
 		let productsCollection = this.db.collection('productos');
-		const products = await productsCollection.get();
+		
+		const products = await productsCollection.where('active', '==', true).get();
+
+		console.log(products); 
+
 		return products.docs.map(product => product.data());
 	}
 
