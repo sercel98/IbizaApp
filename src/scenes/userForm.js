@@ -1,60 +1,76 @@
-import React from "react";
-import {FlatList, Button, StyleSheet, Text, View, TextInput} from "react-native";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import CartItemDetail from "../components/cartItemDetail";
-import { removeItem } from "../actions/cartActions";
-import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
+import {StyleSheet, Text, TextInput, Button, View, TouchableOpacity} from "react-native";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {emptyCart, removeItem} from "../actions/cartActions";
 
 function UserForm(props) {
-
-  const { cartItems } = props;
-
-  const navigation = useNavigation();
-
-  const openForm = () => {
-    navigation.navigate("UserForm");
+  const [userInfo, setUserInfo] = useState({});
+  const {cartItems, emptyCart} = props;
+  const handlePressSend = async () => {
+    try {
+      userInfo.products = cartItems;
+      const orderId = await orderService.save(userInfo);
+      emptyCart();
+      alert('Pedido tomado con exito');
+    } catch(e){
+      console.log(e);
+    }
   }
-
+  const handleChangeText = (key, value) => {
+    const newUserInfo = {... userInfo};
+    newUserInfo[key] = value;
+    setUserInfo(newUserInfo);
+  }
   return (
-    <View style={styles.container}>
-      <View style={styles.tittleContainer}>
-        <Text style={styles.tittleText}>Datos de envio</Text>
-      </View>
-      <View style={styles.fieldsContainer}>
+      <View style={styles.container}>
+        <View style={styles.tittleContainer}>
+          <Text style={styles.tittleText}>Datos de envio</Text>
+        </View>
+        <View style={styles.fieldsContainer}>
 
-        <Text style={styles.textInputTitle}>Nombre y Apellido:</Text>
-        <TextInput
-            style={styles.SectionStyle}
-        />
-        <Text style={styles.textInputTitle}>Direccion:</Text>
-        <TextInput
-            style={styles.SectionStyle}
-            autoCapitalize="none"
-        />
-        <Text style={styles.textInputTitle}>Telefono:</Text>
-        <TextInput
-            style={styles.SectionStyle}
-            autoCapitalize="none"
-        />
-        <Text style={styles.textInputTitle}>Email:</Text>
-        <TextInput
-            style={styles.SectionStyle}
-            autoCapitalize="none"
-        />
-
-        <View style={styles.button}>
-          <Button
-              titleStyle={{
-                color: 'red',
-                fontSize: 16,
-              }}
-              title= 'Enviar'
-              color='#FBBD40'
+          <Text style={styles.textInputTitle}>Nombre y Apellido:</Text>
+          <TextInput
+              value={userInfo.names}
+              onChangeText={(text) => { handleChangeText('names', text)}}
+              style={styles.SectionStyle}
           />
+          <Text style={styles.textInputTitle}>Direccion:</Text>
+          <TextInput
+              value={userInfo.address}
+              onChangeText={(text) => { handleChangeText('address', text)}}
+              style={styles.SectionStyle}
+              autoCapitalize="none"
+          />
+          <Text style={styles.textInputTitle}>Telefono:</Text>
+          <TextInput
+              value={userInfo.phone}
+              onChangeText={(text) => { handleChangeText('phone', text)}}
+              style={styles.SectionStyle}
+              autoCapitalize="none"
+          />
+          <Text style={styles.textInputTitle}>Email:</Text>
+          <TextInput
+              value={userInfo.email}
+              onChangeText={(text) => { handleChangeText('email', text)}}
+              style={styles.SectionStyle}
+              autoCompleteType="email"
+              autoCapitalize="none"
+          />
+          <Button
+                onPress={handlePressSend}
+                titleStyle={{
+                  color: 'red',
+                  fontSize: 16,
+                }}
+                title='Enviar'
+                color='#FBBD40'
+            />
+          <View style={styles.button}>
+            
+          </View>
         </View>
       </View>
-    </View>
   );
 }
 
@@ -65,12 +81,13 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) =>
-  bindActionCreators(
-    {
-      removeItem,
-    },
-    dispatch
-  );
+    bindActionCreators(
+        {
+          removeItem,
+          emptyCart
+        },
+        dispatch
+    );
 
 const styles = StyleSheet.create({
   container: {

@@ -24,10 +24,9 @@ export default class Products extends Component {
   }
 
   renderItem = ({ item, index }) => {
-    console.log(item, index);
 
     return (
-      <ProductCard product={item.product} index={index} />
+      <ProductCard product={item} index={index} />
     );
   };
 

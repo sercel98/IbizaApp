@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
 import Products from "../components/products";
-import Categories from "../components/categories"
 import { Searchbar } from "react-native-paper";
 import productService from "../services/productService";
 import categoryService from "../services/categoryService"
@@ -13,6 +12,7 @@ class Home extends React.Component {
     super(props);
     this.productService = productService;
     this.state = {
+      allProducts: [],
       products: [],
       searchQuery: "",
       loading: true
@@ -20,8 +20,8 @@ class Home extends React.Component {
     this.ref = firebaseClient.firestoreDb.collection('productos');
   }
 
-  componentDidMount() {
-    this.unsubscribe = this.ref.onSnapshot((querySnapshot) => {
+  async componentDidMount() {
+    /*this.unsubscribe = this.ref.onSnapshot((querySnapshot) => {
       const productsQuery = [];
       querySnapshot.forEach(doc => {
         productsQuery.push({
@@ -33,7 +33,13 @@ class Home extends React.Component {
         })
       });
     });
-    this.render();
+    this.render();*/
+    const products = await productService.fetchProducts();
+    this.setState({
+      products: products,
+      allProducts: products,
+      loading: false
+    })
   }
 
 
@@ -42,14 +48,14 @@ class Home extends React.Component {
     this.setState({ searchQuery: query });
     if (query) {
       this.setState({
-        products: this.state.products
+        products: this.state.allProducts
           .filter(product =>
             product.name.toLowerCase().includes(query.toLowerCase())
           )
       });
     } else {
       this.setState({
-        products: this.productService.products,
+        products: this.state.allProducts,
       });
     }
   };

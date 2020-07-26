@@ -29,7 +29,7 @@ export default class AsyncImage extends Component {
 			const ref = firebaseClient.storage.ref()
 			const folderRef = ref.child(this.props.folder)
 			const imageRef = folderRef.child(this.state.image);
-			console.log(imageRef.name)
+			
 
 			imageRef.getDownloadURL().then(data => {
 				this.setState({ url: data })
