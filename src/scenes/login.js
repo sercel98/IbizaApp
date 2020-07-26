@@ -12,21 +12,14 @@ class Login extends React.Component {
 	}
 
 
-	handleLogin = () => {
+	handleLogin = async () => {
 		const { navigation } = this.props;
-		let response = null;
-		console.log(this.state.email);
-		console.log(this.state.password);
-		firebaseClient.auth.signInWithEmailAndPassword(this.state.email, this.state.password).catch(function (error) {
-			console.log(error.code);
-			response = error.code;
-		});
-		//this.setState({errorMessage: response});
-		console.log(this.state.errorMessage);
-		if(this.state.errorMessage!=null){
-			navigation.navigate('Orders');
-		}else{
-			console.log("Contraseña incorrecta");
+		try{
+			const authCredentials = await firebaseClient.auth.signInWithEmailAndPassword(this.state.email, this.state.password);
+			navigation.navigate('Home');
+		} catch(e) {
+			alert("Correo/Contraseña incorrecta");
+			console.log(e);
 		}
 	}
 
@@ -76,7 +69,7 @@ class Login extends React.Component {
 					/>
 				</View>
 
-				<TouchableOpacity style={styles.button} onPress={() => this.handleLogin()}>
+				<TouchableOpacity style={styles.button} onPress={this.handleLogin}>
 					<Text style={styles.loginButtonText}>Iniciar Sesion</Text>
 				</TouchableOpacity>
 			</View>
