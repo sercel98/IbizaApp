@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, TextInput, Button, Image } from "react-native";
+import {StyleSheet, View, Text, TextInput, Button, Image, TouchableOpacity} from "react-native";
 import firebaseClient from "../services/firebaseClient";
 import { useNavigation } from '@react-navigation/native';
 
@@ -77,13 +77,10 @@ class Login extends React.Component {
 						value={this.state.password}
 					/>
 				</View>
-				<View style={styles.button}>
-					<Button
-						title="Iniciar Sesión"
-						color='#E93A3B'
-						onPress={this.handleLogin()}
-					/>
-				</View>
+
+				<TouchableOpacity style={styles.button} onPress={() => this.handleLogin()}>
+					<Text style={styles.loginButtonText}>Iniciar Sesion</Text>
+				</TouchableOpacity>
 			</View>
 		);
 	}
@@ -104,10 +101,6 @@ const styles = StyleSheet.create({
 		marginTop: 8,
 		borderRadius: 5,
 		backgroundColor: '#FFFFFF',
-	},
-	button: {
-		top: 60,
-		width: 300,
 	},
 	textInputTitle: {
 		width: 340,
@@ -140,6 +133,25 @@ const styles = StyleSheet.create({
 		width: 25,
 		resizeMode: 'stretch',
 		alignItems: 'center',
+	},
+
+	button: {
+		marginTop: 50,
+		width: 370,
+		height: 60,
+		backgroundColor: "#FBBD40",
+		color: "#000",
+		borderRadius:10,
+		borderWidth: 1,
+		justifyContent:'center',
+		alignItems: 'center',
+		padding: 10
+	},
+	loginButtonText: {
+		fontSize: 22,
+		fontWeight:"700",
+		textAlign:"center",
+		alignItems: "center"
 	},
 
 	logoImage: {
