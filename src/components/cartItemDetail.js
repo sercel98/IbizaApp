@@ -3,6 +3,8 @@ import { StyleSheet, Button,   View, Text } from "react-native";
 import AsyncImage from "../shared/AsyncImage"
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from "@expo/vector-icons";
+import { color } from "react-native-reanimated";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 function CartItemDetail(props) {
 
@@ -22,6 +24,10 @@ function CartItemDetail(props) {
     })
   }
 
+  const formatSubTotal = (number) => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); 
+  }
+
 
   const subtotal =  productItem.product.price * productItem.quantity; 
 
@@ -33,18 +39,20 @@ function CartItemDetail(props) {
       //round: width/2
       //width height 
     <View style={styles.container} >  
-      <View>
-      <Ionicons style={styles.close} name="ios-close-circle" size={25} color='red'/>
+      <View style={{justifyContent:"flex-start"}}>
+        <AsyncImage style={styles.cartItemDetailImage} image={productItem.product.image} folder={'products'} ></AsyncImage>
       </View>
-      <AsyncImage style={styles.productDetailImage} image={productItem.product.image} folder={'products'} style={styles.image}></AsyncImage>
-      <View style={{ width:140, paddingTop:10, paddingLeft: 10}}>
-        <Text style={styles.productDetailText}>{productItem.product.name}</Text>
-        <Text style={styles.productDetailText}>Cantidad: {productItem.quantity}</Text>
-        <Text style={styles.productDetailText}>Subtotal:</Text>
-        <Text style={styles.productDetailText}>{subtotal}</Text>
+      <View style={styles.cartItemDetailTextContainer }>
+        <Text style={styles.cartItemDetailTextName}>{productItem.product.name}</Text>
+        <Text style={styles.productDetailTextQuantity}>Cantidad: {productItem.quantity}</Text>
+        <Text style={styles.productDetailTextSubtotal}>Subtotal:${formatSubTotal(subtotal)}</Text>
       </View>
       <View style={{justifyContent: "flex-end"}}>
-        <Button color="#FBBD40"  title="Editar" onPress={onEdit}></Button>
+        <TouchableOpacity style={styles.editButton} onPress={onEdit}>
+          <Text style={styles.editTextButton}>
+            EDITAR
+          </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -52,10 +60,25 @@ function CartItemDetail(props) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     flexDirection: 'row',
     marginVertical: 15,
-    backgroundColor: '#2f2f2f'
+    backgroundColor: '#191919',
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
+    justifyContent: "center",
+    alignItems: 'center',
+    marginHorizontal: 20
+
+  },
+  cartItemDetailTextContainer: {
+    width:140,
+    paddingTop:10,
+    paddingLeft: 10
+  }, 
+  cartItemDetailTextName: {
+    fontSize: 16,
+    color: 'white',
+    fontWeight: '700'
   },
   closeButton:{
     margin: 5,
@@ -66,13 +89,32 @@ const styles = StyleSheet.create({
     height: 25,
     backgroundColor:'white' 
   }, 
-  productDetailText: {
-    color: '#DDDddd',
+  productDetailTextQuantity: {
+    color: '#FFF',
+  }, 
+  productDetailTextSubtotal: {
+    color: '#FFF',
   },
-  image: {
-    height: 90,
-    width: 90,
+  cartItemDetailImage: {
+    height: 100,
+    width: 100,
+    borderBottomLeftRadius: 10,
+    borderTopLeftRadius: 10 
+  },
+  editButton: {
+    color:"#FBBD40",
+    
+  },
+  editTextButton: {
+    color: '#000',
+    fontSize: 16,
+    fontWeight: '600',
+     backgroundColor: '#FBBD40',
+     padding: 10,
+     borderRadius: 10
+
   }
+
 
   
 });

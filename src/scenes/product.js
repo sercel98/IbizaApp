@@ -48,6 +48,10 @@ class ProductDetail extends Component {
     navigation.goBack();
   }
 
+ formatProductPrice = (number) => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  }
+
   render() {
     const { navigation, route } = this.props;
     const { product } = route.params;
@@ -85,7 +89,7 @@ class ProductDetail extends Component {
             </View>
             <View style={styles.separator} />
             <View style={styles.productPriceDesc}>
-              <Text style={styles.productPrice}> ${product.price} </Text>
+              <Text style={styles.productPrice}> ${this.formatProductPrice(product.price)} </Text>
             </View>
           </View>
         </View>
