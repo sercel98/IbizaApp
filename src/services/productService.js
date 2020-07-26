@@ -5,10 +5,10 @@ class ProductService {
 
 	constructor() {
 		this.db = firebaseClient.firestoreDb;
-		this._products = getProducts();
+		//this._products = getProducts();
 
-		//this.__products = this.loadData();
-		//console.log(this.__products);
+		this.__products = this.loadData();
+		console.log(this.__products);
 	}
 
 	loadData = async () => {
