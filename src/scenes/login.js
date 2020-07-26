@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, TextInput, Button, Image } from "react-native";
+import {StyleSheet, View, Text, TextInput, Button, Image, TouchableOpacity} from "react-native";
 import firebaseClient from "../services/firebaseClient";
 import { useNavigation } from '@react-navigation/native';
 
@@ -56,7 +56,6 @@ class Login extends React.Component {
 					<TextInput
 						style={{ flex: 1 }}
 						autoCapitalize="none"
-						placeholder="Email"
 						onChangeText={email => this.setState({ email })}
 						value={this.state.email}
 					/>
@@ -72,18 +71,14 @@ class Login extends React.Component {
 						secureTextEntry
 						style={{ flex: 1 }}
 						autoCapitalize="none"
-						placeholder="Contraseña"
 						onChangeText={password => this.setState({ password })}
 						value={this.state.password}
 					/>
 				</View>
-				<View style={styles.button}>
-					<Button
-						title="Iniciar Sesión"
-						color='#E93A3B'
-						onPress={this.handleLogin()}
-					/>
-				</View>
+
+				<TouchableOpacity style={styles.button} onPress={() => this.handleLogin()}>
+					<Text style={styles.loginButtonText}>Iniciar Sesion</Text>
+				</TouchableOpacity>
 			</View>
 		);
 	}
@@ -105,14 +100,10 @@ const styles = StyleSheet.create({
 		borderRadius: 5,
 		backgroundColor: '#FFFFFF',
 	},
-	button: {
-		top: 60,
-		width: 300,
-	},
 	textInputTitle: {
 		width: 340,
 		textAlign: 'left',
-		fontSize: 16,
+		fontSize: 20,
 		lineHeight: 20,
 		fontStyle: 'normal',
 		fontWeight: 'normal',
@@ -126,7 +117,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#fff',
 		borderWidth: 0.5,
 		borderColor: '#000',
-		height: 40,
+		height: 50,
 		width: 340,
 		borderRadius: 5,
 		margin: 10,
@@ -142,9 +133,30 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 
-	logoImage: {
-		bottom: 50,
+	button: {
+		marginTop: 50,
+		width: 340,
+		height: 60,
+		backgroundColor: "#E93A3B",
+		color: "#000",
+		borderRadius:10,
+		borderWidth: 1,
+		justifyContent:'center',
 		alignItems: 'center',
+		padding: 10
+	},
+	loginButtonText: {
+		fontSize: 22,
+		fontWeight:"700",
+		textAlign:"center",
+		alignItems: "center",
+		color: "#fff",
+	},
+
+	logoImage: {
+		bottom: 30,
+		width: "60%",
+		height: "40%",
 	}
 
 
