@@ -5,21 +5,25 @@ class ProductService {
 
 	constructor() {
 		this.db = firebaseClient.firestoreDb;
-		//this._products = getProducts();
+		this._products = getProducts();
 
-		let products = db.collection('productos');
-
-		this._products =  products.get().then(function(querySnapshot) {
-				querySnapshot.forEach(function(doc) {
-						// doc.data() is never undefined for query doc snapshots
-						console.log(doc.id, " => ", doc.data());
-				});
-		});
-		
-
+		//this.__products = this.loadData();
+		//console.log(this.__products);
 	}
 
+	loadData = async () => {
 
+		let products = this.db.collection('productos');
+
+		let allProduct =  await products.get();
+		console.log("hola");
+
+		console.log(allProduct);
+		const documentData = allProduct.docs.map(document => document.data());
+		//console.log(documentData);
+
+		return documentData;
+	}
 
 
 	get products() {

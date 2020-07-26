@@ -63,6 +63,7 @@ class Home extends React.Component {
 
   render() {
     const { products } = this.state;
+    console.log(this.state);
     const { categories } = this.state;
     return (
       <View style={styles.container}>

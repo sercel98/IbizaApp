@@ -8,13 +8,8 @@ const numColumns = screenWidth < 992 ? 3 : 4;
 
 const formatData = (data, numColumns) => {
 
-  const numberOfFullRows = Math.floor(data.length / numColumns);
-  let numberOfElementsLastRow = data.length - (numberOfFullRows * numColumns);
 
-  while (numberOfElementsLastRow !== numColumns && numberOfElementsLastRow !== 0) {
-    data.push({ id: '-1', name: "-1", empty: true });
-    numberOfElementsLastRow++;
-  }
+ 
   return data;
 };
 
