@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
 
 	logoImage: {
 		bottom: 30,
-		width: "40%",
+		width: "60%",
 		height: "40%",
 	}
 
