@@ -24,7 +24,7 @@ class Login extends React.Component {
 		//this.setState({errorMessage: response});
 		console.log(this.state.errorMessage);
 		if(this.state.errorMessage!=null){
-			navigation.navigate('Cart');
+			navigation.navigate('Orders');
 		}else{
 			console.log("Contraseña incorrecta");
 		}

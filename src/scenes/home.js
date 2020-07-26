@@ -1,30 +1,48 @@
 import React from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
 import Products from "../components/products";
 import Categories from "../components/categories"
 import { Searchbar } from "react-native-paper";
 import productService from "../services/productService";
 import categoryService from "../services/categoryService"
+import firebaseClient from "../services/firebaseClient"
 
 class Home extends React.Component {
 
   constructor(props) {
     super(props);
     this.productService = productService;
-    this.categoryService = categoryService;
     this.state = {
       products: [],
       searchQuery: "",
-      categoryApplied: "",
+      loading: true
     };
+    this.ref = firebaseClient.firestoreDb.collection('productos');
   }
+
+  componentDidMount() {
+    this.unsubscribe = this.ref.onSnapshot((querySnapshot) => {
+      const productsQuery = [];
+      querySnapshot.forEach(doc => {
+        productsQuery.push({
+          product: doc.data()
+        });
+        this.setState({
+          products: productsQuery,
+          loading: false,
+        })
+      });
+    });
+    this.render();
+  }
+
+
   //revisar lógica
   _onChangeSearch = (query) => {
     this.setState({ searchQuery: query });
     if (query) {
       this.setState({
-        products: this.productService
-          .products
+        products: this.state.products
           .filter(product =>
             product.name.toLowerCase().includes(query.toLowerCase())
           )
@@ -32,54 +50,47 @@ class Home extends React.Component {
     } else {
       this.setState({
         products: this.productService.products,
-        categories: this.categoryService.categories
       });
     }
   };
 
-  _onChangeCategory = (category) => {
-    console.log(category);
-
-    this.setState({ categoryApplied: category });
-
-    if (category) {
-      this.setState({
-        products: this.productService
-          .testingProducts
-          .filter(product =>
-            product.categoryId === (category)
-          )
-      });
-    } else {
-      this.setState({
-        products: this.productService.products
-      });
-    }
-  };
-
-  componentDidMount() {
-    this.setState({ products: this.productService.products, categories: this.categoryService.categories });
-  }
 
   render() {
     const { products } = this.state;
-    console.log(this.state);
-    const { categories } = this.state;
-    return (
-      <View style={styles.container}>
-        <Searchbar
-          style={styles.searchInput}
-          placeholder="Buscar"
-          onChangeText={this._onChangeSearch}
-          value={this.state.searchQuery}
-          placeholderTextColor="#BBB"
-          iconColor="#BBB"
-          theme={{ colors: { text: "#BBB" } }}
-        />
-        <Text style={styles.titleProducts} >Productos</Text>
-        <Products products={products} />
-      </View>
-    );
+    if (this.state.loading) {
+      return (
+        <View style={styles.container}>
+          <Searchbar
+            style={styles.searchInput}
+            placeholder="Buscar"
+            onChangeText={this._onChangeSearch}
+            value={this.state.searchQuery}
+            placeholderTextColor="#BBB"
+            iconColor="#BBB"
+            theme={{ colors: { text: "#BBB" } }}
+          />
+          <Text style={styles.titleProducts} >Productos</Text>
+          <ActivityIndicator />
+        </View>
+      )
+    } else {
+      return (
+        <View style={styles.container}>
+          <Searchbar
+            style={styles.searchInput}
+            placeholder="Buscar"
+            onChangeText={this._onChangeSearch}
+            value={this.state.searchQuery}
+            placeholderTextColor="#BBB"
+            iconColor="#BBB"
+            theme={{ colors: { text: "#BBB" } }}
+          />
+          <Text style={styles.titleProducts} >Productos</Text>
+          <Products products={products} />
+        </View>
+      );
+    }
+
   }
 }
 
