@@ -1,5 +1,5 @@
 import React from "react";
-import {FlatList, Button, StyleSheet, Text, View, TextInput} from "react-native";
+import {FlatList, Button, StyleSheet, Text, View, TextInput, TouchableOpacity} from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import CartItemDetail from "../components/cartItemDetail";
@@ -11,10 +11,6 @@ function UserForm(props) {
   const { cartItems } = props;
 
   const navigation = useNavigation();
-
-  const openForm = () => {
-    navigation.navigate("UserForm");
-  }
 
   return (
     <View style={styles.container}>
@@ -42,17 +38,9 @@ function UserForm(props) {
             style={styles.SectionStyle}
             autoCapitalize="none"
         />
-
-        <View style={styles.button}>
-          <Button
-              titleStyle={{
-                color: 'red',
-                fontSize: 16,
-              }}
-              title= 'Enviar'
-              color='#FBBD40'
-          />
-        </View>
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Cart')}>
+          <Text style={styles.userFormButtonText}>Enviar</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -118,8 +106,22 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
   },
   button: {
-    top: 50,
+    marginTop: 40,
     width: 370,
+    height: 60,
+    backgroundColor: "#FBBD40",
+    color: "#000",
+    borderRadius:10,
+    borderWidth: 1,
+    justifyContent:'center',
+    alignItems: 'center',
+    padding: 10
+  },
+  userFormButtonText: {
+    fontSize: 22,
+    fontWeight:"700",
+    textAlign:"center",
+    alignItems: "center"
   },
 });
 
