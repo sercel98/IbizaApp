@@ -5,7 +5,6 @@ class ProductService {
 
 	constructor() {
 		this.db = firebaseClient.firestoreDb;
-		this._products = this.fetchProducts();
 	}
 
 
@@ -14,14 +13,17 @@ class ProductService {
 		
 		const products = await productsCollection.where('active', '==', true).get();
 
-		console.log(products); 
 
-		return products.docs.map(product => product.data());
+		return products.docs.map(product => {
+			const data = product.data();
+			data.id = product.id;
+			return data;
+		});
 	}
 
 
 	async testingProducts() {
-		return this._products;
+		return getProducts();
 	}
 }
 
