@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Button,   View, Text } from "react-native";
+import { StyleSheet,  View, Text } from "react-native";
 import AsyncImage from "../shared/AsyncImage"
 import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from "@expo/vector-icons";
@@ -25,35 +25,34 @@ function CartItemDetail(props) {
   }
 
   const formatSubTotal = (number) => {
-    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); 
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
 
-
-  const subtotal =  productItem.product.price * productItem.quantity; 
+  const subtotal = productItem.product.price * productItem.quantity;
 
   return (
-    //flexDirection: row
-    //flex: 1
-    // Button 
-      //zIndex: 
-      //round: width/2
-      //width height 
-    <View style={styles.container} >  
-      <View style={{justifyContent:"flex-start"}}>
+    <View style={styles.container} >
+      <View style={{ justifyContent: "flex-start" }}>
         <AsyncImage style={styles.cartItemDetailImage} image={productItem.product.image} folder={'products'} ></AsyncImage>
       </View>
-      <View style={styles.cartItemDetailTextContainer }>
+      <View style={styles.cartItemDetailTextContainer}>
         <Text style={styles.cartItemDetailTextName}>{productItem.product.name}</Text>
         <Text style={styles.productDetailTextQuantity}>Cantidad: {productItem.quantity}</Text>
-        <Text style={styles.productDetailTextSubtotal}>Subtotal:${formatSubTotal(subtotal)}</Text>
+
+        <View style={styles.subtotalContainer}>
+          <View>
+            <Text style={styles.productDetailTextSubtotalLabel}>Subtotal</Text>
+            <Text style={styles.productDetailTextSubtotalValue}>${formatSubTotal(subtotal)}</Text>
+          </View>
+
+          <TouchableOpacity style={styles.editButton} onPress={onEdit}>
+            <Text style={styles.editTextButton}>
+              EDITAR
+              </Text>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={{justifyContent: "flex-end"}}>
-        <TouchableOpacity style={styles.editButton} onPress={onEdit}>
-          <Text style={styles.editTextButton}>
-            EDITAR
-          </Text>
-        </TouchableOpacity>
-      </View>
+
     </View>
   );
 }
@@ -62,61 +61,72 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     marginVertical: 15,
-    backgroundColor: '#191919',
     borderTopRightRadius: 10,
     borderBottomRightRadius: 10,
     justifyContent: "center",
-    alignItems: 'center',
-    marginHorizontal: 20
-
+    marginHorizontal: 5,
   },
   cartItemDetailTextContainer: {
-    width:140,
-    paddingTop:10,
-    paddingLeft: 10
-  }, 
-  cartItemDetailTextName: {
-    fontSize: 16,
-    color: 'white',
-    fontWeight: '700'
+    width: '65%',
+    paddingTop: 5,
+    backgroundColor: '#191919',
+    paddingLeft: 10,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10
   },
-  closeButton:{
+  cartItemDetailTextName: {
+    fontSize: 20,
+    color: 'white',
+    fontWeight: '700',
+    fontFamily: 'Roboto',
+  },
+  closeButton: {
     margin: 5,
     position: "absolute",
     top: 0,
     left: 0,
     width: 25,
     height: 25,
-    backgroundColor:'white' 
-  }, 
+    backgroundColor: 'white'
+  },
   productDetailTextQuantity: {
     color: '#FFF',
-  }, 
-  productDetailTextSubtotal: {
+    fontFamily: 'Roboto',
+  },
+  productDetailTextSubtotalLabel: {
     color: '#FFF',
+    marginBottom: -4,
+    fontFamily: 'Roboto',
+  },
+  productDetailTextSubtotalValue: {
+    color: '#FFF',
+    fontSize: 20,
+    fontWeight: '700',
+    fontFamily: 'Roboto',
   },
   cartItemDetailImage: {
     height: 100,
     width: 100,
     borderBottomLeftRadius: 10,
-    borderTopLeftRadius: 10 
+    borderTopLeftRadius: 10
   },
   editButton: {
-    color:"#FBBD40",
-    
+    color: "#FBBD40",
   },
   editTextButton: {
     color: '#000',
     fontSize: 16,
     fontWeight: '600',
-     backgroundColor: '#FBBD40',
-     padding: 10,
-     borderRadius: 10
-
+    backgroundColor: '#FBBD40',
+    padding: 10,
+    borderRadius: 10,
+    fontFamily: 'Roboto',
+  },
+  subtotalContainer: {
+    justifyContent: "space-between",
+    flexDirection: 'row',
+    backgroundColor: '#191919'
   }
-
-
-  
 });
 
 export default CartItemDetail;

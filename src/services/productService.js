@@ -5,7 +5,7 @@ class ProductService {
 
 	constructor() {
 		this.db = firebaseClient.firestoreDb;
-		this._products = this.fetchProducts();
+		this._products = getProducts();
 	}
 
 
