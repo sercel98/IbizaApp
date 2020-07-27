@@ -34,7 +34,7 @@ class ProductDetail extends Component {
   addToCart = () => {
     const { route } = this.props;
     const { product } = route.params;
-    
+
     let quantity = this.state.quantityOfProduct;
 
     this.props.removeItem(product);
@@ -48,7 +48,7 @@ class ProductDetail extends Component {
     navigation.goBack();
   }
 
- formatProductPrice = (number) => {
+  formatProductPrice = (number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
 
@@ -72,7 +72,6 @@ class ProductDetail extends Component {
         >
           <View style={alertStyles.content}>
             <Text style={alertStyles.contentText}>Se ha añadido un nuevo producto al carrito</Text>
-
             <TouchableOpacity style={alertStyles.btn} onPress={this.closeAlert}>
               <Text style={alertStyles.btnText}>OK</Text>
             </TouchableOpacity>
@@ -81,17 +80,6 @@ class ProductDetail extends Component {
 
         <View style={styles.product}>
           <AsyncImage style={styles.image} image={product.image} folder={'products'} ></AsyncImage>
-          <View style={styles.productDetail}>
-            <View style={styles.productDesc}>
-              <Text style={styles.productName}> {product.name}</Text>
-              <Text style={styles.productVolume}> {product.volume}</Text>
-              <Text style={styles.productAlcohol}> {product.alcohol}% Alc</Text>
-            </View>
-            <View style={styles.separator} />
-            <View style={styles.productPriceDesc}>
-              <Text style={styles.productPrice}> ${this.formatProductPrice(product.price)} </Text>
-            </View>
-          </View>
         </View>
         <View style={styles.quantityContainer}>
           <Text style={styles.textQuantity}>Cantidad</Text>
@@ -147,20 +135,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   image: {
-    height: screenWidth / 1.5,
-    width: screenWidth / 1.5,
-    maxHeight: 300,
+    height: screenWidth / 1.2,
+    width: screenWidth / 1.2,
+    maxHeight: 350,
     maxWidth: 300,
     resizeMode: 'cover',
   },
   productDetail: {
     width: screenWidth / 1.2,
     maxWidth: 350,
-    padding: 10,
+    padding: 20,
     flexDirection: 'row',
   },
   productDesc: {
-    width: '49%',
+    width: '60%',
     paddingRight: 10,
     paddingVertical: 8
   },
@@ -210,7 +198,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textQuantity: {
-    color: '#FFF'
+    color: '#FFF',
+    fontSize: 18,
+    fontWeight: '700',
+    fontFamily: 'Roboto',
+
   },
   quantityView: {
     flexDirection: 'row',
@@ -226,6 +218,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     color: '#FFF',
+    fontFamily: 'Roboto',
   },
   btnAddToCart: {
     width: '70%',
@@ -258,6 +251,7 @@ const alertStyles = StyleSheet.create({
   },
   contentText: {
     textAlign: 'center',
+    fontFamily: 'Roboto',
   },
   btn: {
     borderRadius: 32,
@@ -271,6 +265,7 @@ const alertStyles = StyleSheet.create({
     backgroundColor: '#4CB748',
     marginTop: 16,
     minWidth: '50%',
+    fontFamily: 'Roboto',
     paddingHorizontal: 16,
   },
   btnText: {

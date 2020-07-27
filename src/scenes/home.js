@@ -26,8 +26,6 @@ class Home extends React.Component {
     })
   }
 
-
-  //revisar lógica
   _onChangeSearch = (query) => {
     this.setState({ searchQuery: query });
     if (query) {
