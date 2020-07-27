@@ -6,9 +6,12 @@ class OrderService {
     constructor() {
         this.db = firebaseClient.firestoreDb;
     }
+    getOrdersCollection() {
+        return this.db.collection(this.ORDERS_COLLECTIONS)
+    }
 
     async save(order) {
-        const newDocRef = await this.db.collection(this.ORDERS_COLLECTIONS)
+        const newDocRef = await this.getOrdersCollection()
             .add(order);
         return newDocRef.id;
     }

@@ -3,6 +3,11 @@ import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
 import Products from "../components/products";
 import { Searchbar } from "react-native-paper";
 import productService from "../services/productService";
+import categoryService from "../services/categoryService"
+import firebaseClient from "../services/firebaseClient";
+import orderService from "../services/orderService";
+import { Notifications } from 'expo';
+import { askPermissions, showNewOrderNotification } from '../shared/notifications'
 
 class Home extends React.Component {
 
@@ -13,7 +18,8 @@ class Home extends React.Component {
       allProducts: [],
       products: [],
       searchQuery: "",
-      loading: true
+      loading: true,
+      showNotification: false
     };
   }
 
@@ -24,6 +30,39 @@ class Home extends React.Component {
       allProducts: products,
       loading: false
     })
+    this.unsubscribeAuthChanges = firebaseClient.auth.onAuthStateChanged(this.handleAuthChange);
+  }
+  componentWillUnmount() {
+    if (this.unsubscribeAuthChanges) {
+      this.unsubscribeAuthChanges();
+    }
+    this.unsuscribeOrders();
+  }
+  handleAuthChange = (user) => {
+    if (user && !user.isAnonymous) {
+      console.log('User logged');
+      this.unsuscribeOrders();
+      this.unsubscribeOrdersSnapshot = orderService.getOrdersCollection().onSnapshot(this.handleOrdersSnapshot);
+      askPermissions().then(result => this.setState({ showNotification: result }));
+    } else {
+      console.log('User not logged', user && user.isAnonymous ? '-> isAnonymous' : '');
+      this.unsuscribeOrders();
+    }
+  }
+  unsuscribeOrders = () => {
+    if (this.unsubscribeOrdersSnapshot) {
+      this.unsubscribeOrdersSnapshot();
+    }
+  }
+  handleOrdersSnapshot = (snapshot) => {
+    snapshot.docChanges().forEach((change) => {
+      if (change.type === "added") {
+        const order = change.doc.data();
+        order.ide = change.doc.id;
+        console.log("New order: ", order);
+        this.state.showNotification && showNewOrderNotification(order)
+      }
+    });
   }
 
   _onChangeSearch = (query) => {

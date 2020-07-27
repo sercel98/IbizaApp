@@ -22,7 +22,7 @@ export default function Header(props) {
 			<StatusBar barStyle="light-content" />
 			{leftIcon}
 			{route.name !== "Login" &&
-			<Image style={styles.headerLogo} source={require('../../assets/images/splashLogo.png')} />
+				<Image style={styles.headerLogo} source={require('../../assets/images/logoSmall.png')} />
 			}
 			<ShoppingCartIcon />
 		</View>
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#000',
 		paddingHorizontal: 22,
 		paddingVertical: 15,
+		height: 70,
 	},
 	headerLogo: {
 		width: "18%",

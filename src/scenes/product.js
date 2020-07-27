@@ -34,7 +34,6 @@ class ProductDetail extends Component {
   addToCart = () => {
     const { route } = this.props;
     const { product } = route.params;
-
     let quantity = this.state.quantityOfProduct;
 
     this.props.removeItem(product);
