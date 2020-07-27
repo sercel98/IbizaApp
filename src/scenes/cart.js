@@ -26,8 +26,6 @@ function Cart(props) {
     return total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); 
   }
 
-  
-
   return (
     <View style={styles.container}>
       <ScrollView>
@@ -79,7 +77,8 @@ const styles = StyleSheet.create({
     marginLeft: 21,
     fontSize: 22,
     fontWeight: "700",
-    color: 'white'
+    color: 'white',
+    fontFamily: 'Roboto',
   }, 
   cartTotalInfo: {
     flex:1, 
@@ -87,15 +86,24 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingHorizontal: 10
   },
+  cartTotalContainer: {
+    flexDirection: 'row', 
+    backgroundColor: '#191919',
+    height: 100, 
+    padding: 15, 
+  },
   cartTotalText: {
     fontSize: 22,
     fontWeight: "400",
-    color: '#EEE'
+    color: '#EEE',
+    fontFamily: 'Roboto',
+
   },
   cartTotalValue: {
     fontSize: 28,
     fontWeight: "700",
-    color: 'white'
+    color: 'white',
+    fontFamily: 'Roboto',
   }, 
   userFormButton: {
     backgroundColor: "#FBBD40",
@@ -111,15 +119,9 @@ const styles = StyleSheet.create({
     fontSize: 22, 
     fontWeight:"700",
     textAlign:"center",
-    alignItems: "center"
-  },
-  cartTotalContainer: {
-    flexDirection: 'row', 
-    backgroundColor: '#191919',
-    height: 100, 
-    padding: 15, 
+    alignItems: "center",
+    fontFamily: 'Roboto',
   }
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

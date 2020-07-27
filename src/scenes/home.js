@@ -3,8 +3,6 @@ import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
 import Products from "../components/products";
 import { Searchbar } from "react-native-paper";
 import productService from "../services/productService";
-import categoryService from "../services/categoryService"
-import firebaseClient from "../services/firebaseClient"
 
 class Home extends React.Component {
 
@@ -17,24 +15,10 @@ class Home extends React.Component {
       searchQuery: "",
       loading: true
     };
-    this.ref = firebaseClient.firestoreDb.collection('productos');
   }
 
   async componentDidMount() {
-    /*this.unsubscribe = this.ref.onSnapshot((querySnapshot) => {
-      const productsQuery = [];
-      querySnapshot.forEach(doc => {
-        productsQuery.push({
-          product: doc.data()
-        });
-        this.setState({
-          products: productsQuery,
-          loading: false,
-        })
-      });
-    });
-    this.render();*/
-    const products = await productService.fetchProducts();
+    const products = await productService.testingProducts();
     this.setState({
       products: products,
       allProducts: products,
@@ -119,8 +103,8 @@ const styles = StyleSheet.create({
     marginLeft: 21,
     fontSize: 22,
     fontWeight: "700",
-    color: 'white'
-    //fontFamily:   Montserrat,
+    color: 'white',
+    fontFamily: 'Roboto',
   },
   titleCategories: {
     marginTop: 15,
