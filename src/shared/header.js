@@ -10,7 +10,7 @@ export default function Header(props) {
 
 	const goBack = () => navigation.goBack();
 	const goLogin = () => {
-		navigation.navigate("Login");
+		navigation.navigate("Orders");
 	}
 
 	let leftIcon = <MaterialIcons name='person' size={30} onPress={goLogin} style={styles.headerIcon} />;

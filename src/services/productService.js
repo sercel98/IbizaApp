@@ -1,5 +1,5 @@
 import firebaseClient from "./firebaseClient";
-import getProducts from '../../assets/products';
+import getProducts from '../../assets/productsData';
 class ProductService {
 	PRODUCTS_COLLECTION = "products";
 

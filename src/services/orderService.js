@@ -1,4 +1,5 @@
 import firebaseClient from "./firebaseClient";
+import getOrders from '../../assets/ordersData';
 
 class OrderService {
     ORDERS_COLLECTIONS = "orders";
@@ -6,6 +7,7 @@ class OrderService {
     constructor() {
         this.db = firebaseClient.firestoreDb;
     }
+    
     getOrdersCollection() {
         return this.db.collection(this.ORDERS_COLLECTIONS)
     }
@@ -14,6 +16,9 @@ class OrderService {
         const newDocRef = await this.getOrdersCollection()
             .add(order);
         return newDocRef.id;
+    }
+    testingData() {
+        return getOrders();
     }
 }
 
