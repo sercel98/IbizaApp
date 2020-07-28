@@ -36,6 +36,7 @@ function UserForm(props) {
           <Text style={styles.textInputTitle}>Nombre y Apellido:</Text>
           <TextInput
               value={userInfo.names}
+              textContentType="name"
               onChangeText={(text) => { handleChangeText('names', text)}}
               style={styles.SectionStyle}
           />
@@ -51,6 +52,8 @@ function UserForm(props) {
               value={userInfo.phone}
               onChangeText={(text) => { handleChangeText('phone', text)}}
               style={styles.SectionStyle}
+              textContentType="telephoneNumber"
+              keyboardType="phone-pad"
               autoCapitalize="none"
           />
           <Text style={styles.textInputTitle}>Email:</Text>
@@ -59,6 +62,8 @@ function UserForm(props) {
               onChangeText={(text) => { handleChangeText('email', text)}}
               style={styles.SectionStyle}
               autoCompleteType="email"
+              keyboardType="email-address"
+              textContentType="emailAddress"
               autoCapitalize="none"
           />
           <TouchableOpacity style={styles.button} onPress={handlePressSend}>
