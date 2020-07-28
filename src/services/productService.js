@@ -1,5 +1,5 @@
 import firebaseClient from "./firebaseClient";
-import getProducts from '../../assets/products';
+import getProducts from '../../assets/productsData';
 class ProductService {
 	PRODUCTS_COLLECTION = "products";
 
@@ -8,9 +8,9 @@ class ProductService {
 	}
 
 
-	async fetchProducts(){ 
+	async fetchProducts() {
 		let productsCollection = this.db.collection('productos');
-		
+
 		const products = await productsCollection.where('active', '==', true).get();
 
 

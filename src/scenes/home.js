@@ -6,8 +6,8 @@ import productService from "../services/productService";
 import categoryService from "../services/categoryService"
 import firebaseClient from "../services/firebaseClient";
 import orderService from "../services/orderService";
-import {Notifications} from 'expo';
-import {askPermissions, showNewOrderNotification} from '../shared/notifications'
+import { Notifications } from 'expo';
+import { askPermissions, showNewOrderNotification } from '../shared/notifications'
 
 class Home extends React.Component {
 
@@ -33,7 +33,7 @@ class Home extends React.Component {
     this.unsubscribeAuthChanges = firebaseClient.auth.onAuthStateChanged(this.handleAuthChange);
   }
   componentWillUnmount() {
-    if(this.unsubscribeAuthChanges) {
+    if (this.unsubscribeAuthChanges) {
       this.unsubscribeAuthChanges();
     }
     this.unsuscribeOrders();
@@ -43,30 +43,28 @@ class Home extends React.Component {
       console.log('User logged');
       this.unsuscribeOrders();
       this.unsubscribeOrdersSnapshot = orderService.getOrdersCollection().onSnapshot(this.handleOrdersSnapshot);
-      askPermissions().then(result => this.setState({showNotification: result}));
+      askPermissions().then(result => this.setState({ showNotification: result }));
     } else {
       console.log('User not logged', user && user.isAnonymous ? '-> isAnonymous' : '');
       this.unsuscribeOrders();
     }
   }
-  unsuscribeOrders = () =>{
+  unsuscribeOrders = () => {
     if (this.unsubscribeOrdersSnapshot) {
       this.unsubscribeOrdersSnapshot();
     }
   }
-  handleOrdersSnapshot = (snapshot) =>{
-    snapshot.docChanges().forEach((change) =>{
+  handleOrdersSnapshot = (snapshot) => {
+    snapshot.docChanges().forEach((change) => {
       if (change.type === "added") {
         const order = change.doc.data();
         order.ide = change.doc.id;
         console.log("New order: ", order);
-        this.state.showNotification  && showNewOrderNotification(order)
+        this.state.showNotification && showNewOrderNotification(order)
       }
-  });
+    });
   }
 
-
-  //revisar lógica
   _onChangeSearch = (query) => {
     this.setState({ searchQuery: query });
     if (query) {
@@ -142,8 +140,8 @@ const styles = StyleSheet.create({
     marginLeft: 21,
     fontSize: 22,
     fontWeight: "700",
-    color: 'white'
-    //fontFamily:   Montserrat,
+    color: 'white',
+    fontFamily: 'Roboto',
   },
   titleCategories: {
     marginTop: 15,

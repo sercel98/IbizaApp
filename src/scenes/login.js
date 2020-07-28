@@ -1,5 +1,5 @@
 import React from "react";
-import {StyleSheet, View, Text, TextInput, Button, Image, TouchableOpacity} from "react-native";
+import { StyleSheet, View, Text, TextInput, Button, Image, TouchableOpacity } from "react-native";
 import firebaseClient from "../services/firebaseClient";
 import { useNavigation } from '@react-navigation/native';
 
@@ -11,37 +11,32 @@ class Login extends React.Component {
 		super(props);
 	}
 
-
 	handleLogin = async () => {
 		const { navigation } = this.props;
-		try{
+		try {
 			const authCredentials = await firebaseClient.auth.signInWithEmailAndPassword(this.state.email, this.state.password);
 			navigation.navigate('Home');
-		} catch(e) {
+		} catch (e) {
 			alert("Correo/Contraseña incorrecta");
 			console.log(e);
 		}
 	}
 
-
 	render() {
 		const { navigation } = this.props;
 		return (
 			<View style={styles.container}>
-
 				{this.state.errorMessage &&
-					<Text style={{ color: 'red' }}>
+					<Text style={styles.textError}>
 						{this.state.errorMessage}
-					</Text>}
-
+					</Text>
+				}
 				<Image
 					source={require('../../assets/images/splashLogo.png')}
 					style={styles.logoImage}
 				/>
-
 				<Text style={styles.textInputTitle}>Usuario:</Text>
 				<View style={styles.SectionStyle}>
-
 					<Image
 						source={require('../../assets/images/userIcon.png')}
 						style={styles.ImageStyle}
@@ -53,7 +48,6 @@ class Login extends React.Component {
 						value={this.state.email}
 					/>
 				</View>
-
 				<Text style={styles.textInputTitle}>Contraseña:</Text>
 				<View style={styles.SectionStyle}>
 					<Image
@@ -68,7 +62,6 @@ class Login extends React.Component {
 						value={this.state.password}
 					/>
 				</View>
-
 				<TouchableOpacity style={styles.button} onPress={this.handleLogin}>
 					<Text style={styles.loginButtonText}>Iniciar Sesion</Text>
 				</TouchableOpacity>
@@ -101,8 +94,12 @@ const styles = StyleSheet.create({
 		fontStyle: 'normal',
 		fontWeight: 'normal',
 		color: '#FFFFFF',
+		fontFamily: 'Roboto',
 	},
-
+	textError: {
+		fontFamily: 'Roboto',
+		color: 'red'
+	},
 	SectionStyle: {
 		flexDirection: 'row',
 		justifyContent: 'center',
@@ -132,26 +129,24 @@ const styles = StyleSheet.create({
 		height: 60,
 		backgroundColor: "#E93A3B",
 		color: "#000",
-		borderRadius:10,
+		borderRadius: 10,
 		borderWidth: 1,
-		justifyContent:'center',
+		justifyContent: 'center',
 		alignItems: 'center',
 		padding: 10
 	},
 	loginButtonText: {
 		fontSize: 22,
-		fontWeight:"700",
-		textAlign:"center",
+		fontWeight: "700",
+		textAlign: "center",
 		alignItems: "center",
+		fontFamily: 'Roboto',
 		color: "#fff",
 	},
-
 	logoImage: {
 		bottom: 30,
 		width: "60%",
 		height: "40%",
 	}
-
-
 });
 export default Login;

@@ -8,7 +8,7 @@ const ShoppingCartIcon = (props) => {
   const navigation = useNavigation();
   const { cartItems } = props;
   const openCartDetail = () => {
-    navigation.navigate("Cart");
+    navigation.navigate("Orders");
   };
   return (
     <TouchableOpacity onPress={openCartDetail}>
@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     fontSize: 10,
+    fontFamily: 'Roboto'
   },
   headerIcon: {
     color: "#fff",

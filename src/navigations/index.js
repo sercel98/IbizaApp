@@ -7,6 +7,7 @@ import ProductDetail from "../scenes/product";
 import Cart from "../scenes/cart";
 import Login from "../scenes/login";
 import UserForm from "../scenes/userForm.js";
+import Orders from "../scenes/orders";
 
 const Stack = createStackNavigator();
 
@@ -27,6 +28,8 @@ export default function AppStackNavigation() {
 			<Stack.Screen name="About" component={About} />
 			<Stack.Screen name="Login" component={Login} />
 			<Stack.Screen name="UserForm" component={UserForm} />
+			<Stack.Screen name="Orders" component={Orders} />
+
 		</Stack.Navigator>
 	);
 }

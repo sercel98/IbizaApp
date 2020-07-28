@@ -10,7 +10,7 @@ export default function Header(props) {
 
 	const goBack = () => navigation.goBack();
 	const goLogin = () => {
-		navigation.navigate("Login");
+		navigation.navigate("Orders");
 	}
 
 	let leftIcon = <MaterialIcons name='person' size={30} onPress={goLogin} style={styles.headerIcon} />;
@@ -22,7 +22,7 @@ export default function Header(props) {
 			<StatusBar barStyle="light-content" />
 			{leftIcon}
 			{route.name !== "Login" &&
-			<Image style={styles.headerLogo} source={require('../../assets/images/logoSmall.png')} />
+				<Image style={styles.headerLogo} source={require('../../assets/images/logoSmall.png')} />
 			}
 			<ShoppingCartIcon />
 		</View>

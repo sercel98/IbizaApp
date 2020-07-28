@@ -1,8 +1,8 @@
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
-import {Notifications} from 'expo';
+import { Notifications } from 'expo';
 export function showNewOrderNotification(order) {
-    const {names, products} = order;
+    const { names, products } = order;
     const amount = products.reduce((total, product) => {
         return total + product.quantity * product.product.price
     }, 0)
@@ -14,21 +14,21 @@ por un total de ${amount} pesos
         body: body,
         data: order,
         android: {
-          channelId: 'default',
+            channelId: 'default',
         },
         ios: {
-          sound: true,
-          _displayInForeground: true
+            sound: true,
+            _displayInForeground: true
         }
-      });
+    });
 }
 export async function askPermissions() {
     let hasNotificationPermission = false;
     if (Constants.isDevice) {
-        const {status: existingStatus} = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+        const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
         let finalStatus = existingStatus;
         if (existingStatus !== 'granted') {
-            const {status} = await Permissions.askAsync(Permissions.NOTIFICATIONS);
+            const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
             finalStatus = status;
         }
         console.log('Notification permission: ', finalStatus);
