@@ -8,7 +8,7 @@ const ShoppingCartIcon = (props) => {
   const navigation = useNavigation();
   const { cartItems } = props;
   const openCartDetail = () => {
-    navigation.navigate("Orders");
+    navigation.navigate("Cart");
   };
   return (
     <TouchableOpacity onPress={openCartDetail}>

@@ -17,6 +17,13 @@ class OrderService {
             .add(order);
         return newDocRef.id;
     }
+    mockSave(order) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve();
+            }, 2000);
+        })
+    }
     testingData() {
         return getOrders();
     }

@@ -4,30 +4,36 @@ import { connect } from "react-redux";
 import { useNavigation } from '@react-navigation/native';
 import { bindActionCreators } from "redux";
 import { emptyCart, removeItem } from "../actions/cartActions";
+import Loader from '../shared/loader'
 import orderService from "../services/orderService"
 
 function UserForm(props) {
   const [userInfo, setUserInfo] = useState({});
+  const [isLoading, setLoading] = useState(false);
   const navigation = useNavigation();
   const { cartItems, emptyCart } = props;
   const handlePressSend = async () => {
     try {
       userInfo.products = cartItems;
+      setLoading(true);
       const orderId = await orderService.save(userInfo);
       emptyCart();
       alert('Pedido tomado con exito');
-      navigation.navigate('Home');
+      navigation.navigate('Cart');
     } catch (e) {
       console.log(e);
     }
+    setLoading(false);
   }
   const handleChangeText = (key, value) => {
     const newUserInfo = { ...userInfo };
     newUserInfo[key] = value;
     setUserInfo(newUserInfo);
   }
+  
   return (
     <View style={styles.container}>
+      <Loader loading={isLoading}/>
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>Datos de envio</Text>
       </View>
@@ -35,6 +41,7 @@ function UserForm(props) {
 
         <Text style={styles.textInputTitle}>Nombre y Apellido:</Text>
         <TextInput
+          textContentType="name"
           value={userInfo.names}
           onChangeText={(text) => { handleChangeText('names', text) }}
           style={styles.SectionStyle}
@@ -48,6 +55,8 @@ function UserForm(props) {
         />
         <Text style={styles.textInputTitle}>Telefono:</Text>
         <TextInput
+          textContentType="telephoneNumber"
+          keyboardType="phone-pad"
           value={userInfo.phone}
           onChangeText={(text) => { handleChangeText('phone', text) }}
           style={styles.SectionStyle}
@@ -58,6 +67,8 @@ function UserForm(props) {
           value={userInfo.email}
           onChangeText={(text) => { handleChangeText('email', text) }}
           style={styles.SectionStyle}
+          keyboardType="email-address"
+          textContentType="emailAddress"
           autoCompleteType="email"
           autoCapitalize="none"
         />

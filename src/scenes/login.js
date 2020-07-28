@@ -1,11 +1,16 @@
 import React from "react";
 import { StyleSheet, View, Text, TextInput, Button, Image, TouchableOpacity } from "react-native";
 import firebaseClient from "../services/firebaseClient";
-import { useNavigation } from '@react-navigation/native';
+import Loader from '../shared/loader'
 
 class Login extends React.Component {
 
-	state = { email: '', password: '', errorMessage: null };
+	state = {
+		email: '',
+		password: '',
+		errorMessage: null,
+		isLoading: false
+	};
 
 	constructor(props) {
 		super(props);
@@ -14,18 +19,22 @@ class Login extends React.Component {
 	handleLogin = async () => {
 		const { navigation } = this.props;
 		try {
+			this.setState({ isLoading: true });
 			const authCredentials = await firebaseClient.auth.signInWithEmailAndPassword(this.state.email, this.state.password);
-			navigation.navigate('Home');
+			navigation.navigate('Orders');
 		} catch (e) {
 			alert("Correo/Contraseña incorrecta");
 			console.log(e);
 		}
+		this.setState({ isLoading: false });
 	}
 
 	render() {
 		const { navigation } = this.props;
+		const { isLoading } = this.state
 		return (
 			<View style={styles.container}>
+				<Loader loading={isLoading} />
 				{this.state.errorMessage &&
 					<Text style={styles.textError}>
 						{this.state.errorMessage}

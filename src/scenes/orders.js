@@ -1,9 +1,8 @@
 import React from "react";
-import { FlatList, TouchableOpacity, StyleSheet, ScrollView, Text, View } from "react-native";
+import { FlatList, StyleSheet, ScrollView, Text, View } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import OrderItem from "../components/orderItem";
-import { useNavigation } from "@react-navigation/native";
 import orderService from "../services/orderService";
 
 class Orders extends React.Component {
@@ -25,7 +24,7 @@ class Orders extends React.Component {
       loading: false
     })
   }
-
+  
   renderOrderItems = ({ item }) => {
     return (
       <OrderItem orderItem={item} />
@@ -33,8 +32,7 @@ class Orders extends React.Component {
   };
 
   render() {
-    const { orders } = this.state;
-    console.log(orders);
+    const { orders } = this.props;
     return (
       <View style={styles.container}>
         <ScrollView>
@@ -43,7 +41,7 @@ class Orders extends React.Component {
             style={styles.cartList}
             data={orders}
             renderItem={this.renderOrderItems}
-            keyExtractor={(item, index) => index.toString()} />
+            keyExtractor={(item, index) => item.id} />
         </ScrollView>
       </View>
     );
@@ -111,4 +109,16 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Orders;
+const mapStateToProps = (state) => {
+  return {
+    orders: state.orders
+  };
+};
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+    },
+    dispatch
+  );
+
+export default connect(mapStateToProps, mapDispatchToProps)(Orders);

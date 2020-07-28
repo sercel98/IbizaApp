@@ -18,7 +18,12 @@ function OrderItem(props) {
   }
 
   return (
-  <Text style={{color:'white'}}>{orderItem.id}</Text> 
+    <View>
+      <Text style={{ color: 'white' }}>{orderItem.id}</Text>
+      <Text style={{ color: 'white' }}>{orderItem.email}</Text>
+      <Text style={{ color: 'white' }}>{orderItem.names}</Text>
+      <Text style={{ color: 'white' }}>{orderItem.products.length}</Text>
+    </View>
   );
 }
 

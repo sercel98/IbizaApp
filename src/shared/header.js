@@ -3,14 +3,14 @@ import { Image, StyleSheet, View, StatusBar } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import ShoppingCartIcon from '../components/ShoppingCartIcon';
 import { useRoute } from '@react-navigation/native';
-
+import {useSelector} from 'react-redux'
 export default function Header(props) {
 	const { navigation } = props;
 	const route = useRoute();
-
+	const isLogged = useSelector(state => state.auth);
 	const goBack = () => navigation.goBack();
 	const goLogin = () => {
-		navigation.navigate("Orders");
+		navigation.navigate("Login");
 	}
 
 	let leftIcon = <MaterialIcons name='person' size={30} onPress={goLogin} style={styles.headerIcon} />;

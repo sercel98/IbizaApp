@@ -3,11 +3,13 @@ import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
 import Products from "../components/products";
 import { Searchbar } from "react-native-paper";
 import productService from "../services/productService";
-import categoryService from "../services/categoryService"
 import firebaseClient from "../services/firebaseClient";
 import orderService from "../services/orderService";
-import { Notifications } from 'expo';
 import { askPermissions, showNewOrderNotification } from '../shared/notifications'
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import {login, logout} from '../actions/authenticationActions';
+import {newOrder} from '../actions/ordersActions';
 
 class Home extends React.Component {
 
@@ -44,8 +46,11 @@ class Home extends React.Component {
       this.unsuscribeOrders();
       this.unsubscribeOrdersSnapshot = orderService.getOrdersCollection().onSnapshot(this.handleOrdersSnapshot);
       askPermissions().then(result => this.setState({ showNotification: result }));
+      this.props.login();
+      this.props.navigation.navigate('Orders');
     } else {
       console.log('User not logged', user && user.isAnonymous ? '-> isAnonymous' : '');
+      this.props.logout();
       this.unsuscribeOrders();
     }
   }
@@ -58,8 +63,9 @@ class Home extends React.Component {
     snapshot.docChanges().forEach((change) => {
       if (change.type === "added") {
         const order = change.doc.data();
-        order.ide = change.doc.id;
+        order.id = change.doc.id;
         console.log("New order: ", order);
+        this.props.newOrder(order);
         this.state.showNotification && showNewOrderNotification(order)
       }
     });
@@ -152,5 +158,17 @@ const styles = StyleSheet.create({
     //fontFamily:   Montserrat,
   }
 });
+const mapStateToProps = (state) => {
+  return {};
+};
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      login,
+      logout,
+      newOrder
+    },
+    dispatch
+  );
 
-export default Home;
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
