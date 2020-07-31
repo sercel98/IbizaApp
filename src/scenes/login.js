@@ -2,7 +2,9 @@ import React from "react";
 import { StyleSheet, View, Text, TextInput, Button, Image, TouchableOpacity } from "react-native";
 import firebaseClient from "../services/firebaseClient";
 import Loader from '../shared/loader'
-import Video from 'react-native-video';
+import { Video } from 'expo-av';
+import { Asset } from 'expo-asset';
+
 
 class Login extends React.Component {
 
@@ -33,18 +35,22 @@ class Login extends React.Component {
 	render() {
 		const { navigation } = this.props;
 		const { isLoading } = this.state
+		const video = Asset.fromModule(require('../../assets/videos/splashVideo.mp4')).uri;
+
 		return (
 			<View style={styles.container}>
 
 				<View>
-					<Video source={{uri: "../../assets/videos/splashVideo.mp4"}}
-						   ref={(ref) => {
-							   this.player = ref
-						   }}                                      // Store reference
-						   onBuffer={this.onBuffer}                // Callback when remote video is buffering
-						   onEnd={this.onEnd}                      // Callback when playback finishes
-						   onError={this.videoError}               // Callback when video cannot be loaded
-						   style={styles.backgroundVideo} />
+				<Video
+					source={{ uri: video }}
+					rate={1.0}
+					volume={1.0}
+					isMuted={false}
+					resizeMode="cover"
+					shouldPlay
+					isLooping
+					style={{ width: 300, height: 300 }}
+				/>
 				</View>
 
 				<Loader loading={isLoading} />
