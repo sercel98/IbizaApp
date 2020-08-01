@@ -80,7 +80,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     backgroundColor: "#FBBD40",
     borderRadius: 10,
-    orderWidth: 1,
+    borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10
