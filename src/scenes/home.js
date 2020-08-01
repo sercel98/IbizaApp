@@ -11,6 +11,7 @@ import { bindActionCreators } from "redux";
 import {login, logout} from '../actions/authenticationActions';
 import {newOrder} from '../actions/ordersActions';
 
+
 class Home extends React.Component {
 
   constructor(props) {

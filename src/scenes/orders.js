@@ -24,7 +24,6 @@ class Orders extends React.Component {
       loading: false
     })
   }
-  
   renderOrderItems = ({ item }) => {
     return (
       <OrderItem orderItem={item} />
@@ -36,9 +35,9 @@ class Orders extends React.Component {
     return (
       <View style={styles.container}>
         <ScrollView>
-          <Text style={styles.cartDetailTitle}>Mis Ordenes</Text>
+          <Text style={styles.ordersTitle}>Mis Ordenes</Text>
           <FlatList
-            style={styles.cartList}
+            style={styles.ordersList}
             data={orders}
             renderItem={this.renderOrderItems}
             keyExtractor={(item, index) => item.id} />
@@ -46,7 +45,6 @@ class Orders extends React.Component {
       </View>
     );
   }
-
 }
 
 const styles = StyleSheet.create({
@@ -54,57 +52,15 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#000",
   },
-  cartList: {
+  ordersList: {
     marginLeft: 15,
   },
-  cartDetailTitle: {
+  ordersTitle: {
     marginTop: 16,
     marginLeft: 21,
     fontSize: 22,
     fontWeight: "700",
     color: 'white',
-    fontFamily: 'Roboto',
-  },
-  cartTotalInfo: {
-    flex: 1,
-    flexDirection: "column",
-    justifyContent: 'center',
-    paddingHorizontal: 10
-  },
-  cartTotalContainer: {
-    flexDirection: 'row',
-    backgroundColor: '#191919',
-    height: 100,
-    padding: 15,
-  },
-  cartTotalText: {
-    fontSize: 22,
-    fontWeight: "400",
-    color: '#EEE',
-    fontFamily: 'Roboto',
-
-  },
-  cartTotalValue: {
-    fontSize: 28,
-    fontWeight: "700",
-    color: 'white',
-    fontFamily: 'Roboto',
-  },
-  userFormButton: {
-    backgroundColor: "#FBBD40",
-    color: "#000",
-    borderRadius: 10,
-    borderWidth: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 10
-
-  },
-  userFormButtonText: {
-    fontSize: 22,
-    fontWeight: "700",
-    textAlign: "center",
-    alignItems: "center",
     fontFamily: 'Roboto',
   }
 });
