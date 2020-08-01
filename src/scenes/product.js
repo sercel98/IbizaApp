@@ -31,13 +31,16 @@ class ProductDetail extends Component {
     }
   }
 
-  setQuantity = () => {
-    this.setState({ quantityOfProduct: this.props.params.productItem.quantity });
+  setQuantity = (itemQuantity) => {
+    this.setState({ quantityOfProduct: itemQuantity });
   }
 
   addToCart = () => {
     const { route } = this.props;
-    const { product } = route.params;
+    let { product } = route.params;
+    if(product === undefined){
+      product = route.params.productItem.product;
+    }
     let quantity = this.state.quantityOfProduct;
 
     this.props.removeItem(product);
