@@ -39,20 +39,6 @@ class Login extends React.Component {
 
 		return (
 			<View style={styles.container}>
-
-				<View>
-				<Video
-					source={{ uri: video }}
-					rate={1.0}
-					volume={1.0}
-					isMuted={false}
-					resizeMode="cover"
-					shouldPlay
-					isLooping
-					style={{ width: 300, height: 300 }}
-				/>
-				</View>
-
 				<Loader loading={isLoading} />
 				{this.state.errorMessage &&
 					<Text style={styles.textError}>

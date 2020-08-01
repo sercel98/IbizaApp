@@ -4,8 +4,6 @@ import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
 
 function OrderItem(props) {
-  console.log(props);
-
   const { orderItem, index } = props;
   const navigation = useNavigation();
   const onPress = () => {
@@ -32,7 +30,7 @@ function OrderItem(props) {
           <Text style={styles.orderText}>Total: ${calculateTotal(orderItem.products)}</Text>
         </View>
         <View>
-          <TouchableOpacity style={styles.viewOrderButton}>
+          <TouchableOpacity onPress={onPress} style={styles.viewOrderButton}>
             <Text style={styles.orderButtonText}>
               Ver pedido
             </Text>
@@ -80,7 +78,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     backgroundColor: "#FBBD40",
     borderRadius: 10,
-    orderWidth: 1,
+    borderWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10
