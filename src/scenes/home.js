@@ -21,12 +21,13 @@ class Home extends React.Component {
       products: [],
       searchQuery: "",
       loading: true,
-      showNotification: false
+      showNotification: false,
+      change: 0
     };
   }
 
   async componentDidMount() {
-    const products = await productService.testingProducts();
+    const products = await productService.fetchProducts();
     this.setState({
       products: products,
       allProducts: products,
@@ -80,6 +81,7 @@ class Home extends React.Component {
             product.name.toLowerCase().includes(query.toLowerCase())
           )
       });
+      this.setState({change: this.state});
     } else {
       this.setState({
         products: this.state.allProducts,
@@ -119,7 +121,7 @@ class Home extends React.Component {
             theme={{ colors: { text: "#BBB" } }}
           />
           <Text style={styles.titleProducts} >Productos</Text>
-          <Products products={products} />
+          <Products products={this.state.products} />
         </View>
       );
     }

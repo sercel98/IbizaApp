@@ -21,6 +21,10 @@ export default class Products extends Component {
 
   constructor(props) {
     super(props);
+    console.log(this.props)
+    this.state={
+      products: this.props.products
+    }
   }
 
   renderItem = ({ item, index }) => {
@@ -32,6 +36,7 @@ export default class Products extends Component {
 
   render() {
     const { products } = this.props;
+
     return (
       <FlatList
         data={formatData(products, numColumns)}
