@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, TouchableOpacity, StyleSheet,ScrollView, Text, View } from "react-native";
+import { FlatList, TouchableOpacity, StyleSheet, ScrollView, Text, View } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import CartItemDetail from "../components/cartItemDetail";
@@ -11,32 +11,30 @@ function Cart(props) {
   const { cartItems } = props;
 
   const navigation = useNavigation();
-  
+
   const renderCartItem = ({ item }) => {
     return (
-    <CartItemDetail productItem={item}/>
+      <CartItemDetail productItem={item} />
     );
   };
 
   const calculateTotal = () => {
-    let total = 0; 
+    let total = 0;
     cartItems.forEach(item => {
-      total +=  item.product.price * item.quantity; 
+      total += item.product.price * item.quantity;
     });
-    return total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, "."); 
+    return total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
-
-  
 
   return (
     <View style={styles.container}>
       <ScrollView>
-      <Text style={styles.cartDetailTitle}>Mi Pedido</Text>
-      <FlatList
-        style={styles.cartList}
-        data={cartItems} 
-        renderItem={renderCartItem}
-        keyExtractor={keyExtractor}/>
+        <Text style={styles.cartDetailTitle}>Mi Pedido</Text>
+        <FlatList
+          style={styles.cartList}
+          data={cartItems}
+          renderItem={renderCartItem}
+          keyExtractor={keyExtractor} />
       </ScrollView>
       <View style={styles.cartTotalContainer}>
         <View style={styles.cartTotalInfo}>
@@ -44,7 +42,7 @@ function Cart(props) {
           <Text style={styles.cartTotalValue}>${calculateTotal()}</Text>
         </View>
         <TouchableOpacity style={styles.userFormButton} onPress={() => navigation.navigate('UserForm')}>
-          <Text style={styles.userFormButtonText}>Realizar pedido</Text>  
+          <Text style={styles.userFormButtonText}>Realizar pedido</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -73,53 +71,57 @@ const styles = StyleSheet.create({
   },
   cartList: {
     marginLeft: 15,
-  }, 
+  },
   cartDetailTitle: {
     marginTop: 16,
     marginLeft: 21,
     fontSize: 22,
     fontWeight: "700",
-    color: 'white'
-  }, 
+    color: 'white',
+    fontFamily: 'Roboto',
+  },
   cartTotalInfo: {
-    flex:1, 
-    flexDirection:"column", 
+    flex: 1,
+    flexDirection: "column",
     justifyContent: 'center',
     paddingHorizontal: 10
+  },
+  cartTotalContainer: {
+    flexDirection: 'row',
+    backgroundColor: '#191919',
+    height: 100,
+    padding: 15,
   },
   cartTotalText: {
     fontSize: 22,
     fontWeight: "400",
-    color: '#EEE'
+    color: '#EEE',
+    fontFamily: 'Roboto',
+
   },
   cartTotalValue: {
     fontSize: 28,
     fontWeight: "700",
-    color: 'white'
-  }, 
+    color: 'white',
+    fontFamily: 'Roboto',
+  },
   userFormButton: {
     backgroundColor: "#FBBD40",
     color: "#000",
-    borderRadius:10,
+    borderRadius: 10,
     borderWidth: 1,
-    justifyContent:'center',
+    justifyContent: 'center',
     alignItems: 'center',
     padding: 10
-  
+
   },
   userFormButtonText: {
-    fontSize: 22, 
-    fontWeight:"700",
-    textAlign:"center",
-    alignItems: "center"
-  },
-  cartTotalContainer: {
-    flexDirection: 'row', 
-    backgroundColor: '#191919',
-    height: 100, 
-    padding: 15, 
+    fontSize: 22,
+    fontWeight: "700",
+    textAlign: "center",
+    alignItems: "center",
+    fontFamily: 'Roboto',
   }
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

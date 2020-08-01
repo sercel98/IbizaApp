@@ -1,71 +1,82 @@
 import React, { useState } from "react";
-import {StyleSheet, Text, TextInput, Button, View, TouchableOpacity} from "react-native";
-import {connect} from "react-redux";
+import { StyleSheet, Text, TextInput, Button, View, TouchableOpacity } from "react-native";
+import { connect } from "react-redux";
 import { useNavigation } from '@react-navigation/native';
-import {bindActionCreators} from "redux";
-import {emptyCart, removeItem} from "../actions/cartActions";
+import { bindActionCreators } from "redux";
+import { emptyCart, removeItem } from "../actions/cartActions";
+import Loader from '../shared/loader'
 import orderService from "../services/orderService"
 
 function UserForm(props) {
   const [userInfo, setUserInfo] = useState({});
+  const [isLoading, setLoading] = useState(false);
   const navigation = useNavigation();
-  const {cartItems, emptyCart} = props;
+  const { cartItems, emptyCart } = props;
   const handlePressSend = async () => {
     try {
       userInfo.products = cartItems;
+      setLoading(true);
       const orderId = await orderService.save(userInfo);
       emptyCart();
       alert('Pedido tomado con exito');
-      navigation.navigate('Home');
-    } catch(e){
+      navigation.navigate('Cart');
+    } catch (e) {
       console.log(e);
     }
+    setLoading(false);
   }
   const handleChangeText = (key, value) => {
-    const newUserInfo = {... userInfo};
+    const newUserInfo = { ...userInfo };
     newUserInfo[key] = value;
     setUserInfo(newUserInfo);
   }
+  
   return (
-      <View style={styles.container}>
-        <View style={styles.tittleContainer}>
-          <Text style={styles.tittleText}>Datos de envio</Text>
-        </View>
-        <View style={styles.fieldsContainer}>
-
-          <Text style={styles.textInputTitle}>Nombre y Apellido:</Text>
-          <TextInput
-              value={userInfo.names}
-              onChangeText={(text) => { handleChangeText('names', text)}}
-              style={styles.SectionStyle}
-          />
-          <Text style={styles.textInputTitle}>Direccion:</Text>
-          <TextInput
-              value={userInfo.address}
-              onChangeText={(text) => { handleChangeText('address', text)}}
-              style={styles.SectionStyle}
-              autoCapitalize="none"
-          />
-          <Text style={styles.textInputTitle}>Telefono:</Text>
-          <TextInput
-              value={userInfo.phone}
-              onChangeText={(text) => { handleChangeText('phone', text)}}
-              style={styles.SectionStyle}
-              autoCapitalize="none"
-          />
-          <Text style={styles.textInputTitle}>Email:</Text>
-          <TextInput
-              value={userInfo.email}
-              onChangeText={(text) => { handleChangeText('email', text)}}
-              style={styles.SectionStyle}
-              autoCompleteType="email"
-              autoCapitalize="none"
-          />
-          <TouchableOpacity style={styles.button} onPress={handlePressSend}>
-            <Text style={styles.userFormButtonText}>Enviar</Text>
-            </TouchableOpacity>
-        </View>
+    <View style={styles.container}>
+      <Loader loading={isLoading}/>
+      <View style={styles.titleContainer}>
+        <Text style={styles.titleText}>Datos de envio</Text>
       </View>
+      <View style={styles.fieldsContainer}>
+
+        <Text style={styles.textInputTitle}>Nombre y Apellido:</Text>
+        <TextInput
+          textContentType="name"
+          value={userInfo.names}
+          onChangeText={(text) => { handleChangeText('names', text) }}
+          style={styles.SectionStyle}
+        />
+        <Text style={styles.textInputTitle}>Direccion:</Text>
+        <TextInput
+          value={userInfo.address}
+          onChangeText={(text) => { handleChangeText('address', text) }}
+          style={styles.SectionStyle}
+          autoCapitalize="none"
+        />
+        <Text style={styles.textInputTitle}>Telefono:</Text>
+        <TextInput
+          textContentType="telephoneNumber"
+          keyboardType="phone-pad"
+          value={userInfo.phone}
+          onChangeText={(text) => { handleChangeText('phone', text) }}
+          style={styles.SectionStyle}
+          autoCapitalize="none"
+        />
+        <Text style={styles.textInputTitle}>Email:</Text>
+        <TextInput
+          value={userInfo.email}
+          onChangeText={(text) => { handleChangeText('email', text) }}
+          style={styles.SectionStyle}
+          keyboardType="email-address"
+          textContentType="emailAddress"
+          autoCompleteType="email"
+          autoCapitalize="none"
+        />
+        <TouchableOpacity style={styles.button} onPress={handlePressSend}>
+          <Text style={styles.userFormButtonText}>Enviar</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 }
 
@@ -76,13 +87,13 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) =>
-    bindActionCreators(
-        {
-          removeItem,
-          emptyCart
-        },
-        dispatch
-    );
+  bindActionCreators(
+    {
+      removeItem,
+      emptyCart
+    },
+    dispatch
+  );
 
 const styles = StyleSheet.create({
   container: {
@@ -94,12 +105,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  tittleContainer: {
+  titleContainer: {
     alignItems: "flex-start",
     marginTop: 30,
     marginLeft: 10,
+    fontFamily: 'Roboto',
   },
-  tittleText: {
+  titleText: {
     textAlign: "left",
     fontSize: 26,
     fontWeight: "600",
@@ -128,6 +140,7 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     fontWeight: 'normal',
     color: '#FFFFFF',
+    fontFamily: 'Roboto',
   },
   button: {
     marginTop: 50,
@@ -135,17 +148,18 @@ const styles = StyleSheet.create({
     height: 60,
     backgroundColor: "#FBBD40",
     color: "#000",
-    borderRadius:10,
+    borderRadius: 10,
     borderWidth: 1,
-    justifyContent:'center',
+    justifyContent: 'center',
     alignItems: 'center',
     padding: 10
   },
   userFormButtonText: {
     fontSize: 22,
-    fontWeight:"700",
-    textAlign:"center",
-    alignItems: "center"
+    fontWeight: "700",
+    textAlign: "center",
+    alignItems: "center",
+    fontFamily: 'Roboto',
   },
 });
 

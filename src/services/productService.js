@@ -1,27 +1,29 @@
 import firebaseClient from "./firebaseClient";
-import getProducts from '../../assets/products';
+import getProducts from '../../assets/productsData';
 class ProductService {
 	PRODUCTS_COLLECTION = "products";
 
 	constructor() {
 		this.db = firebaseClient.firestoreDb;
-		this._products = this.fetchProducts();
 	}
 
 
-	async fetchProducts(){ 
+	async fetchProducts() {
 		let productsCollection = this.db.collection('productos');
-		
+
 		const products = await productsCollection.where('active', '==', true).get();
 
-		console.log(products); 
 
-		return products.docs.map(product => product.data());
+		return products.docs.map(product => {
+			const data = product.data();
+			data.id = product.id;
+			return data;
+		});
 	}
 
 
 	async testingProducts() {
-		return this._products;
+		return getProducts();
 	}
 }
 

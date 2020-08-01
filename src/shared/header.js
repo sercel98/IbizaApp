@@ -3,11 +3,11 @@ import { Image, StyleSheet, View, StatusBar } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import ShoppingCartIcon from '../components/ShoppingCartIcon';
 import { useRoute } from '@react-navigation/native';
-
+import {useSelector} from 'react-redux'
 export default function Header(props) {
 	const { navigation } = props;
 	const route = useRoute();
-
+	const isLogged = useSelector(state => state.auth);
 	const goBack = () => navigation.goBack();
 	const goLogin = () => {
 		navigation.navigate("Login");
@@ -22,7 +22,7 @@ export default function Header(props) {
 			<StatusBar barStyle="light-content" />
 			{leftIcon}
 			{route.name !== "Login" &&
-			<Image style={styles.headerLogo} source={require('../../assets/images/splashLogo.png')} />
+				<Image style={styles.headerLogo} source={require('../../assets/images/logoSmall.png')} />
 			}
 			<ShoppingCartIcon />
 		</View>
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
 		backgroundColor: '#000',
 		paddingHorizontal: 22,
 		paddingVertical: 15,
+		height: 70,
 	},
 	headerLogo: {
 		width: "18%",

@@ -1,54 +1,64 @@
 import React from "react";
-import {StyleSheet, View, Text, TextInput, Button, Image, TouchableOpacity} from "react-native";
+import { StyleSheet, View, Text, TextInput, Button, Image, TouchableOpacity } from "react-native";
 import firebaseClient from "../services/firebaseClient";
-import { useNavigation } from '@react-navigation/native';
+import Loader from '../shared/loader'
+import Video from 'react-native-video';
 
 class Login extends React.Component {
 
-	state = { email: '', password: '', errorMessage: null };
+	state = {
+		email: '',
+		password: '',
+		errorMessage: null,
+		isLoading: false
+	};
 
 	constructor(props) {
 		super(props);
 	}
 
-
-	handleLogin = () => {
+	handleLogin = async () => {
 		const { navigation } = this.props;
-		let response = null;
-		console.log(this.state.email);
-		console.log(this.state.password);
-		firebaseClient.auth.signInWithEmailAndPassword(this.state.email, this.state.password).catch(function (error) {
-			console.log(error.code);
-			response = error.code;
-		});
-		//this.setState({errorMessage: response});
-		console.log(this.state.errorMessage);
-		if(this.state.errorMessage!=null){
+		try {
+			this.setState({ isLoading: true });
+			const authCredentials = await firebaseClient.auth.signInWithEmailAndPassword(this.state.email, this.state.password);
 			navigation.navigate('Orders');
-		}else{
-			console.log("Contraseña incorrecta");
+		} catch (e) {
+			alert("Correo/Contraseña incorrecta");
+			console.log(e);
 		}
+		this.setState({ isLoading: false });
 	}
-
 
 	render() {
 		const { navigation } = this.props;
+		const { isLoading } = this.state
 		return (
 			<View style={styles.container}>
 
-				{this.state.errorMessage &&
-					<Text style={{ color: 'red' }}>
-						{this.state.errorMessage}
-					</Text>}
+				<View>
+					<Video source={{uri: "../../assets/videos/splashVideo.mp4"}}
+						   ref={(ref) => {
+							   this.player = ref
+						   }}                                      // Store reference
+						   onBuffer={this.onBuffer}                // Callback when remote video is buffering
+						   onEnd={this.onEnd}                      // Callback when playback finishes
+						   onError={this.videoError}               // Callback when video cannot be loaded
+						   style={styles.backgroundVideo} />
+				</View>
 
+				<Loader loading={isLoading} />
+				{this.state.errorMessage &&
+					<Text style={styles.textError}>
+						{this.state.errorMessage}
+					</Text>
+				}
 				<Image
 					source={require('../../assets/images/splashLogo.png')}
 					style={styles.logoImage}
 				/>
-
 				<Text style={styles.textInputTitle}>Usuario:</Text>
 				<View style={styles.SectionStyle}>
-
 					<Image
 						source={require('../../assets/images/userIcon.png')}
 						style={styles.ImageStyle}
@@ -60,7 +70,6 @@ class Login extends React.Component {
 						value={this.state.email}
 					/>
 				</View>
-
 				<Text style={styles.textInputTitle}>Contraseña:</Text>
 				<View style={styles.SectionStyle}>
 					<Image
@@ -75,8 +84,7 @@ class Login extends React.Component {
 						value={this.state.password}
 					/>
 				</View>
-
-				<TouchableOpacity style={styles.button} onPress={() => this.handleLogin()}>
+				<TouchableOpacity style={styles.button} onPress={this.handleLogin}>
 					<Text style={styles.loginButtonText}>Iniciar Sesion</Text>
 				</TouchableOpacity>
 			</View>
@@ -108,8 +116,12 @@ const styles = StyleSheet.create({
 		fontStyle: 'normal',
 		fontWeight: 'normal',
 		color: '#FFFFFF',
+		fontFamily: 'Roboto',
 	},
-
+	textError: {
+		fontFamily: 'Roboto',
+		color: 'red'
+	},
 	SectionStyle: {
 		flexDirection: 'row',
 		justifyContent: 'center',
@@ -139,26 +151,31 @@ const styles = StyleSheet.create({
 		height: 60,
 		backgroundColor: "#E93A3B",
 		color: "#000",
-		borderRadius:10,
+		borderRadius: 10,
 		borderWidth: 1,
-		justifyContent:'center',
+		justifyContent: 'center',
 		alignItems: 'center',
 		padding: 10
 	},
 	loginButtonText: {
 		fontSize: 22,
-		fontWeight:"700",
-		textAlign:"center",
+		fontWeight: "700",
+		textAlign: "center",
 		alignItems: "center",
+		fontFamily: 'Roboto',
 		color: "#fff",
 	},
-
 	logoImage: {
 		bottom: 30,
 		width: "60%",
 		height: "40%",
-	}
-
-
+	},
+	backgroundVideo: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		bottom: 0,
+		right: 0,
+	},
 });
 export default Login;

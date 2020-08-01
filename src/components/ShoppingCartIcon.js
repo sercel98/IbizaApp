@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     fontSize: 10,
+    fontFamily: 'Roboto'
   },
   headerIcon: {
     color: "#fff",

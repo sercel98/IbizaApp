@@ -3,8 +3,13 @@ import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
 import Products from "../components/products";
 import { Searchbar } from "react-native-paper";
 import productService from "../services/productService";
-import categoryService from "../services/categoryService"
-import firebaseClient from "../services/firebaseClient"
+import firebaseClient from "../services/firebaseClient";
+import orderService from "../services/orderService";
+import { askPermissions, showNewOrderNotification } from '../shared/notifications'
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import {login, logout} from '../actions/authenticationActions';
+import {newOrder} from '../actions/ordersActions';
 
 class Home extends React.Component {
 
@@ -15,35 +20,57 @@ class Home extends React.Component {
       allProducts: [],
       products: [],
       searchQuery: "",
-      loading: true
+      loading: true,
+      showNotification: false
     };
-    this.ref = firebaseClient.firestoreDb.collection('productos');
   }
 
   async componentDidMount() {
-    /*this.unsubscribe = this.ref.onSnapshot((querySnapshot) => {
-      const productsQuery = [];
-      querySnapshot.forEach(doc => {
-        productsQuery.push({
-          product: doc.data()
-        });
-        this.setState({
-          products: productsQuery,
-          loading: false,
-        })
-      });
-    });
-    this.render();*/
-    const products = await productService.fetchProducts();
+    const products = await productService.testingProducts();
     this.setState({
       products: products,
       allProducts: products,
       loading: false
     })
+    this.unsubscribeAuthChanges = firebaseClient.auth.onAuthStateChanged(this.handleAuthChange);
+  }
+  componentWillUnmount() {
+    if (this.unsubscribeAuthChanges) {
+      this.unsubscribeAuthChanges();
+    }
+    this.unsuscribeOrders();
+  }
+  handleAuthChange = (user) => {
+    if (user && !user.isAnonymous) {
+      console.log('User logged');
+      this.unsuscribeOrders();
+      this.unsubscribeOrdersSnapshot = orderService.getOrdersCollection().onSnapshot(this.handleOrdersSnapshot);
+      askPermissions().then(result => this.setState({ showNotification: result }));
+      this.props.login();
+      this.props.navigation.navigate('Orders');
+    } else {
+      console.log('User not logged', user && user.isAnonymous ? '-> isAnonymous' : '');
+      this.props.logout();
+      this.unsuscribeOrders();
+    }
+  }
+  unsuscribeOrders = () => {
+    if (this.unsubscribeOrdersSnapshot) {
+      this.unsubscribeOrdersSnapshot();
+    }
+  }
+  handleOrdersSnapshot = (snapshot) => {
+    snapshot.docChanges().forEach((change) => {
+      if (change.type === "added") {
+        const order = change.doc.data();
+        order.id = change.doc.id;
+        console.log("New order: ", order);
+        this.props.newOrder(order);
+        this.state.showNotification && showNewOrderNotification(order)
+      }
+    });
   }
 
-
-  //revisar lógica
   _onChangeSearch = (query) => {
     this.setState({ searchQuery: query });
     if (query) {
@@ -119,8 +146,8 @@ const styles = StyleSheet.create({
     marginLeft: 21,
     fontSize: 22,
     fontWeight: "700",
-    color: 'white'
-    //fontFamily:   Montserrat,
+    color: 'white',
+    fontFamily: 'Roboto',
   },
   titleCategories: {
     marginTop: 15,
@@ -131,5 +158,17 @@ const styles = StyleSheet.create({
     //fontFamily:   Montserrat,
   }
 });
+const mapStateToProps = (state) => {
+  return {};
+};
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      login,
+      logout,
+      newOrder
+    },
+    dispatch
+  );
 
-export default Home;
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, Text, View, Dimensions, TouchableOpacity } from "react-native";
+import { StyleSheet, View, Dimensions, TouchableOpacity } from "react-native";
 import AsyncImage from "../shared/AsyncImage"
 import { useNavigation } from '@react-navigation/native';
 
@@ -34,13 +34,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    height: screenWidth / numColumns, // approximate a square
+    height: screenWidth / numColumns + 20, // approximate a square
   },
   itemInvisible: {
     backgroundColor: 'transparent',
   },
   image: {
-    height: screenWidth / numColumns, // approximate a square
+    height: '100%',  // approximate a square
     width: '100%',
     resizeMode: 'cover'
   }
