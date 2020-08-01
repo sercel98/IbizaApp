@@ -3,7 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import Home from "../scenes/home";
 import About from "../scenes/about";
 import Header from "../shared/header";
-import ProductDetail from "../scenes/product";
+import ProductDetail from "../scenes/productDetail";
 import Cart from "../scenes/cart";
 import Login from "../scenes/login";
 import UserForm from "../scenes/userForm.js";

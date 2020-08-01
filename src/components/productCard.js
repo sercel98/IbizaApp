@@ -12,7 +12,7 @@ function ProductCard(props) {
   const navigation = useNavigation();
   const onPress = () => {
     navigation.navigate('ProductDetail', {
-      product
+      product: product, quantity: 1
     })
   }
 
