@@ -1,6 +1,7 @@
 import * as Permissions from "expo-permissions";
 import Constants from "expo-constants";
 import { Notifications } from 'expo';
+import AsyncStorage from '@react-native-community/async-storage';
 export function showNewOrderNotification(order) {
     const { names, products } = order;
     const amount = products.reduce((total, product) => {
@@ -21,6 +22,24 @@ por un total de ${amount} pesos
             _displayInForeground: true
         }
     });
+}
+Notifications.addListener((notification) => {
+    console.log('Notifications listener -> ', {
+        data: {
+            id: notification.data.id
+        },
+        origin: notification.origin
+    });
+});
+export const processOrderNotification = async (order) => {
+    const exitsId = (await AsyncStorage.getItem(order.id)) ? true : false;
+    if (!exitsId) {
+        //TODO validate notification order.createAt with current date no greater than x day
+        console.log((new Date() - order.createdAt) / (1000 * 60 * 60 * 60 * 24));
+        console.log(order);
+        AsyncStorage.setItem(order.id, order.id);
+        showNewOrderNotification(order);
+    }
 }
 export async function askPermissions() {
     let hasNotificationPermission = false;
