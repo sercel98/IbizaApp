@@ -1,9 +1,9 @@
 import React from "react";
-import { createStackNavigator } from "@react-navigation/stack";
+import {createStackNavigator} from "@react-navigation/stack";
 import Home from "../scenes/home";
 import About from "../scenes/about";
 import Header from "../shared/header";
-import ProductDetail from "../scenes/product";
+import ProductDetail from "../scenes/productDetail";
 import Cart from "../scenes/cart";
 import Login from "../scenes/login";
 import UserForm from "../scenes/userForm";
@@ -15,13 +15,13 @@ const Stack = createStackNavigator();
 export default function AppStackNavigation() {
 	return (
 		<Stack.Navigator initialRouteName="Home"
-			screenOptions={{
-				headerStyle: {
-					backgroundColor: '#000',
-				},
-				gestureEnabled: true,
-				header: (props) => (<Header {...props} />)
-			}}
+						 screenOptions={{
+							 headerStyle: {
+								 backgroundColor: '#000',
+							 },
+							 gestureEnabled: true,
+							 header: (props) => (<Header {...props} />)
+						 }}
 		>
 			<Stack.Screen name="Home" component={Home} />
 			<Stack.Screen name="ProductDetail" component={ProductDetail} />

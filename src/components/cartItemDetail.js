@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Ionicons } from "@expo/vector-icons";
 import { color } from "react-native-reanimated";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import products from "./products";
 
 function CartItemDetail(props) {
 
@@ -14,7 +15,7 @@ function CartItemDetail(props) {
 
   const onEdit = () => {
     navigation.navigate('ProductDetail', {
-      productItem
+      product: productItem.product, quantity: productItem.quantity
     })
   }
 

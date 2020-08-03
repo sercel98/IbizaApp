@@ -5,11 +5,11 @@ import { Searchbar } from "react-native-paper";
 import productService from "../services/productService";
 import firebaseClient from "../services/firebaseClient";
 import orderService from "../services/orderService";
-import { askPermissions, showNewOrderNotification } from '../shared/notifications'
+import { askPermissions, processOrderNotification } from '../shared/notifications'
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import {login, logout} from '../actions/authenticationActions';
-import {newOrder} from '../actions/ordersActions';
+import { login, logout } from '../actions/authenticationActions';
+import { newOrder } from '../actions/ordersActions';
 
 
 class Home extends React.Component {
@@ -22,7 +22,8 @@ class Home extends React.Component {
       products: [],
       searchQuery: "",
       loading: true,
-      showNotification: false
+      showNotification: false,
+      change: 0
     };
   }
 
@@ -33,7 +34,8 @@ class Home extends React.Component {
       allProducts: products,
       loading: false
     })
-    this.unsubscribeAuthChanges = firebaseClient.auth.onAuthStateChanged(this.handleAuthChange);
+    this.unsubscribeAuthChanges = firebaseClient.auth
+      .onAuthStateChanged(this.handleAuthChange);
   }
   componentWillUnmount() {
     if (this.unsubscribeAuthChanges) {
@@ -45,7 +47,8 @@ class Home extends React.Component {
     if (user && !user.isAnonymous) {
       console.log('User logged');
       this.unsuscribeOrders();
-      this.unsubscribeOrdersSnapshot = orderService.getOrdersCollection().onSnapshot(this.handleOrdersSnapshot);
+      this.unsubscribeOrdersSnapshot = orderService.getOrdersCollectionQuery()
+        .onSnapshot(this.handleOrdersSnapshot);
       askPermissions().then(result => this.setState({ showNotification: result }));
       this.props.login();
       this.props.navigation.navigate('Orders');
@@ -62,13 +65,14 @@ class Home extends React.Component {
   }
   handleOrdersSnapshot = (snapshot) => {
     snapshot.docChanges().forEach((change) => {
+      const order = change.doc.data();
+      order.id = change.doc.id;
+      order.createdAt = order.createdAt.toDate();
       if (change.type === "added") {
-        const order = change.doc.data();
-        order.id = change.doc.id;
-        console.log("New order: ", order);
         this.props.newOrder(order);
-        this.state.showNotification && showNewOrderNotification(order)
+        this.state.showNotification && processOrderNotification(order);
       }
+      console.log("Order " + change.type);
     });
   }
 
@@ -81,6 +85,7 @@ class Home extends React.Component {
             product.name.toLowerCase().includes(query.toLowerCase())
           )
       });
+      this.setState({ change: this.state });
     } else {
       this.setState({
         products: this.state.allProducts,
@@ -120,7 +125,7 @@ class Home extends React.Component {
             theme={{ colors: { text: "#BBB" } }}
           />
           <Text style={styles.titleProducts} >Productos</Text>
-          <Products products={products} />
+          <Products products={this.state.products} />
         </View>
       );
     }

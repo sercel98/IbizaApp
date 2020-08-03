@@ -8,7 +8,7 @@ export default function Header(props) {
 	const { navigation } = props;
 	const route = useRoute();
 	const isLogged = useSelector(state => state.auth);
-	const goBack = () => navigation.goBack();
+	const goBack = () => navigation.   goBack();
 	const goLogin = () => {
 		navigation.navigate("Login");
 	}
