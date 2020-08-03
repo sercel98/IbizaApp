@@ -30,10 +30,10 @@ function UserForm(props) {
     newUserInfo[key] = value;
     setUserInfo(newUserInfo);
   }
-  
+
   return (
     <View style={styles.container}>
-      <Loader loading={isLoading}/>
+      <Loader loading={isLoading} />
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>Datos de envio</Text>
       </View>
@@ -109,7 +109,6 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     marginTop: 30,
     marginLeft: 10,
-    fontFamily: 'Roboto',
   },
   titleText: {
     textAlign: "left",
