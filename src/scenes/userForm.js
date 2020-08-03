@@ -113,7 +113,6 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     marginTop: 30,
     marginLeft: 10,
-    fontFamily: 'Roboto',
   },
   titleText: {
     textAlign: "left",
