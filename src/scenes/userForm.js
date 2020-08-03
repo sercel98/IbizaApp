@@ -12,9 +12,12 @@ function UserForm(props) {
   const [isLoading, setLoading] = useState(false);
   const navigation = useNavigation();
   const { cartItems, emptyCart } = props;
+
   const handlePressSend = async () => {
     try {
       userInfo.products = cartItems;
+      userInfo['createdAt'] = Date.now();
+      userInfo['active'] = true; 
       setLoading(true);
       const orderId = await orderService.save(userInfo);
       emptyCart();
@@ -25,15 +28,16 @@ function UserForm(props) {
     }
     setLoading(false);
   }
+
   const handleChangeText = (key, value) => {
     const newUserInfo = { ...userInfo };
     newUserInfo[key] = value;
     setUserInfo(newUserInfo);
   }
-  
+
   return (
     <View style={styles.container}>
-      <Loader loading={isLoading}/>
+      <Loader loading={isLoading} />
       <View style={styles.titleContainer}>
         <Text style={styles.titleText}>Datos de envio</Text>
       </View>

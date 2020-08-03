@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View, Dimensions, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
+import moment from "moment";
 
 function OrderItem(props) {
   const { orderItem, index } = props;
@@ -19,7 +20,26 @@ function OrderItem(props) {
     });
     return total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   }
-  const minutes = 12;
+  
+  
+  const calculateMinutes = (orderDate) =>{
+
+    let now  = moment(new Date()).format("DD/MM/YYYY HH:mm:ss");
+    
+    orderDate = moment(orderDate.toDate()).format("DD/MM/YYYY HH:mm:ss");
+
+    console.log(orderDate);
+    console.log(now);
+
+    let ms = moment(now,"DD/MM/YYYY HH:mm:ss").diff(moment(orderDate,"DD/MM/YYYY HH:mm:ss"));
+    console.log((ms/1000)/60)
+
+
+    return (ms/1000)/60; 
+  };
+
+
+
   return (
     <View style={styles.container}>
       <View style={styles.orderItemCard}>
@@ -40,7 +60,7 @@ function OrderItem(props) {
       <View style={styles.timeContainer}>
         <AntDesign name="clockcircleo" size={22} color="gray" />
         <Text style={styles.timeText}>
-          Hace {minutes} minutos
+          Hace {calculateMinutes(orderItem.createdAt)} minutos
         </Text>
       </View>
     </View>

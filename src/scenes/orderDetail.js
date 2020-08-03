@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
 
   },
   orderContainer: {
-    alignItems: 'left',
+    alignItems: "flex-start",
     backgroundColor: '#191919',
     borderRadius: 5,
     borderWidth: 1, 
