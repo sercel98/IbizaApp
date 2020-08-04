@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, View, Text, TextInput, Button, Image, TouchableOpacity } from "react-native";
 import firebaseClient from "../services/firebaseClient";
 import Loader from '../shared/loader'
-import Video from 'react-native-video';
+//import Video from 'react-native-video';
 
 class Login extends React.Component {
 
@@ -36,7 +36,7 @@ class Login extends React.Component {
 		return (
 			<View style={styles.container}>
 
-				<View>
+				{/*<View>
 					<Video source={{uri: "../../assets/videos/splashVideo.mp4"}}
 						   ref={(ref) => {
 							   this.player = ref
@@ -45,7 +45,7 @@ class Login extends React.Component {
 						   onEnd={this.onEnd}                      // Callback when playback finishes
 						   onError={this.videoError}               // Callback when video cannot be loaded
 						   style={styles.backgroundVideo} />
-				</View>
+				</View>*/}
 
 				<Loader loading={isLoading} />
 				{this.state.errorMessage &&
