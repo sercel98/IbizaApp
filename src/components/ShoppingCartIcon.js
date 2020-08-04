@@ -15,11 +15,7 @@ const ShoppingCartIcon = (props) => {
       <View style={styles.productCounter}>
         <Text style={styles.textCounter}>{cartItems.length}</Text>
       </View>
-      <MaterialIcons
-        name="shopping-cart"
-        size={30}
-        style={styles.headerIcon}
-      />
+      <MaterialIcons name="shopping-cart" size={30} style={styles.headerIcon} />
     </TouchableOpacity>
   );
 };
@@ -47,13 +43,12 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     marginRight: "auto",
     fontSize: 10,
-    fontFamily: 'Roboto'
+    fontFamily: "Roboto",
   },
   headerIcon: {
     color: "#fff",
-    paddingTop: 2
+    paddingTop: 2,
   },
 });
 
 export default connect(mapStateToProps)(ShoppingCartIcon);
-

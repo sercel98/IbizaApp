@@ -6,14 +6,13 @@ import OrderItem from "../components/orderItem";
 import orderService from "../services/orderService";
 
 class Orders extends React.Component {
-
   constructor(props) {
     super(props);
     this.orderService = orderService;
     this.state = {
       orders: [],
       loading: true,
-      showNotification: false
+      showNotification: false,
     };
   }
 
@@ -21,13 +20,11 @@ class Orders extends React.Component {
     const orders = await orderService.testingData();
     this.setState({
       orders: orders,
-      loading: false
-    })
+      loading: false,
+    });
   }
   renderOrderItems = ({ item }) => {
-    return (
-      <OrderItem orderItem={item} />
-    );
+    return <OrderItem orderItem={item} />;
   };
 
   render() {
@@ -40,7 +37,8 @@ class Orders extends React.Component {
             style={styles.ordersList}
             data={orders}
             renderItem={this.renderOrderItems}
-            keyExtractor={(item, index) => item.id} />
+            keyExtractor={(item, index) => item.id}
+          />
         </ScrollView>
       </View>
     );
@@ -60,21 +58,16 @@ const styles = StyleSheet.create({
     marginLeft: 21,
     fontSize: 22,
     fontWeight: "700",
-    color: 'white',
-    fontFamily: 'Roboto',
-  }
+    color: "white",
+    fontFamily: "Roboto",
+  },
 });
 
 const mapStateToProps = (state) => {
   return {
-    orders: state.orders
+    orders: state.orders,
   };
 };
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators(
-    {
-    },
-    dispatch
-  );
+const mapDispatchToProps = (dispatch) => bindActionCreators({}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Orders);
