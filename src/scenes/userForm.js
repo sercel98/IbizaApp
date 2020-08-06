@@ -10,75 +10,67 @@ import orderService from "../services/orderService"
 function UserForm(props) {
     const [userInfo, setUserInfo] = useState({});
     const [isLoading, setLoading] = useState(false);
-    const [namesValidate, setNamesValidate] = useState(true);
-    const [addressValidate, setAddressValidate] = useState(true);
-    const [phoneValidate, setPhoneValidate] = useState(true);
-    const [emailValidate, setEmailValidate] = useState(true);
-    const [buttonDisabled, setButtonDisabled] = useState(true);
+    const [namesValidate, setNamesValidate] = useState(false);
+    const [addressValidate, setAddressValidate] = useState(false);
+    const [phoneValidate, setPhoneValidate] = useState(false);
+    const [emailValidate, setEmailValidate] = useState(false);
     const navigation = useNavigation();
     const {cartItems, emptyCart} = props;
     const handlePressSend = async () => {
         try {
-            userInfo.products = cartItems;
-            setLoading(true);
-            const orderId = await orderService.save(userInfo);
-            emptyCart();
-            alert('Pedido tomado con exito');
-            navigation.navigate('Cart');
+            if (!namesValidate || !addressValidate || !phoneValidate || !emailValidate) {
+                alert('Debes llenar todos los campos!');
+            } else {
+                userInfo.products = cartItems;
+                setLoading(true);
+                const orderId = await orderService.save(userInfo);
+                emptyCart();
+                alert('Pedido tomado con exito');
+                navigation.navigate('Cart');
+            }
         } catch (e) {
             console.log(e);
         }
         setLoading(false);
     }
-    const handleChangeText = (key, value) => {
 
+    const setErrorTextInputStyle = (componentId) => {
+        document.getElementById(componentId).className = "errorInputText";
+    }
+
+    const validateText = (componentName, text) => {
         const nameRule = /^\s*[a-zA-Z,\s]+\s*$/
         const phoneRule = /^([0-9]( |-)?)?(\(?[0-9]{3}\)?|[0-9]{3})( |-)?([0-9]{3}( |-)?[0-9]{4}|[a-zA-Z0-9]{7})$/
         const emailRule = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
-
-        if (key === 'names') {
-            if (nameRule.test(value)) {
-                console.warn("Nombres es correcto")
+        if (componentName === 'names') {
+            if (nameRule.test(text)) {
                 setNamesValidate(true);
             } else {
-                console.warn("Nombres NO es correcto")
                 setNamesValidate(false);
             }
-        } else if (key === 'address') {
-            if (value !== '') {
-                console.warn("Direccion es correcta")
+        } else if (componentName === 'address') {
+            if (text !== '') {
                 setAddressValidate(true);
             } else {
-                console.warn("Direccion NO es correcta")
                 setAddressValidate(false);
             }
-        } else if (key === 'phone') {
-            if (phoneRule.test(value)) {
-                console.warn("numero es correcto")
+        } else if (componentName === 'phone') {
+            if (phoneRule.test(text)) {
                 setPhoneValidate(true);
             } else {
-                console.warn("numero NO es correcto")
                 setPhoneValidate(false);
             }
-        } else if (key === 'email') {
-            if (emailRule.test(value) || value === '') {
+        } else if (componentName === 'email') {
+            if (emailRule.test(text) || text === '') {
                 setEmailValidate(true);
-                setButtonDisabled(true);
-                console.warn("email es correcto", buttonDisabled)
             } else {
-                console.warn("email NO es correcto")
                 setEmailValidate(false);
             }
         }
+    }
 
-        // if(namesValidate && addressValidate && phoneValidate && emailValidate && !buttonActivated){
-        //   setButtonActivated(true);
-        //   console.warn("boton activado")
-        // }else{
-        //   setButtonActivated(false);
-        // }
-
-        console.warn(buttonDisabled);
+    const handleChangeText = (key, value) => {
+        validateText(key, value);
         const newUserInfo = {...userInfo};
         newUserInfo[key] = value;
         setUserInfo(newUserInfo);
@@ -99,7 +91,8 @@ function UserForm(props) {
                     onChangeText={(text) => {
                         handleChangeText('names', text)
                     }}
-                    style={[styles.SectionStyle, !namesValidate ? styles.error : null]}
+                    style={[styles.SectionStyle, namesValidate ? styles.okTextInput : null]}
+                    id="nameInputText"
                 />
                 <Text style={styles.textInputTitle}>Direccion:</Text>
                 <TextInput
@@ -107,7 +100,7 @@ function UserForm(props) {
                     onChangeText={(text) => {
                         handleChangeText('address', text)
                     }}
-                    style={[styles.SectionStyle, !addressValidate ? styles.error : null]}
+                    style={[styles.SectionStyle, addressValidate ? styles.okTextInput : null]}
                     autoCapitalize="none"
                 />
                 <Text style={styles.textInputTitle}>Telefono:</Text>
@@ -118,7 +111,7 @@ function UserForm(props) {
                     onChangeText={(text) => {
                         handleChangeText('phone', text)
                     }}
-                    style={[styles.SectionStyle, !phoneValidate ? styles.error : null]}
+                    style={[styles.SectionStyle, phoneValidate ? styles.okTextInput : null]}
                     autoCapitalize="none"
                 />
                 <Text style={styles.textInputTitle}>Email:</Text>
@@ -127,7 +120,7 @@ function UserForm(props) {
                     onChangeText={(text) => {
                         handleChangeText('email', text)
                     }}
-                    style={[styles.SectionStyle, !emailValidate ? styles.error : null]}
+                    style={[styles.SectionStyle, emailValidate ? styles.okTextInput : null]}
                     keyboardType="email-address"
                     textContentType="emailAddress"
                     autoCompleteType="email"
@@ -159,7 +152,8 @@ const mapDispatchToProps = (dispatch) =>
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#000000",
+        justifyContent: 'center',
+        backgroundColor: '#000000',
     },
     fieldsContainer: {
         backgroundColor: "#000000",
@@ -168,16 +162,17 @@ const styles = StyleSheet.create({
     },
     titleContainer: {
         alignItems: "flex-start",
-        marginTop: 30,
-        marginLeft: 10,
+        marginTop: -100,
+        marginLeft: 15,
         fontFamily: 'Roboto',
     },
     titleText: {
         textAlign: "left",
-        fontSize: 26,
-        fontWeight: "600",
+        fontSize: 22,
+        fontWeight: "700",
+        color: 'white',
+        fontFamily: 'Roboto',
         lineHeight: 27,
-        color: '#FFFFFF',
         marginBottom: 60,
     },
     SectionStyle: {
@@ -192,11 +187,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         margin: 10,
         bottom: 8,
+        padding: 5,
     },
     textInputTitle: {
         width: 340,
         textAlign: 'left',
-        fontSize: 21,
+        fontSize: 20,
         lineHeight: 20,
         fontStyle: 'normal',
         fontWeight: 'normal',
@@ -205,7 +201,7 @@ const styles = StyleSheet.create({
     },
     button: {
         marginTop: 50,
-        width: 370,
+        width: 340,
         height: 60,
         backgroundColor: "#FBBD40",
         color: "#000",
@@ -222,7 +218,20 @@ const styles = StyleSheet.create({
         alignItems: "center",
         fontFamily: 'Roboto',
     },
-    error: {
+    okTextInput: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        borderWidth: 2,
+        borderColor: 'green',
+        height: 40,
+        width: 340,
+        borderRadius: 5,
+        margin: 10,
+        bottom: 8,
+    },
+    errorInputText: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
