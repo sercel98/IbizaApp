@@ -1,15 +1,9 @@
-import React, { useState } from "react";
-import {
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { connect } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
-import { bindActionCreators } from "redux";
-import { emptyCart, removeItem } from "../actions/cartActions";
+import React, {useState} from "react";
+import {StyleSheet, Text, TextInput, TouchableOpacity, View,} from "react-native";
+import {connect} from "react-redux";
+import {useNavigation} from "@react-navigation/native";
+import {bindActionCreators} from "redux";
+import {emptyCart, removeItem} from "../actions/cartActions";
 import Loader from "../shared/loader";
 import orderService from "../services/orderService";
 
@@ -50,7 +44,7 @@ function UserForm(props) {
   };
 
   const validateText = (componentName, text) => {
-    const nameRule = /^\s*[a-zA-Z,\s]+\s*$/;
+    const nameRule = /^\s*[a-zA-Z-ZÀ-ÿ,\s]+\s*$/;
     const phoneRule = /^([0-9]( |-)?)?(\(?[0-9]{3}\)?|[0-9]{3})( |-)?([0-9]{3}( |-)?[0-9]{4}|[a-zA-Z0-9]{7})$/;
     const emailRule = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
     if (componentName === "names") {
