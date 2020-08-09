@@ -4,20 +4,15 @@ import { useNavigation } from "@react-navigation/native";
 
 function OrderItem(props) {
   const { orderItem, index } = props;
+  const { total } = props;
   const navigation = useNavigation();
   const onPress = () => {
     navigation.navigate("OrderDetail", {
       orderItem,
+      total,
     });
   };
 
-  const calculateTotal = (products) => {
-    let total = 0;
-    products.forEach((item) => {
-      total += item.product.price * item.quantity;
-    });
-    return total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  };
   return (
     <View style={styles.container}>
       <View style={styles.orderItemCard}>
@@ -25,9 +20,7 @@ function OrderItem(props) {
           <Text style={styles.orderText}>{orderItem.names}</Text>
           <Text style={styles.orderSubtext}>{orderItem.address}</Text>
           <Text style={styles.orderSubtext}>{orderItem.phone}</Text>
-          <Text style={styles.orderText}>
-            Total: ${calculateTotal(orderItem.products)}
-          </Text>
+          <Text style={styles.orderText}>Total: ${total}</Text>
         </View>
         <View style={styles.buttonColumn}>
           <TouchableOpacity onPress={onPress} style={styles.viewOrderButton}>

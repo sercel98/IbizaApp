@@ -69,7 +69,9 @@ class OrderDetail extends Component {
   render() {
     const { route } = this.props;
     const { orderItem } = route.params;
+    const { total } = route.params;
     const { products } = orderItem;
+
     return (
       <View style={styles.container}>
         <TextTitle textBody="Detalles del pedido" />
@@ -123,6 +125,10 @@ class OrderDetail extends Component {
               }
               renderItem={this.renderItem}
             />
+
+            <Text style={[styles.textLabel, styles.textTotal]}>
+              Total: ${total}{" "}
+            </Text>
           </View>
 
           <View style={styles.options}>
@@ -195,9 +201,16 @@ const styles = StyleSheet.create({
   clientInfo: {
     alignItems: "flex-start",
   },
+  textTotal: {
+    fontSize: 20,
+    fontWeight: "700",
+    textAlign: "right",
+    marginTop: 5,
+  },
   orderSubtitle: {
     fontSize: 20,
     fontWeight: "700",
+    marginBottom: 5
   },
   clientInfoLabel: {
     fontSize: 16,
@@ -220,7 +233,7 @@ const styles = StyleSheet.create({
   productsRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginVertical: 15,
+    marginTop: 15,
   },
   options: { width: "100%", marginTop: 15, marginBottom: 15 },
   optionsRow: {
@@ -235,10 +248,12 @@ const styles = StyleSheet.create({
     height: 55,
     alignItems: "center",
     justifyContent: "center",
+    width: "47.5%",
+
     marginRight: "2.5%",
   },
   btnTextOption: {
-    fontSize: 18,
+    fontSize: 16,
     color: "white",
     textAlign: "center",
   },
@@ -260,7 +275,6 @@ const styles = StyleSheet.create({
     height: 55,
     width: "100%",
     alignItems: "center",
-    marginTop: "2.5%",
   },
   btnConfirmarText: {
     fontSize: 22,

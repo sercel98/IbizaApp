@@ -24,8 +24,19 @@ class Orders extends React.Component {
       loading: false,
     });
   }
+
+  calculateTotal = (products) => {
+    let total = 0;
+    products.forEach((item) => {
+      total += item.product.price * item.quantity;
+    });
+    return total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
+
   renderOrderItems = ({ item }) => {
-    return <OrderItem orderItem={item} />;
+    console.log(item);
+    const total = this.calculateTotal(item.products);
+    return <OrderItem orderItem={item} total={total} />;
   };
 
   render() {
