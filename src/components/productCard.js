@@ -1,7 +1,7 @@
 import React from "react";
-import { StyleSheet, View, Dimensions, TouchableOpacity } from "react-native";
+import {Dimensions, StyleSheet, TouchableOpacity, View} from "react-native";
 import AsyncImage from "../shared/AsyncImage";
-import { useNavigation } from "@react-navigation/native";
+import {useNavigation} from "@react-navigation/native";
 
 const screenWidth = Dimensions.get("window").width;
 const numColumns = screenWidth < 992 ? 3 : 4;
@@ -21,13 +21,13 @@ function ProductCard(props) {
   }
 
   return (
-    <TouchableOpacity onPress={onPress} style={styles.container}>
-      <AsyncImage
-        image={product.image}
-        folder={"products"}
-        style={styles.image}
-      ></AsyncImage>
-    </TouchableOpacity>
+      <TouchableOpacity onPress={onPress} style={styles.container}>
+        <AsyncImage
+            image={product.image}
+            folder={"products"}
+            style={styles.image}
+        />
+      </TouchableOpacity>
   );
 }
 

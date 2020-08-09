@@ -23,20 +23,11 @@ por un total de ${amount} pesos
     },
   });
 }
-Notifications.addListener((notification) => {
-  console.log("Notifications listener -> ", {
-    data: {
-      id: notification.data.id,
-    },
-    origin: notification.origin,
-  });
-});
 export const processOrderNotification = async (order) => {
   const exitsId = (await AsyncStorage.getItem(order.id)) ? true : false;
   if (!exitsId) {
     //TODO validate notification order.createAt with current date no greater than x day
     console.log((new Date() - order.createdAt) / (1000 * 60 * 60 * 60 * 24));
-    console.log(order);
     AsyncStorage.setItem(order.id, order.id);
     showNewOrderNotification(order);
   }

@@ -43,7 +43,7 @@ class OrderDetail extends Component {
 
   render() {
     const { navigation, route } = this.props;
-    const { orderItem } = route.params;
+    const orderItem = JSON.parse(route.params.orderItem);
     return (
       <View style={styles.container}>
         <TextTitle textBody="Detalles del pedido" />

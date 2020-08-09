@@ -41,7 +41,7 @@ export default class Products extends Component {
         renderItem={this.renderItem}
         numColumns={numColumns}
         showsHorizontalScrollIndicator={false}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={(item, index) => item.id}
       />
     );
   }

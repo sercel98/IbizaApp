@@ -7,7 +7,7 @@ function OrderItem(props) {
   const navigation = useNavigation();
   const onPress = () => {
     navigation.navigate("OrderDetail", {
-      orderItem,
+      orderItem: JSON.stringify(orderItem),
     });
   };
 
