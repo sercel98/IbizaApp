@@ -1,7 +1,7 @@
 import { LOGIN, LOGOUT } from "./types";
 export const login = () => ({
-    type: LOGIN
+  type: LOGIN,
 });
 export const logout = () => ({
-    type: LOGOUT
+  type: LOGOUT,
 });

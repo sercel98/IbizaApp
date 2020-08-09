@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, StyleSheet,  View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import OrderItem from "../components/orderItem";

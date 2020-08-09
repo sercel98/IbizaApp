@@ -1,14 +1,13 @@
-import getCategories from '../../assets/categories';
+import getCategories from "../../assets/categories";
 
 class CategoryService {
+  constructor() {
+    this._categories = getCategories();
+  }
 
-	constructor() {
-		this._categories = getCategories();
-	}
-
-	get categories() {
-		return this._categories;
-	}
+  get categories() {
+    return this._categories;
+  }
 }
 
 const categoryService = new CategoryService();

@@ -3,7 +3,6 @@ import {
   Text,
   StyleSheet,
   View,
-  Dimensions,
   TouchableOpacity,
 } from "react-native";
 import { connect } from "react-redux";
@@ -138,7 +137,6 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto",
   },
   orderContainer: {
-
     alignItems: "flex-start",
     backgroundColor: "#191919",
     borderRadius: 5,
@@ -189,25 +187,24 @@ const styles = StyleSheet.create({
     padding: 10,
     height: 55,
     alignItems: "center",
-    justifyContent: "center", 
+    justifyContent: "center",
     marginRight: "2.5%",
   },
   btnTextOption: {
     fontSize: 18,
     color: "white",
-    textAlign: 'center'
+    textAlign: "center",
   },
   btnContactar: {
     backgroundColor: "#BC4B51",
     borderRadius: 10,
     borderWidth: 1,
     alignItems: "center",
-    justifyContent: "center", 
+    justifyContent: "center",
     padding: 10,
     marginLeft: "2.5%",
     height: 55,
     width: "47.5%",
-    
   },
   btnConfirmar: {
     backgroundColor: "#FBBD40",
@@ -221,8 +218,7 @@ const styles = StyleSheet.create({
   btnConfirmarText: {
     fontSize: 22,
     color: "white",
-    textAlign: 'center'
-
+    textAlign: "center",
   },
 });
 

@@ -6,7 +6,6 @@ import { Ionicons } from "@expo/vector-icons";
 import { color } from "react-native-reanimated";
 import { TouchableOpacity } from "react-native-gesture-handler";
 
-
 function CartItemDetail(props) {
   const { productItem } = props;
 
