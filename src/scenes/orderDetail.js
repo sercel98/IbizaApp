@@ -67,11 +67,8 @@ class OrderDetail extends Component {
   };
 
   render() {
-    const { route } = this.props;
-    const { orderItem } = route.params;
-    const { total } = route.params;
-    const { products } = orderItem;
-
+    const { navigation, route } = this.props;
+    const orderItem = JSON.parse(route.params.orderItem);
     return (
       <View style={styles.container}>
         <TextTitle textBody="Detalles del pedido" />
@@ -210,7 +207,7 @@ const styles = StyleSheet.create({
   orderSubtitle: {
     fontSize: 20,
     fontWeight: "700",
-    marginBottom: 5
+    marginBottom: 5,
   },
   clientInfoLabel: {
     fontSize: 16,
