@@ -1,12 +1,12 @@
 import React, {Component} from "react";
-import {Dimensions, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Dimensions, StyleSheet, Text, View} from "react-native";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
 import {addToCart, removeItem} from "../actions/cartActions";
 import AsyncImage from '../shared/AsyncImage';
 import {Button} from 'react-native-paper';
-import {AntDesign, Ionicons} from '@expo/vector-icons';
-import {FancyAlert} from 'react-native-expo-fancy-alerts';
+import {AntDesign} from '@expo/vector-icons';
+import AwesomeAlert from "react-native-awesome-alerts";
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -46,8 +46,8 @@ class ProductDetail extends Component {
 
   closeAlert = () => {
     const { navigation } = this.props;
-    this.setState({ visible: false })
-    navigation.goBack();
+    this.setState({visible: false})
+    navigation.navigate("Home");
   }
 
   formatProductPrice = (number) => {
@@ -63,27 +63,25 @@ class ProductDetail extends Component {
     //console.log(route.params.productItem);
     return (
         <View style={styles.container}>
-          <FancyAlert
-              visible={this.state.visible}
-              icon={
-                <View style={[alertStyles.icon, {borderRadius: 32}]}>
-                  <Ionicons
-                      name={Platform.select({ios: 'ios-checkmark', android: 'md-checkmark'})}
-                      size={36}
-                      color="#FFFFFF"
-                  />
-                </View>
-              }
-              style={{backgroundColor: 'white'}}
-          >
-            <View style={alertStyles.content}>
-              <Text style={alertStyles.contentText}>Se ha añadido un nuevo producto al carrito</Text>
-              <TouchableOpacity style={alertStyles.btn} onPress={this.closeAlert}>
-                <Text style={alertStyles.btnText}>OK</Text>
-              </TouchableOpacity>
-            </View>
-          </FancyAlert>
-
+          <AwesomeAlert
+              show={this.state.visible}
+              title="Agregado"
+              message="Este item ha sido agregado a tu carrito"
+              closeOnTouchOutside={true}
+              closeOnHardwareBackPress={true}
+              showConfirmButton={true}
+              confirmText="Ok"
+              confirmButtonColor="green"
+              overlayStyle={alertStyles.alertContainer}
+              titleStyle={alertStyles.alertTitleText}
+              confirmButtonTextStyle={alertStyles.alertButtonText}
+              onConfirmPressed={() => {
+                this.closeAlert();
+              }}
+              onDismiss={() => {
+                this.closeAlert();
+              }}
+          />
           <View style={styles.product}>
             <AsyncImage style={styles.image} image={product.image} folder={'products'}></AsyncImage>
           </View>
@@ -130,7 +128,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    backgroundColor: "#ccc",
     justifyContent: "space-around",
     alignItems: "center",
     paddingVertical: 30,
@@ -196,7 +193,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 26,
     fontWeight: 'bold',
-    textAlign: 'center',
     color: '#FFF',
   },
   quantityContainer: {
@@ -274,6 +270,22 @@ const alertStyles = StyleSheet.create({
   },
   btnText: {
     color: '#FFFFFF',
+  },
+  alertTitleText: {
+    fontSize: 25,
+    fontWeight: "700",
+    fontFamily: 'Roboto',
+    lineHeight: 27,
+  },
+  alertButtonText: {
+    fontSize: 22,
+    fontWeight: "500",
+    fontFamily: 'Roboto',
+    lineHeight: 27,
+  },
+  alertContainer: {
+    height: '100%',
+    width: '100%',
   },
 });
 

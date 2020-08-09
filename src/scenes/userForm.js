@@ -28,14 +28,12 @@ function UserForm(props) {
                 setLoading(true);
                 const orderId = await orderService.save(userInfo);
                 emptyCart();
-                alert('Pedido tomado con exito');
-                navigation.navigate('Cart');
+                setShowSuccessAlert(true);
             }
         } catch (e) {
             console.log(e);
         }
         setLoading(false);
-        setShowErrorAlert(false);
     }
 
     const setErrorTextInputStyle = (componentId) => {
@@ -65,7 +63,7 @@ function UserForm(props) {
                 setPhoneValidate(false);
             }
         } else if (componentName === 'email') {
-            if (emailRule.test(text) || text === '') {
+            if (emailRule.test(text)) {
                 setEmailValidate(true);
             } else {
                 setEmailValidate(false);
@@ -80,42 +78,53 @@ function UserForm(props) {
         setUserInfo(newUserInfo);
     }
 
-    const muestraNoti = () => {
-        return (
-            <AwesomeAlert
-                show={true}
-                title="Faltó algo..."
-                message="Debes llenar todos los campos"
-                closeOnTouchOutside={false}
-                closeOnHardwareBackPress={false}
-                showConfirmButton={true}
-                confirmText="Lo validaré..."
-                confirmButtonColor="orange"
-                onConfirmPressed={() => {
-                    hideErrorAlert();
-                }}
-            />
-        )
-    }
-
     const hideErrorAlert = () => {
         setShowErrorAlert(false);
+    }
+
+    const hideSuccessAlert = () => {
+        setShowSuccessAlert(false);
+        navigation.navigate('Cart');
     }
 
     return (
         <View style={styles.container}>
             <Loader loading={isLoading}/>
             <AwesomeAlert
+                show={showSuccessAlert}
+                title="Hecho"
+                message="Tu pedido ha sido realizado con exito"
+                closeOnTouchOutside={true}
+                closeOnHardwareBackPress={true}
+                showConfirmButton={true}
+                confirmText="Vale"
+                confirmButtonColor="green"
+                overlayStyle={styles.alertContainer}
+                titleStyle={styles.alertTitleText}
+                confirmButtonTextStyle={styles.alertButtonText}
+                onConfirmPressed={() => {
+                    hideSuccessAlert();
+                }}
+                onDismiss={() => {
+                    hideSuccessAlert();
+                }}
+            />
+            <AwesomeAlert
                 show={showErrorAlert}
                 title="te faltó algo..."
                 message="Debes llenar todos los campos"
-                closeOnTouchOutside={false}
-                closeOnHardwareBackPress={false}
-                on
+                closeOnTouchOutside={true}
+                closeOnHardwareBackPress={true}
                 showConfirmButton={true}
-                confirmText="Lo validaré..."
+                confirmText="Ok"
                 confirmButtonColor="orange"
+                overlayStyle={styles.alertContainer}
+                titleStyle={styles.alertTitleText}
+                confirmButtonTextStyle={styles.alertButtonText}
                 onConfirmPressed={() => {
+                    hideErrorAlert();
+                }}
+                onDismiss={() => {
                     hideErrorAlert();
                 }}
             />
@@ -208,7 +217,7 @@ const styles = StyleSheet.create({
     },
     titleText: {
         textAlign: "left",
-        fontSize: 22,
+        fontSize: 25,
         fontWeight: "700",
         color: 'white',
         fontFamily: 'Roboto',
@@ -283,6 +292,22 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         margin: 10,
         bottom: 8,
+    },
+    alertTitleText: {
+        fontSize: 25,
+        fontWeight: "700",
+        fontFamily: 'Roboto',
+        lineHeight: 27,
+    },
+    alertButtonText: {
+        fontSize: 22,
+        fontWeight: "500",
+        fontFamily: 'Roboto',
+        lineHeight: 27,
+    },
+    alertContainer: {
+        height: '100%',
+        width: '100%',
     },
 });
 
