@@ -1,5 +1,11 @@
 import React, { Component } from "react";
-import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
+import {
+  Text,
+  StyleSheet,
+  Linking,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { addToCart, removeItem } from "../actions/cartActions";
@@ -9,6 +15,7 @@ import TextTitle from "./../components/textTitle";
 class OrderDetail extends Component {
   constructor(props) {
     super(props);
+    console.log(props);
   }
 
   keyExtractor = (item, index) => index.toString();
@@ -41,9 +48,28 @@ class OrderDetail extends Component {
     );
   };
 
+  cancelOrder = (id) => {
+    console.log(id);
+  };
+
+  confirmOrder = (id) => {
+    console.log(id);
+  };
+
+  contactBuyer = async (phone) => {
+    const route = "https://wa.me/57" + phone;
+    const supported = await Linking.canOpenURL(route);
+    if (supported) {
+      await Linking.openURL(route);
+    } else {
+      alert("El número provisto por el usuario no es válido para contactarse");
+    }
+  };
+
   render() {
-    const { navigation, route } = this.props;
+    const { route } = this.props;
     const { orderItem } = route.params;
+    const { products } = orderItem;
     return (
       <View style={styles.container}>
         <TextTitle textBody="Detalles del pedido" />
@@ -90,7 +116,7 @@ class OrderDetail extends Component {
             </View>
 
             <FlatList
-              data={orderItem.products}
+              data={products}
               style={styles.productsList}
               keyExtractor={(item, index) =>
                 item.id + item.product.id.toString()
@@ -104,10 +130,16 @@ class OrderDetail extends Component {
               Opciones
             </Text>
             <View style={styles.optionsRow}>
-              <TouchableOpacity style={styles.btnCancelarPedido}>
+              <TouchableOpacity
+                onPress={() => cancelOrder(orderItem.id)}
+                style={styles.btnCancelarPedido}
+              >
                 <Text style={styles.btnTextOption}>Cancelar pedido</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.btnContactar}>
+              <TouchableOpacity
+                onPress={() => this.contactBuyer(orderItem.phone)}
+                style={styles.btnContactar}
+              >
                 <Text style={styles.btnTextOption}>Contactar comprador</Text>
               </TouchableOpacity>
             </View>
@@ -118,7 +150,10 @@ class OrderDetail extends Component {
                 alignItems: "center",
               }}
             >
-              <TouchableOpacity style={styles.btnConfirmar}>
+              <TouchableOpacity
+                onPress={() => confirmOrder(orderItem.id)}
+                style={styles.btnConfirmar}
+              >
                 <Text style={styles.btnConfirmarText}>Confirmar envío</Text>
               </TouchableOpacity>
             </View>

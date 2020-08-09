@@ -21,7 +21,7 @@ function OrderItem(props) {
   return (
     <View style={styles.container}>
       <View style={styles.orderItemCard}>
-        <View>
+        <View style={styles.textColumn}>
           <Text style={styles.orderText}>{orderItem.names}</Text>
           <Text style={styles.orderSubtext}>{orderItem.address}</Text>
           <Text style={styles.orderSubtext}>{orderItem.phone}</Text>
@@ -29,7 +29,7 @@ function OrderItem(props) {
             Total: ${calculateTotal(orderItem.products)}
           </Text>
         </View>
-        <View>
+        <View style={styles.buttonColumn}>
           <TouchableOpacity onPress={onPress} style={styles.viewOrderButton}>
             <Text style={styles.orderButtonText}>Ver pedido</Text>
           </TouchableOpacity>
@@ -41,7 +41,7 @@ function OrderItem(props) {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 12,
+    marginHorizontal: 6,
     marginVertical: 5,
     flexDirection: "row",
     alignItems: "center",
@@ -66,16 +66,19 @@ const styles = StyleSheet.create({
     color: "gray",
     fontSize: 16,
   },
+  textColumn: { width: "70%" },
+  buttonColumn: { width: "30%" },
   viewOrderButton: {
     backgroundColor: "#FBBD40",
     borderRadius: 10,
     borderWidth: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 10,
+    padding: 8,
   },
   orderButtonText: {
-    fontSize: 18,
+    fontSize: 16,
+    fontWeight: "700",
   },
 });
 

@@ -52,14 +52,6 @@ const styles = StyleSheet.create({
   ordersList: {
     marginLeft: 15,
   },
-  ordersTitle: {
-    marginTop: 16,
-    marginLeft: 21,
-    fontSize: 22,
-    fontWeight: "700",
-    color: "white",
-    fontFamily: "Roboto",
-  },
 });
 
 const mapStateToProps = (state) => {
