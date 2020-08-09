@@ -46,9 +46,19 @@ class Login extends React.Component {
     const video = Asset.fromModule(
       require("../../assets/videos/splashVideo.mp4")
     ).uri;
-
     return (
       <View style={styles.container}>
+        {/*<View>
+					<Video source={{uri: "../../assets/videos/splashVideo.mp4"}}
+						   ref={(ref) => {
+							   this.player = ref
+						   }}                                      // Store reference
+						   onBuffer={this.onBuffer}                // Callback when remote video is buffering
+						   onEnd={this.onEnd}                      // Callback when playback finishes
+						   onError={this.videoError}               // Callback when video cannot be loaded
+						   style={styles.backgroundVideo} />
+				</View>*/}
+
         <Loader loading={isLoading} />
         {this.state.errorMessage && (
           <Text style={styles.textError}>{this.state.errorMessage}</Text>
