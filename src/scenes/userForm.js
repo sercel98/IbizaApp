@@ -6,6 +6,7 @@ import {bindActionCreators} from "redux";
 import {emptyCart, removeItem} from "../actions/cartActions";
 import Loader from '../shared/loader'
 import orderService from "../services/orderService"
+import AwesomeAlert from "react-native-awesome-alerts";
 
 function UserForm(props) {
     const [userInfo, setUserInfo] = useState({});
@@ -14,12 +15,14 @@ function UserForm(props) {
     const [addressValidate, setAddressValidate] = useState(false);
     const [phoneValidate, setPhoneValidate] = useState(false);
     const [emailValidate, setEmailValidate] = useState(false);
+    const [showErrorAlert, setShowErrorAlert] = useState(false);
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const navigation = useNavigation();
     const {cartItems, emptyCart} = props;
     const handlePressSend = async () => {
         try {
             if (!namesValidate || !addressValidate || !phoneValidate || !emailValidate) {
-                alert('Debes llenar todos los campos!');
+                setShowErrorAlert(true);
             } else {
                 userInfo.products = cartItems;
                 setLoading(true);
@@ -32,6 +35,7 @@ function UserForm(props) {
             console.log(e);
         }
         setLoading(false);
+        setShowErrorAlert(false);
     }
 
     const setErrorTextInputStyle = (componentId) => {
@@ -39,7 +43,7 @@ function UserForm(props) {
     }
 
     const validateText = (componentName, text) => {
-        const nameRule = /^\s*[a-zA-Z,\s]+\s*$/
+        const nameRule = /^\s*[a-zA-Z-ZÀ-ÿ,\s]+\s*$/
         const phoneRule = /^([0-9]( |-)?)?(\(?[0-9]{3}\)?|[0-9]{3})( |-)?([0-9]{3}( |-)?[0-9]{4}|[a-zA-Z0-9]{7})$/
         const emailRule = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
         if (componentName === 'names') {
@@ -76,9 +80,45 @@ function UserForm(props) {
         setUserInfo(newUserInfo);
     }
 
+    const muestraNoti = () => {
+        return (
+            <AwesomeAlert
+                show={true}
+                title="Faltó algo..."
+                message="Debes llenar todos los campos"
+                closeOnTouchOutside={false}
+                closeOnHardwareBackPress={false}
+                showConfirmButton={true}
+                confirmText="Lo validaré..."
+                confirmButtonColor="orange"
+                onConfirmPressed={() => {
+                    hideErrorAlert();
+                }}
+            />
+        )
+    }
+
+    const hideErrorAlert = () => {
+        setShowErrorAlert(false);
+    }
+
     return (
         <View style={styles.container}>
             <Loader loading={isLoading}/>
+            <AwesomeAlert
+                show={showErrorAlert}
+                title="te faltó algo..."
+                message="Debes llenar todos los campos"
+                closeOnTouchOutside={false}
+                closeOnHardwareBackPress={false}
+                on
+                showConfirmButton={true}
+                confirmText="Lo validaré..."
+                confirmButtonColor="orange"
+                onConfirmPressed={() => {
+                    hideErrorAlert();
+                }}
+            />
             <View style={styles.titleContainer}>
                 <Text style={styles.titleText}>Datos de envio</Text>
             </View>

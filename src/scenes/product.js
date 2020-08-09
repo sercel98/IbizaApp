@@ -1,13 +1,12 @@
-import React, { Component } from "react";
-import { Text, StyleSheet, View, Dimensions, TouchableOpacity, Platform } from "react-native";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { addToCart, removeItem } from "../actions/cartActions";
+import React, {Component} from "react";
+import {Dimensions, Platform, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {addToCart, removeItem} from "../actions/cartActions";
 import AsyncImage from '../shared/AsyncImage';
-import { Button } from 'react-native-paper';
-import { AntDesign } from '@expo/vector-icons';
-import { FancyAlert } from 'react-native-expo-fancy-alerts';
-import { Ionicons } from '@expo/vector-icons';
+import {Button} from 'react-native-paper';
+import {AntDesign, Ionicons} from '@expo/vector-icons';
+import {FancyAlert} from 'react-native-expo-fancy-alerts';
 
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
@@ -131,7 +130,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    alignItems: 'center',
     backgroundColor: "#ccc",
     justifyContent: "space-around",
     alignItems: "center",
@@ -273,7 +271,6 @@ const alertStyles = StyleSheet.create({
     marginTop: 16,
     minWidth: '50%',
     fontFamily: 'Roboto',
-    paddingHorizontal: 16,
   },
   btnText: {
     color: '#FFFFFF',
