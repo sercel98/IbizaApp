@@ -12,7 +12,7 @@ class OrderService {
     return this.db.collection(this.ORDERS_COLLECTIONS);
   }
   getOrdersCollectionQuery() {
-    return this.getOrdersCollection().orderBy("createdAt", "desc");
+    return this.getOrdersCollection().orderBy("createdAt", "asc");
   }
 
   async save(order) {
