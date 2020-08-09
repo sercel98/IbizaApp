@@ -1,16 +1,9 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  TextInput,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View,} from "react-native";
 import firebaseClient from "../services/firebaseClient";
 import Loader from "../shared/loader";
-import { Video } from "expo-av";
-import { Asset } from "expo-asset";
+//import { Video } from "expo-av";
+import {Asset} from "expo-asset";
 
 class Login extends React.Component {
   state = {
