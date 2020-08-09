@@ -1,8 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { AntDesign } from "@expo/vector-icons";
-import moment from "moment";
 
 function OrderItem(props) {
   const { orderItem, index } = props;
@@ -20,26 +18,6 @@ function OrderItem(props) {
     });
     return total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
-
-  const calculateMinutes = (orderDate) => {
-    /*
-    console.log(orderDate.toDate( ));
-    
-    let now  = moment(new Date()).format("DD/MM/YYYY HH:mm:ss");
-    
-    //orderDate = moment(orderDate.toDate()).format("DD/MM/YYYY HH:mm:ss");
-
-    console.log(now);
-
-    let ms = moment(now,"DD/MM/YYYY HH:mm:ss").diff(moment(orderDate,"DD/MM/YYYY HH:mm:ss"));
-    console.log((ms/1000)/60)
-
-
-    return (ms/1000)/60;
-    */
-    return 12;
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.orderItemCard}>
@@ -57,12 +35,6 @@ function OrderItem(props) {
           </TouchableOpacity>
         </View>
       </View>
-      <View style={styles.timeContainer}>
-        <AntDesign name="clockcircleo" size={20} color="gray" />
-        <Text style={styles.timeText}>
-          Hace {calculateMinutes(orderItem.createdAt)} minutos
-        </Text>
-      </View>
     </View>
   );
 }
@@ -70,14 +42,14 @@ function OrderItem(props) {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 12,
-    marginVertical: 10,
+    marginVertical: 5,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
   },
   orderItemCard: {
     backgroundColor: "#191919",
-    width: "85%",
+    width: "100%",
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -95,7 +67,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   viewOrderButton: {
-    fontSize: 18,
     backgroundColor: "#FBBD40",
     borderRadius: 10,
     borderWidth: 1,
@@ -105,25 +76,6 @@ const styles = StyleSheet.create({
   },
   orderButtonText: {
     fontSize: 18,
-  },
-  timeContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    width: "15%",
-  },
-  timeText: {
-    color: "gray",
-    fontWeight: "300",
-    fontSize: 12,
-    marginTop: 5,
-  },
-  itemInvisible: {
-    backgroundColor: "transparent",
-  },
-  image: {
-    height: "100%", // approximate a square
-    width: "100%",
-    resizeMode: "cover",
   },
 });
 

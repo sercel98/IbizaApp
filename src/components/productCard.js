@@ -3,7 +3,6 @@ import { StyleSheet, View, Dimensions, TouchableOpacity } from "react-native";
 import AsyncImage from "../shared/AsyncImage";
 import { useNavigation } from "@react-navigation/native";
 
-const screenHeight = Dimensions.get("window").height;
 const screenWidth = Dimensions.get("window").width;
 const numColumns = screenWidth < 992 ? 3 : 4;
 

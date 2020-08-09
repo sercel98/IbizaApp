@@ -1,9 +1,10 @@
 import React from "react";
-import { FlatList, StyleSheet, ScrollView, Text, View } from "react-native";
+import { FlatList, StyleSheet, View } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import OrderItem from "../components/orderItem";
 import orderService from "../services/orderService";
+import TextTitle from "./../components/textTitle";
 
 class Orders extends React.Component {
   constructor(props) {
@@ -31,15 +32,13 @@ class Orders extends React.Component {
     const { orders } = this.props;
     return (
       <View style={styles.container}>
-        <ScrollView>
-          <Text style={styles.ordersTitle}>Mis Ordenes</Text>
-          <FlatList
-            style={styles.ordersList}
-            data={orders}
-            renderItem={this.renderOrderItems}
-            keyExtractor={(item, index) => item.id}
-          />
-        </ScrollView>
+        <TextTitle textBody="Mis Ordenes" />
+        <FlatList
+          style={styles.ordersList}
+          data={orders}
+          renderItem={this.renderOrderItems}
+          keyExtractor={(item, index) => item.id.toString()}
+        />
       </View>
     );
   }

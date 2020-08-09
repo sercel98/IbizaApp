@@ -1,15 +1,10 @@
 import React, { Component } from "react";
-import {
-  Text,
-  StyleSheet,
-  View,
-  Dimensions,
-  TouchableOpacity,
-} from "react-native";
+import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { addToCart, removeItem } from "../actions/cartActions";
 import { FlatList } from "react-native-gesture-handler";
+import TextTitle from "./../components/textTitle";
 
 class OrderDetail extends Component {
   constructor(props) {
@@ -31,57 +26,89 @@ class OrderDetail extends Component {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
 
+  keyExtractor = (item, index) => index.toString();
+
+  renderItem = ({ item, index }) => {
+    return (
+      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+        <Text style={[styles.textLabel, styles.orderValue]}>
+          {item.product.name}
+        </Text>
+        <Text style={[styles.textLabel, styles.orderValue]}>
+          {item.quantity}
+        </Text>
+      </View>
+    );
+  };
+
   render() {
     const { navigation, route } = this.props;
     const { orderItem } = route.params;
     return (
       <View style={styles.container}>
-        <Text style={styles.orderDetailTitle}>Detalles del pedido</Text>
-
+        <TextTitle textBody="Detalles del pedido" />
         <View style={styles.orderContainer}>
           <View style={styles.clientInfo}>
-            <Text style={styles.clientInfoTitle}>Información del cliente</Text>
+            <Text style={[styles.textLabel, styles.orderSubtitle]}>
+              Información del cliente
+            </Text>
             <View style={styles.clientInfoRow}>
-              <Text style={styles.clientInfoLabel}>Nombre: </Text>
-              <Text style={styles.clientInfoValue}>{orderItem.names} </Text>
+              <Text style={[styles.textLabel, styles.clientInfoLabel]}>
+                Nombre:
+              </Text>
+              <Text style={[styles.textLabel, styles.orderValue]}>
+                {orderItem.names}
+              </Text>
             </View>
             <View style={styles.clientInfoRow}>
-              <Text style={styles.clientInfoLabel}>Dirección: </Text>
-              <Text style={styles.clientInfoValue}>{orderItem.address}</Text>
+              <Text style={[styles.textLabel, styles.clientInfoLabel]}>
+                Dirección:
+              </Text>
+              <Text style={[styles.textLabel, styles.orderValue]}>
+                {orderItem.address}
+              </Text>
             </View>
             <View style={styles.clientInfoRow}>
-              <Text style={styles.clientInfoLabel}>Teléfono: </Text>
-              <Text style={styles.clientInfoValue}>{orderItem.phone}</Text>
+              <Text style={[styles.textLabel, styles.clientInfoLabel]}>
+                Teléfono:
+              </Text>
+              <Text style={[styles.textLabel, styles.orderValue]}>
+                {orderItem.phone}
+              </Text>
             </View>
           </View>
 
-          <View style={styles.productsRow}>
-            <Text style={styles.productsTitle}>Pedido</Text>
-            <Text style={styles.productsQuantityTitle}>Cantidad</Text>
+          <View style={styles.productInfo}>
+            <View style={styles.productsRow}>
+              <Text style={[styles.textLabel, styles.orderSubtitle]}>
+                Pedido
+              </Text>
+
+              <Text style={[styles.textLabel, styles.productsQuantityTitle]}>
+                Cantidad
+              </Text>
+            </View>
+
             <FlatList
-              style={styles.orderList}
-              data={orderItem.producs}
-              renderItem={this.renderProducts}
-              keyExtractor={this.keyExtractor}
+              data={orderItem.products}
+              style={styles.productsList}
+              keyExtractor={(item, index) =>
+                item.id + item.product.id.toString()
+              }
+              renderItem={this.renderItem}
             />
           </View>
 
           <View style={styles.options}>
-            <Text style={styles.optionsTitle}>Opciones</Text>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-evenly",
-                marginTop: 10,
-              }}
-            >
+            <Text style={[styles.textLabel, styles.orderSubtitle]}>
+              Opciones
+            </Text>
+            <View style={styles.optionsRow}>
               <TouchableOpacity style={styles.btnCancelarPedido}>
                 <Text style={styles.btnTextOption}>Cancelar pedido</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.btnContactar}>
-                <Text numberOfLines={2} style={styles.btnTextOption}>
-                  {`Contactarse con \nel comprador`}
-                </Text>
+                <Text style={styles.btnTextOption}>Contactar comprador</Text>
               </TouchableOpacity>
             </View>
             <View
@@ -92,7 +119,7 @@ class OrderDetail extends Component {
               }}
             >
               <TouchableOpacity style={styles.btnConfirmar}>
-                <Text style={styles.btnConfirmarText}>Completar envío</Text>
+                <Text style={styles.btnConfirmarText}>Confirmar envío</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -114,117 +141,96 @@ const mapDispatchToProps = (dispatch) =>
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 16,
+    paddingVertical: 30,
     backgroundColor: "black",
   },
-  orderDetailTitle: {
+  textLabel: {
     color: "white",
-    fontSize: 24,
-    fontWeight: "700",
     fontFamily: "Roboto",
   },
   orderContainer: {
-    flex: 1,
-    marginHorizontal: 6,
+    alignItems: "flex-start",
     backgroundColor: "#191919",
     borderRadius: 5,
     borderWidth: 1,
-    padding: 14,
+    padding: 12,
     flexDirection: "column",
+    marginHorizontal: 21,
   },
   clientInfo: {
     alignItems: "flex-start",
   },
-  clientInfoTitle: {
-    color: "white",
+  orderSubtitle: {
     fontSize: 20,
     fontWeight: "700",
-    fontFamily: "Roboto",
   },
   clientInfoLabel: {
-    color: "white",
     fontSize: 16,
     fontWeight: "700",
-    fontFamily: "Roboto",
+    marginRight: 5,
   },
-  clientInfoValue: {
-    color: "white",
+  orderValue: {
     fontSize: 16,
     fontWeight: "300",
-    fontFamily: "Roboto",
   },
   clientInfoRow: {
     flexDirection: "row",
   },
-  productsTitle: {
-    color: "white",
-    fontSize: 20,
-    fontWeight: "700",
-    fontFamily: "Roboto",
-  },
   productsQuantityTitle: {
-    color: "white",
     fontSize: 20,
-    fontFamily: "Roboto",
+  },
+  productInfo: {
+    width: "100%",
   },
   productsRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 15,
+    marginVertical: 15,
   },
-  optionsRow: {
-    marginTop: 15,
-    flexDirection: "row",
-  },
-  optionsTitle: {
-    color: "white",
-    fontSize: 20,
-    fontWeight: "700",
-    fontFamily: "Roboto",
-  },
+  options: { width: "100%", marginTop: 15, marginBottom: 15 },
   optionsRow: {
     flexDirection: "row",
-    flex: 1,
+    marginVertical: "2.5%",
   },
   btnCancelarPedido: {
     backgroundColor: "gray",
     borderRadius: 10,
     borderWidth: 1,
     padding: 10,
-
+    height: 55,
     alignItems: "center",
     justifyContent: "center",
+    marginRight: "2.5%",
   },
   btnTextOption: {
-    fontSize: 16,
-    color: "black",
-    fontWeight: "700",
+    fontSize: 18,
+    color: "white",
     textAlign: "center",
   },
   btnContactar: {
-    backgroundColor: "#FBBD40",
+    backgroundColor: "#BC4B51",
     borderRadius: 10,
     borderWidth: 1,
-    padding: 10,
     alignItems: "center",
     justifyContent: "center",
+    padding: 10,
+    marginLeft: "2.5%",
+    height: 55,
+    width: "47.5%",
   },
   btnConfirmar: {
-    backgroundColor: "red",
+    backgroundColor: "#FBBD40",
     borderRadius: 10,
-    borderWidth: 1,
     padding: 10,
-    width: "90%",
+    height: 55,
+    width: "100%",
     alignItems: "center",
-    justifyContent: "center",
+    marginTop: "2.5%",
   },
   btnConfirmarText: {
-    fontSize: 20,
+    fontSize: 22,
     color: "white",
-    fontWeight: "700",
-  },
-  options: {
-    flexDirection: "column",
+    textAlign: "center",
   },
 });
 
