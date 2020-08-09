@@ -30,7 +30,7 @@ function CartItemDetail(props) {
 
   return (
     <View style={styles.container}>
-      <View style={{ justifyContent: "flex-start" }}>
+      <View style={{ width: "25%" }}>
         <AsyncImage
           style={styles.cartItemDetailImage}
           image={productItem.product.image}
@@ -54,7 +54,7 @@ function CartItemDetail(props) {
           </View>
 
           <TouchableOpacity style={styles.editButton} onPress={onEdit}>
-            <Text style={styles.editTextButton}>EDITAR</Text>
+            <Text style={styles.editTextButton}>Editar</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -65,14 +65,15 @@ function CartItemDetail(props) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    marginVertical: 15,
+    marginVertical: 10,
     borderTopRightRadius: 10,
     borderBottomRightRadius: 10,
     justifyContent: "center",
-    marginHorizontal: 5,
+    marginHorizontal: 12,
+    maxHeight: 100,
   },
   cartItemDetailTextContainer: {
-    width: "65%",
+    width: "75%",
     paddingTop: 5,
     backgroundColor: "#191919",
     paddingLeft: 10,
@@ -110,8 +111,8 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto",
   },
   cartItemDetailImage: {
-    height: 100,
-    width: 100,
+    height: "100%",
+    width: "100%",
     borderBottomLeftRadius: 10,
     borderTopLeftRadius: 10,
   },
@@ -121,7 +122,7 @@ const styles = StyleSheet.create({
   editTextButton: {
     color: "#000",
     fontSize: 16,
-    fontWeight: "600",
+    fontWeight: "700",
     backgroundColor: "#FBBD40",
     padding: 10,
     borderRadius: 10,
@@ -130,7 +131,6 @@ const styles = StyleSheet.create({
   subtotalContainer: {
     justifyContent: "space-between",
     flexDirection: "row",
-    backgroundColor: "#191919",
   },
 });
 

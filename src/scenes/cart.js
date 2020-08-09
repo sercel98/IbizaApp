@@ -12,6 +12,7 @@ import { bindActionCreators } from "redux";
 import CartItemDetail from "../components/cartItemDetail";
 import { removeItem } from "../actions/cartActions";
 import { useNavigation } from "@react-navigation/native";
+import TextTitle from "../components/textTitle";
 
 function Cart(props) {
   const { cartItems } = props;
@@ -32,27 +33,32 @@ function Cart(props) {
 
   return (
     <View style={styles.container}>
-      <ScrollView>
-        <Text style={styles.cartDetailTitle}>Mi Pedido</Text>
-        <FlatList
-          style={styles.cartList}
-          data={cartItems}
-          renderItem={renderCartItem}
-          keyExtractor={keyExtractor}
-        />
-      </ScrollView>
-      <View style={styles.cartTotalContainer}>
-        <View style={styles.cartTotalInfo}>
-          <Text style={styles.cartTotalText}>Total sin envío</Text>
-          <Text style={styles.cartTotalValue}>${calculateTotal()}</Text>
+      <TextTitle textBody={"Mi pedido"} />
+      <FlatList
+        style={styles.cartList}
+        data={cartItems}
+        renderItem={renderCartItem}
+        keyExtractor={keyExtractor}
+      />
+
+      {cartItems.length !== 0 ? (
+        <View style={styles.cartTotalContainer}>
+          <View style={styles.cartTotalInfo}>
+            <Text style={styles.cartTotalText}>Total sin envío</Text>
+            <Text style={styles.cartTotalValue}>${calculateTotal()}</Text>
+          </View>
+          <TouchableOpacity
+            style={styles.userFormButton}
+            onPress={() => navigation.navigate("UserForm")}
+          >
+            <Text style={styles.userFormButtonText}>Realizar pedido</Text>
+          </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          style={styles.userFormButton}
-          onPress={() => navigation.navigate("UserForm")}
-        >
-          <Text style={styles.userFormButtonText}>Realizar pedido</Text>
-        </TouchableOpacity>
-      </View>
+      ) : (
+        <View style={styles.cartEmptyContainer}>
+          <Text style={styles.cartEmpty}>Agrega un producto al carrito!</Text>
+        </View>
+      )}
     </View>
   );
 }
@@ -100,6 +106,14 @@ const styles = StyleSheet.create({
     height: 100,
     padding: 15,
   },
+  cartEmptyContainer: {
+    flexDirection: "row",
+    backgroundColor: "#191919",
+    height: 100,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 15,
+  },
   cartTotalText: {
     fontSize: 22,
     fontWeight: "400",
@@ -111,6 +125,13 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: "white",
     fontFamily: "Roboto",
+  },
+  cartEmpty: {
+    fontSize: 24,
+    fontWeight: "600",
+    color: "white",
+    fontFamily: "Roboto",
+    textAlign: "center",
   },
   userFormButton: {
     backgroundColor: "#FBBD40",
