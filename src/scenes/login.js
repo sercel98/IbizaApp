@@ -1,9 +1,17 @@
 import React from "react";
-import {Image, StyleSheet, Text, TextInput, TouchableOpacity, View,} from "react-native";
+import {
+  Image,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import firebaseClient from "../services/firebaseClient";
 import Loader from "../shared/loader";
 //import { Video } from "expo-av";
-import {Asset} from "expo-asset";
+import { Asset } from "expo-asset";
+import AwesomeAlert from "react-native-awesome-alerts";
 
 class Login extends React.Component {
   state = {
@@ -11,6 +19,7 @@ class Login extends React.Component {
     password: "",
     errorMessage: null,
     isLoading: false,
+    showAlert: false,
   };
 
   constructor(props) {
@@ -27,10 +36,18 @@ class Login extends React.Component {
       );
       navigation.navigate("Orders");
     } catch (e) {
-      alert("Correo/Contraseña incorrecta");
+      this.showAlert();
       console.log(e);
     }
     this.setState({ isLoading: false });
+  };
+
+  hideAlert = () => {
+    this.setState({ showAlert: false });
+  };
+
+  showAlert = () => {
+    this.setState({showAlert: true})
   };
 
   render() {
@@ -50,7 +67,28 @@ class Login extends React.Component {
 						   onEnd={this.onEnd}                      // Callback when playback finishes
 						   onError={this.videoError}               // Callback when video cannot be loaded
 						   style={styles.backgroundVideo} />
-				</View>*/}
+        </View>*/}
+
+        <AwesomeAlert
+                show={this.state.showAlert}
+                title="Error al iniciar sesión"
+                message="usuario/contraseña incorrectos"
+                closeOnTouchOutside={true}
+                closeOnHardwareBackPress={true}
+                showConfirmButton={true}
+                confirmText="OK"
+                confirmButtonColor="orange"
+                overlayStyle={styles.alertContainer}
+                titleStyle={styles.alertTitleText}
+                confirmButtonTextStyle={styles.alertButtonText}
+                contentContainerStyle={styles.alertPopup}
+                onConfirmPressed={() => {
+                    this.hideAlert();
+                }}
+                onDismiss={() => {
+                    this.hideAlert();
+                }}
+            />
 
         <Loader loading={isLoading} />
         {this.state.errorMessage && (
@@ -179,6 +217,44 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
+  },
+  alertTitleText: {
+    fontSize: 25,
+    fontWeight: "700",
+    fontFamily: "Roboto",
+    lineHeight: 27,
+  },
+  alertButtonText: {
+    fontSize: 22,
+    fontWeight: "500",
+    fontFamily: "Roboto",
+    lineHeight: 27,
+  },
+  alertContainer: {
+    height: "100%",
+    width: "100%",
+  },
+  alertPopup: {
+    borderRadius: 15,
+  },
+  alertTitleText: {
+    fontSize: 25,
+    fontWeight: "700",
+    fontFamily: "Roboto",
+    lineHeight: 27,
+  },
+  alertButtonText: {
+    fontSize: 22,
+    fontWeight: "500",
+    fontFamily: "Roboto",
+    lineHeight: 27,
+  },
+  alertContainer: {
+    height: "100%",
+    width: "100%",
+  },
+  alertPopup: {
+    borderRadius: 15,
   },
 });
 export default Login;

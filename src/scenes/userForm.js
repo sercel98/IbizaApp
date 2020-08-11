@@ -21,7 +21,8 @@ function UserForm(props) {
     const {cartItems, emptyCart} = props;
     const handlePressSend = async () => {
         try {
-            if (!namesValidate || !addressValidate || !phoneValidate || !emailValidate) {
+            if (!namesValidate || !addressValidate ||
+                 !phoneValidate || !emailValidate) {
                 setShowErrorAlert(true);
             } else {
                 userInfo.products = cartItems;
@@ -102,6 +103,7 @@ function UserForm(props) {
                 overlayStyle={styles.alertContainer}
                 titleStyle={styles.alertTitleText}
                 confirmButtonTextStyle={styles.alertButtonText}
+                contentContainerStyle={styles.alertPopup}
                 onConfirmPressed={() => {
                     hideSuccessAlert();
                 }}
@@ -111,7 +113,7 @@ function UserForm(props) {
             />
             <AwesomeAlert
                 show={showErrorAlert}
-                title="te faltó algo..."
+                title="Te faltó algo..."
                 message="Debes llenar todos los campos"
                 closeOnTouchOutside={true}
                 closeOnHardwareBackPress={true}
@@ -121,6 +123,7 @@ function UserForm(props) {
                 overlayStyle={styles.alertContainer}
                 titleStyle={styles.alertTitleText}
                 confirmButtonTextStyle={styles.alertButtonText}
+                contentContainerStyle={styles.alertPopup}
                 onConfirmPressed={() => {
                     hideErrorAlert();
                 }}
@@ -309,6 +312,9 @@ const styles = StyleSheet.create({
         height: '100%',
         width: '100%',
     },
+    alertPopup:{
+        borderRadius: 15,
+    }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserForm);

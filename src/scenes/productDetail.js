@@ -70,11 +70,12 @@ class ProductDetail extends Component {
               closeOnTouchOutside={true}
               closeOnHardwareBackPress={true}
               showConfirmButton={true}
-              confirmText="Ok"
+              confirmText="OK"
               confirmButtonColor="green"
               overlayStyle={alertStyles.alertContainer}
               titleStyle={alertStyles.alertTitleText}
               confirmButtonTextStyle={alertStyles.alertButtonText}
+              contentContainerStyle={alertStyles.alertPopup}
               onConfirmPressed={() => {
                 this.closeAlert();
               }}
@@ -287,6 +288,9 @@ const alertStyles = StyleSheet.create({
     height: '100%',
     width: '100%',
   },
+  alertPopup:{
+    borderRadius: 15,
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);
