@@ -61,7 +61,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
   },
   ordersList: {
-    marginLeft: 15,
+    marginLeft: 5,
+    marginRight: 5,
   },
 });
 

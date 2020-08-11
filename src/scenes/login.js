@@ -237,24 +237,5 @@ const styles = StyleSheet.create({
   alertPopup: {
     borderRadius: 15,
   },
-  alertTitleText: {
-    fontSize: 25,
-    fontWeight: "700",
-    fontFamily: "Roboto",
-    lineHeight: 27,
-  },
-  alertButtonText: {
-    fontSize: 22,
-    fontWeight: "500",
-    fontFamily: "Roboto",
-    lineHeight: 27,
-  },
-  alertContainer: {
-    height: "100%",
-    width: "100%",
-  },
-  alertPopup: {
-    borderRadius: 15,
-  },
 });
 export default Login;

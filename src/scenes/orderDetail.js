@@ -11,10 +11,15 @@ import { bindActionCreators } from "redux";
 import { addToCart, removeItem } from "../actions/cartActions";
 import { FlatList } from "react-native-gesture-handler";
 import TextTitle from "./../components/textTitle";
+import { cos } from "react-native-reanimated";
+import AwesomeAlert from "react-native-awesome-alerts";
 
 class OrderDetail extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      showAlert: false,
+    };
     console.log(props);
   }
 
@@ -62,15 +67,44 @@ class OrderDetail extends Component {
     if (supported) {
       await Linking.openURL(route);
     } else {
-      alert("El número provisto por el usuario no es válido para contactarse");
+      this.showAlert();
     }
+  };
+
+  showAlert = () => {
+    this.setState({ showAlert: true });
+  };
+
+  hideAlert = () => {
+    this.setState({ showAlert: false });
   };
 
   render() {
     const { navigation, route } = this.props;
     const orderItem = JSON.parse(route.params.orderItem);
+    const total = route.params.total;
     return (
       <View style={styles.container}>
+        <AwesomeAlert
+          show={this.state.showAlert}
+          title="Ha ocurrido un error"
+          message="El número provisto por el usuario no es válido para contactarse"
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={true}
+          showConfirmButton={true}
+          confirmText="OK"
+          confirmButtonColor="#BC4B51"
+          overlayStyle={styles.alertContainer}
+          titleStyle={styles.alertTitleText}
+          confirmButtonTextStyle={styles.alertButtonText}
+          contentContainerStyle={styles.alertPopup}
+          onConfirmPressed={() => {
+            this.hideAlert();
+          }}
+          onDismiss={() => {
+            this.hideAlert();
+          }}
+        />
         <TextTitle textBody="Detalles del pedido" />
         <View style={styles.orderContainer}>
           <View style={styles.clientInfo}>
@@ -115,7 +149,7 @@ class OrderDetail extends Component {
             </View>
 
             <FlatList
-              data={products}
+              data={orderItem.products}
               style={styles.productsList}
               keyExtractor={(item, index) =>
                 item.id + item.product.id.toString()
@@ -124,7 +158,7 @@ class OrderDetail extends Component {
             />
 
             <Text style={[styles.textLabel, styles.textTotal]}>
-              Total: ${total}{" "}
+              Total: ${total}
             </Text>
           </View>
 
@@ -277,6 +311,25 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: "white",
     textAlign: "center",
+  },
+  alertTitleText: {
+    fontSize: 25,
+    fontWeight: "700",
+    fontFamily: "Roboto",
+    lineHeight: 27,
+  },
+  alertButtonText: {
+    fontSize: 22,
+    fontWeight: "500",
+    fontFamily: "Roboto",
+    lineHeight: 27,
+  },
+  alertContainer: {
+    height: "100%",
+    width: "100%",
+  },
+  alertPopup: {
+    borderRadius: 15,
   },
 });
 
