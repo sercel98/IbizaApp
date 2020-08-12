@@ -1,15 +1,24 @@
 import React from "react";
-import { Image, StyleSheet, View, StatusBar } from "react-native";
+import {
+  Image,
+  StyleSheet,
+  View,
+  StatusBar,
+  TouchableOpacity,
+} from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 import ShoppingCartIcon from "../components/ShoppingCartIcon";
 import { useRoute } from "@react-navigation/native";
-import { useSelector } from "react-redux";
-import { TouchableOpacity } from "react-native-gesture-handler";
+import { useSelector, useDispatch } from "react-redux";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { logout } from "../actions/authenticationActions";
+
 export default function Header(props) {
   const { navigation } = props;
   const route = useRoute();
   const isLogged = useSelector((state) => state.auth);
   const goBack = () => navigation.goBack();
+
   const goLogin = () => {
     navigation.navigate("Login");
   };
@@ -17,28 +26,51 @@ export default function Header(props) {
     navigation.navigate("Home");
   };
 
-  let leftIcon = (
-    <MaterialIcons
-      name="person"
-      size={30}
-      onPress={goLogin}
-      style={styles.headerIcon}
-    />
-  );
-  if (route.name !== "Home") {
-    leftIcon = (
-      <MaterialIcons
-        name="keyboard-return"
-        size={30}
-        onPress={goBack}
-        style={styles.headerIcon}
-      />
-    );
-  }
+  const goOrders = () => {
+    navigation.navigate("Orders");
+  };
+
+  const dispatch = useDispatch();
+
   return (
     <View style={styles.header}>
       <StatusBar barStyle="light-content" />
-      {leftIcon}
+
+      {route.name === "Home" ? (
+        isLogged ? (
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
+            <MaterialCommunityIcons
+              name="logout"
+              onPress={() => dispatch(logout())}
+              size={30}
+              color="white"
+            />
+            <MaterialIcons
+              name="store"
+              size={30}
+              color="white"
+              onPress={goOrders}
+              style={{ paddingLeft: 12 }}
+            />
+          </View>
+        ) : (
+          <MaterialIcons
+            name="person"
+            size={30}
+            onPress={goLogin}
+            style={styles.headerIcon}
+          />
+        )
+      ) : (
+        <MaterialIcons
+          name="keyboard-return"
+          size={30}
+          onPress={goBack}
+          style={styles.headerIcon}
+        />
+      )}
       {route.name !== "Login" && (
         <TouchableOpacity style={styles.imageContainer} onPress={goHome}>
           <Image
@@ -70,7 +102,6 @@ const styles = StyleSheet.create({
     paddingTop: 2,
   },
   imageContainer: {
-    width: "100%",
     height: "100%",
     overflow: "visible",
     justifyContent: "center",
