@@ -9,8 +9,6 @@ import {
 } from "react-native";
 import firebaseClient from "../services/firebaseClient";
 import Loader from "../shared/loader";
-//import { Video } from "expo-av";
-import { Asset } from "expo-asset";
 import AwesomeAlert from "react-native-awesome-alerts";
 
 class Login extends React.Component {
@@ -53,22 +51,8 @@ class Login extends React.Component {
   render() {
     const { navigation } = this.props;
     const { isLoading } = this.state;
-    const video = Asset.fromModule(
-      require("../../assets/videos/splashVideo.mp4")
-    ).uri;
     return (
       <View style={styles.container}>
-        {/*<View>
-					<Video source={{uri: "../../assets/videos/splashVideo.mp4"}}
-						   ref={(ref) => {
-							   this.player = ref
-						   }}                                      // Store reference
-						   onBuffer={this.onBuffer}                // Callback when remote video is buffering
-						   onEnd={this.onEnd}                      // Callback when playback finishes
-						   onError={this.videoError}               // Callback when video cannot be loaded
-						   style={styles.backgroundVideo} />
-        </View>*/}
-
         <AwesomeAlert
                 show={this.state.showAlert}
                 title="Error al iniciar sesión"
@@ -89,7 +73,6 @@ class Login extends React.Component {
                     this.hideAlert();
                 }}
             />
-
         <Loader loading={isLoading} />
         {this.state.errorMessage && (
           <Text style={styles.textError}>{this.state.errorMessage}</Text>
@@ -210,13 +193,6 @@ const styles = StyleSheet.create({
     bottom: 30,
     width: "60%",
     height: "40%",
-  },
-  backgroundVideo: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
   },
   alertTitleText: {
     fontSize: 25,
