@@ -2,8 +2,8 @@ import React from "react";
 import { Video } from "expo-av";
 import { View, StyleSheet, Text, Dimensions } from "react-native";
 import { Asset } from "expo-asset";
+import { useNavigation } from "@react-navigation/native";
 
-const screenHeight = Dimensions.get("screen").height;
 
 class SplashScreen extends React.Component {
   constructor(props) {
@@ -24,8 +24,11 @@ class SplashScreen extends React.Component {
   }
 
   _onPlaybackStatusUpdate = (playbackStatus) => {
+    const {route}=this.props;
     if (playbackStatus.didJustFinish){
-      this.goHome();
+      if(route.name==="SplashScreen"){
+        this.goHome();
+      }
     }
   }
 

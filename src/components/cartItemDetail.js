@@ -3,6 +3,7 @@ import { StyleSheet, View, Text } from "react-native";
 import AsyncImage from "../shared/AsyncImage";
 import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { Feather } from '@expo/vector-icons';
 
 function CartItemDetail(props) {
   const { productItem } = props;
@@ -37,6 +38,7 @@ function CartItemDetail(props) {
           folder={"products"}
         ></AsyncImage>
       </View>
+      <Feather name="x" size={24} color="white" onPress={()=>onDelete()} style={styles.deleteButton} />
       <View style={styles.cartItemDetailTextContainer}>
         <Text style={styles.cartItemDetailTextName}>
           {productItem.product.name}
@@ -131,6 +133,15 @@ const styles = StyleSheet.create({
   subtotalContainer: {
     justifyContent: "space-between",
     flexDirection: "row",
+  },
+  deleteButton:{
+    position: 'absolute',
+    top: -8,
+    left: -8,
+    backgroundColor: 'red',
+    borderRadius: 50,
+    width: 24,
+    height: 24,
   },
 });
 
