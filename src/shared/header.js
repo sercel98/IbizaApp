@@ -32,56 +32,61 @@ export default function Header(props) {
 
   const dispatch = useDispatch();
 
-  return (
-    <View style={styles.header}>
-      <StatusBar barStyle="light-content" />
-
-      {route.name === "Home" ? (
-        isLogged ? (
-          <View
-            style={{ flexDirection: "row", justifyContent: "space-between" }}
-          >
-            <MaterialCommunityIcons
-              name="logout"
-              onPress={() => dispatch(logout())}
-              size={30}
-              color="white"
-            />
+  if(route.name === "SplashScreen"){
+    return(<View/>);
+  }else{
+    return (
+      <View style={styles.header}>
+        <StatusBar barStyle="light-content" />
+  
+        {route.name === "Home" ? (
+          isLogged ? (
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <MaterialCommunityIcons
+                name="logout"
+                onPress={() => dispatch(logout())}
+                size={30}
+                color="white"
+              />
+              <MaterialIcons
+                name="store"
+                size={30}
+                color="white"
+                onPress={goOrders}
+                style={{ paddingLeft: 12 }}
+              />
+            </View>
+          ) : (
             <MaterialIcons
-              name="store"
+              name="person"
               size={30}
-              color="white"
-              onPress={goOrders}
-              style={{ paddingLeft: 12 }}
+              onPress={goLogin}
+              style={styles.headerIcon}
             />
-          </View>
+          )
         ) : (
           <MaterialIcons
-            name="person"
+            name="keyboard-return"
             size={30}
-            onPress={goLogin}
+            onPress={goBack}
             style={styles.headerIcon}
           />
-        )
-      ) : (
-        <MaterialIcons
-          name="keyboard-return"
-          size={30}
-          onPress={goBack}
-          style={styles.headerIcon}
-        />
-      )}
-      {route.name !== "Login" && (
-        <TouchableOpacity style={styles.imageContainer} onPress={goHome}>
-          <Image
-            style={styles.headerLogo}
-            source={require("../../assets/images/icon.png")}
-          />
-        </TouchableOpacity>
-      )}
-      <ShoppingCartIcon />
-    </View>
-  );
+        )}
+        {route.name !== "Login" && (
+          <TouchableOpacity style={styles.imageContainer} onPress={goHome}>
+            <Image
+              style={styles.headerLogo}
+              source={require("../../assets/images/icon.png")}
+            />
+          </TouchableOpacity>
+        )}
+        <ShoppingCartIcon />
+      </View>
+    );
+  }
+  
 }
 
 const styles = StyleSheet.create({

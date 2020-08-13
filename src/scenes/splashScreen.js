@@ -1,29 +1,54 @@
 import React from "react";
 import { Video } from "expo-av";
-import { View, StyleSheet, Text } from "react-native";
+import { View, StyleSheet, Text, Dimensions } from "react-native";
 import { Asset } from "expo-asset";
 
+const screenHeight = Dimensions.get("screen").height;
+
 class SplashScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state={
+      muteVideo: false
+    }
+  }
+
+  componentWillUnmount(){
+    this.setState({muteVideo: true});
+  }
+
+  goHome=()=>{
+    const {navigation} = this.props;
+    this.setState({muteVideo: true})
+    navigation.navigate("Home");
+  }
+
+  _onPlaybackStatusUpdate = (playbackStatus) => {
+    if (playbackStatus.didJustFinish){
+      this.goHome();
+    }
+  }
+
+
   render() {
-    const { video } = Asset.fromModule(
+    const {muteVideo} = this.state;
+    const video = Asset.fromModule(
       require("../../assets/videos/splashVideo.mp4")
     ).uri;
     return (
       <View style={styles.backgroundVideo}>
-        <View>
-          <Video
-            source={{ uri: video }}
-            rate={1.0}
-            volume={1.0}
-            isMuted={true}
-            resizeMode="cover"
-            shouldPlay
-            isLooping
-            style={{ width: 300, height: 300 }}
-          />
-        </View>
-
-        <Text style={{ color: "white" }}>AAAAAAAAAAAAAAAAAAA</Text>
+        <Video
+          source={{ uri: video }}
+          rate={1.0}
+          volume={1.0}
+          isMuted={muteVideo}
+          resizeMode="cover"
+          shouldPlay
+          onEnded={()=>this.goHome()}
+          onPlaybackStatusUpdate={(playBackStatus)=>this._onPlaybackStatusUpdate(playBackStatus)}
+          style={{height:"100%", width:"100%"}}
+        />
+        <Text style={styles.skipButton} onPress={()=>this.goHome()}>Omitir</Text>
       </View>
     );
   }
@@ -31,8 +56,19 @@ class SplashScreen extends React.Component {
 
 const styles = StyleSheet.create({
   backgroundVideo: {
-    flex: 1,
+    flex:1,
+    height:"100%",
+    width: "100%",
+    justifyContent: "center",
+    alignItems: "center",
     backgroundColor: "black",
+  },
+  skipButton:{
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+    color: 'white',
+    padding: 20
   },
 });
 
