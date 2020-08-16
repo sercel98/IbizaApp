@@ -34,7 +34,7 @@ class Orders extends React.Component {
   };
 
   renderOrderItems = ({ item }) => {
-    console.log(item);
+    //console.log(item);
     const total = this.calculateTotal(item.products);
     return <OrderItem orderItem={item} total={total} />;
   };

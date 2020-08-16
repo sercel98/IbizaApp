@@ -18,6 +18,7 @@ class OrderService {
   async save(order) {
     order.createdAt = new Date();
     order.active = true;
+    order.status = "pending";
     const newDocRef = await this.getOrdersCollection().add(order);
     return newDocRef.id;
   }

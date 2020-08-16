@@ -6,6 +6,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { removeItem } from "../actions/cartActions";
 
 function CartItemDetail(props) {
   const { productItem } = props;
@@ -20,23 +21,12 @@ function CartItemDetail(props) {
   };
 
   const onDelete = () => {
-    console.log(productItem.product);
     props.removeItem(productItem.product);
   };
 
   const formatSubTotal = (number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
-
-  const mapStateToProps = (state) => ({});
-  const mapDispatchToProps = (dispatch) =>
-    bindActionCreators(
-      {
-        addToCart,
-        removeItem,
-      },
-      dispatch
-    );
 
   const subtotal = productItem.product.price * productItem.quantity;
 
@@ -80,6 +70,15 @@ function CartItemDetail(props) {
     </View>
   );
 }
+
+const mapStateToProps = (state) => ({});
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      removeItem,
+    },
+    dispatch
+  );
 
 const styles = StyleSheet.create({
   container: {
@@ -136,7 +135,12 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 10,
   },
   editButton: {
-    color: "#FBBD40",
+    backgroundColor: "#FBBD40",
+    borderRadius: 10,
+    borderWidth: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 8,
   },
   editTextButton: {
     color: "#000",

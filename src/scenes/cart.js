@@ -62,7 +62,7 @@ function Cart(props) {
     </View>
   );
 }
-const keyExtractor = (item, index) => index.toString();
+const keyExtractor = (item, index) => item.product.id.toString();
 
 const mapStateToProps = (state) => {
   return {

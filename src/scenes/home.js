@@ -46,7 +46,7 @@ class Home extends React.Component {
   }
   handleAuthChange = (user) => {
     if (user && !user.isAnonymous) {
-      console.log("User logged");
+      //console.log("User logged");
       this.unsubscribeOrders();
       this.unsubscribeNotificationsListener();
       this.unsubscribeOrdersSnapshot = orderService
@@ -59,17 +59,14 @@ class Home extends React.Component {
       this.props.login();
       this.props.navigation.navigate("Orders");
     } else {
-      console.log(
-        "User not logged",
-        user && user.isAnonymous ? "-> isAnonymous" : ""
-      );
+      //console.log( "User not logged",  user && user.isAnonymous ? "-> isAnonymous" : ""     );
       this.props.logout();
       this.unsubscribeOrders();
       this.unsubscribeNotificationsListener();
     }
   };
   handleNotifications = (notification) => {
-    console.log("Notifications listener -> ", notification);
+    //console.log("Notifications listener -> ", notification);
     if (notification.origin === 'selected') {
       const {navigation} = this.props;
       if (notification.isMultiple) {
@@ -105,7 +102,7 @@ class Home extends React.Component {
       } else {
           this.props.newOrder(order);
       }
-      console.log("Order " + change.type);
+      //console.log("Order " + change.type);
     });
   };
 
