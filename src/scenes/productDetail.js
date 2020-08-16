@@ -15,29 +15,30 @@ class ProductDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      quantityOfProduct: 1,
-      visible: false
+      visible: false,
+      quantity: props.route.params.quantity,
+      product: props.route.params.product,
     };
   }
 
   incrementProduct = () => {
-    this.setState({quantityOfProduct: this.state.quantityOfProduct + 1});
+    this.setState({quantity: this.state.quantity + 1});
   }
 
   decrementProduct = () => {
-    if (this.state.quantityOfProduct > 1) {
-      this.setState({quantityOfProduct: this.state.quantityOfProduct - 1});
+    if (this.state.quantity > 1) {
+      this.setState({quantity: this.state.quantity - 1});
     }
   }
 
   setQuantity = () => {
-    this.setState({quantityOfProduct: this.props.params.productItem.quantity});
+    this.setState({quantity: this.props.params.productItem.quantity});
   }
 
   addToCart = () => {
     const {route} = this.props;
     const {product} = route.params;
-    let quantity = this.state.quantityOfProduct;
+    let quantity = this.state.quantity;
 
     this.props.removeItem(product);
     this.props.addToCart(product, quantity)
@@ -56,11 +57,8 @@ class ProductDetail extends Component {
 
   render() {
     const {navigation, route} = this.props;
-    let {product} = route.params;
-    if (product === undefined) {
-      product = route.params.productItem.product;
-    }
-    //console.log(route.params.productItem);
+    const { product } = route.params;
+    console.log(product);
     return (
         <View style={styles.container}>
           <AwesomeAlert
@@ -97,7 +95,7 @@ class ProductDetail extends Component {
                     style={styles.decrementIcon}
                 />
               </View>
-              <Text style={styles.quantity}>{this.state.quantityOfProduct}</Text>
+              <Text style={styles.quantity}>{this.state.quantity}</Text>
               <View>
                 <AntDesign
                     name='caretright'

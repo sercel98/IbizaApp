@@ -3,7 +3,9 @@ import { StyleSheet, View, Text } from "react-native";
 import AsyncImage from "../shared/AsyncImage";
 import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native-gesture-handler";
-import { Feather } from '@expo/vector-icons';
+import { Feather } from "@expo/vector-icons";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
 function CartItemDetail(props) {
   const { productItem } = props;
@@ -18,14 +20,23 @@ function CartItemDetail(props) {
   };
 
   const onDelete = () => {
-    navigation.navigate("ProductDetail", {
-      productItem,
-    });
+    console.log(productItem.product);
+    props.removeItem(productItem.product);
   };
 
   const formatSubTotal = (number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
+
+  const mapStateToProps = (state) => ({});
+  const mapDispatchToProps = (dispatch) =>
+    bindActionCreators(
+      {
+        addToCart,
+        removeItem,
+      },
+      dispatch
+    );
 
   const subtotal = productItem.product.price * productItem.quantity;
 
@@ -38,7 +49,13 @@ function CartItemDetail(props) {
           folder={"products"}
         ></AsyncImage>
       </View>
-      <Feather name="x" size={24} color="white" onPress={()=>onDelete()} style={styles.deleteButton} />
+      <Feather
+        name="x"
+        size={24}
+        color="white"
+        onPress={() => onDelete()}
+        style={styles.deleteButton}
+      />
       <View style={styles.cartItemDetailTextContainer}>
         <Text style={styles.cartItemDetailTextName}>
           {productItem.product.name}
@@ -134,15 +151,15 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     flexDirection: "row",
   },
-  deleteButton:{
-    position: 'absolute',
+  deleteButton: {
+    position: "absolute",
     top: -8,
     left: -8,
-    backgroundColor: 'red',
+    backgroundColor: "red",
     borderRadius: 50,
     width: 24,
     height: 24,
   },
 });
 
-export default CartItemDetail;
+export default connect(mapStateToProps, mapDispatchToProps)(CartItemDetail);

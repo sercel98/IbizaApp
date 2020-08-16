@@ -24,11 +24,11 @@ class SplashScreen extends React.Component {
   }
 
   _onPlaybackStatusUpdate = (playbackStatus) => {
-    const {route}=this.props;
+    //const {route}=this.props;
     if (playbackStatus.didJustFinish){
-      if(route.name==="SplashScreen"){
+      //if(route.name==="SplashScreen"){
         this.goHome();
-      }
+      //}
     }
   }
 
@@ -48,7 +48,7 @@ class SplashScreen extends React.Component {
           resizeMode="cover"
           shouldPlay
           onEnded={()=>this.goHome()}
-          onPlaybackStatusUpdate={(playBackStatus)=>this._onPlaybackStatusUpdate(playBackStatus)}
+          //onPlaybackStatusUpdate={(playBackStatus)=>this._onPlaybackStatusUpdate(playBackStatus)}
           style={{height:"100%", width:"100%"}}
         />
         <Text style={styles.skipButton} onPress={()=>this.goHome()}>Omitir</Text>

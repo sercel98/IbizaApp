@@ -16,7 +16,7 @@ const Stack = createStackNavigator();
 export default function AppStackNavigation() {
   return (
     <Stack.Navigator
-      initialRouteName="SplashScreen"
+      initialRouteName="Home"
       screenOptions={{
         headerStyle: {
           backgroundColor: "#000",
