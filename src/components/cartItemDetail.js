@@ -41,7 +41,7 @@ function CartItemDetail(props) {
       </View>
       <Feather
         name="x"
-        size={24}
+        size={26}
         color="white"
         onPress={() => onDelete()}
         style={styles.deleteButton}
@@ -157,12 +157,14 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     position: "absolute",
-    top: -8,
-    left: -8,
+    top: -10,
+    left: -10,
     backgroundColor: "red",
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 50,
-    width: 24,
-    height: 24,
+    width: 26,
+    height: 26,
   },
 });
 
