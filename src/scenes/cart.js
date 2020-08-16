@@ -135,7 +135,6 @@ const styles = StyleSheet.create({
   },
   userFormButton: {
     backgroundColor: "#FBBD40",
-    color: "#000",
     borderRadius: 10,
     borderWidth: 1,
     justifyContent: "center",
@@ -145,6 +144,7 @@ const styles = StyleSheet.create({
   userFormButtonText: {
     fontSize: 22,
     fontWeight: "700",
+    color: "#000",
     textAlign: "center",
     alignItems: "center",
     fontFamily: "Roboto",

@@ -1,16 +1,19 @@
 import React from "react";
-import {ActivityIndicator, StyleSheet, Text, View} from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import Products from "../components/products";
-import {Searchbar} from "react-native-paper";
+import { Searchbar } from "react-native-paper";
 import productService from "../services/productService";
 import firebaseClient from "../services/firebaseClient";
 import orderService from "../services/orderService";
-import {askPermissions, processOrderNotification,} from "../shared/notifications";
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-import {login, logout} from "../actions/authenticationActions";
-import {newOrder, removeOrder} from "../actions/ordersActions";
-import {Notifications} from "expo";
+import {
+  askPermissions,
+  processOrderNotification,
+} from "../shared/notifications";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { login, logout } from "../actions/authenticationActions";
+import { newOrder, removeOrder } from "../actions/ordersActions";
+import { Notifications } from "expo";
 
 class Home extends React.Component {
   constructor(props) {
@@ -44,6 +47,7 @@ class Home extends React.Component {
     this.unsubscribeOrders();
     this.unsubscribeNotificationsListener();
   }
+
   handleAuthChange = (user) => {
     if (user && !user.isAnonymous) {
       //console.log("User logged");
@@ -55,7 +59,9 @@ class Home extends React.Component {
       askPermissions().then((result) =>
         this.setState({ showNotification: result })
       );
-      this.notificationListenerSuscription = Notifications.addListener(this.handleNotifications);
+      this.notificationListenerSuscription = Notifications.addListener(
+        this.handleNotifications
+      );
       this.props.login();
       this.props.navigation.navigate("Orders");
     } else {
@@ -67,10 +73,10 @@ class Home extends React.Component {
   };
   handleNotifications = (notification) => {
     //console.log("Notifications listener -> ", notification);
-    if (notification.origin === 'selected') {
-      const {navigation} = this.props;
+    if (notification.origin === "selected") {
+      const { navigation } = this.props;
       if (notification.isMultiple) {
-        navigation.navigate('Orders');
+        navigation.navigate("Orders");
       } else {
         const orderStr = JSON.stringify(notification.data);
         navigation.navigate("OrderDetail", {
@@ -78,17 +84,17 @@ class Home extends React.Component {
         });
       }
     }
-  }
+  };
   unsubscribeOrders = () => {
     if (this.unsubscribeOrdersSnapshot) {
       this.unsubscribeOrdersSnapshot();
     }
   };
-    unsubscribeNotificationsListener = () => {
-        if (this.notificationListenerSuscription) {
-            this.notificationListenerSuscription.remove();
-        }
+  unsubscribeNotificationsListener = () => {
+    if (this.notificationListenerSuscription) {
+      this.notificationListenerSuscription.remove();
     }
+  };
   handleOrdersSnapshot = (snapshot) => {
     snapshot.docChanges().forEach((change) => {
       const order = change.doc.data();
@@ -100,7 +106,7 @@ class Home extends React.Component {
       } else if (change.type === "removed") {
         this.props.removeOrder(order);
       } else {
-          this.props.newOrder(order);
+        this.props.newOrder(order);
       }
       //console.log("Order " + change.type);
     });
@@ -200,7 +206,7 @@ const mapDispatchToProps = (dispatch) =>
       login,
       logout,
       newOrder,
-      removeOrder
+      removeOrder,
     },
     dispatch
   );

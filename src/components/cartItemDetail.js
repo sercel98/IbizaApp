@@ -146,7 +146,6 @@ const styles = StyleSheet.create({
     color: "#000",
     fontSize: 16,
     fontWeight: "700",
-    backgroundColor: "#FBBD40",
     padding: 10,
     borderRadius: 10,
     fontFamily: "Roboto",

@@ -10,6 +10,9 @@ import {
 import firebaseClient from "../services/firebaseClient";
 import Loader from "../shared/loader";
 import AwesomeAlert from "react-native-awesome-alerts";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { login, logout } from "../actions/authenticationActions";
 
 class Login extends React.Component {
   state = {
@@ -32,6 +35,8 @@ class Login extends React.Component {
         this.state.email,
         this.state.password
       );
+      this.props.login();
+
       navigation.navigate("Orders");
     } catch (e) {
       this.showAlert();
@@ -45,7 +50,7 @@ class Login extends React.Component {
   };
 
   showAlert = () => {
-    this.setState({showAlert: true})
+    this.setState({ showAlert: true });
   };
 
   render() {
@@ -54,25 +59,25 @@ class Login extends React.Component {
     return (
       <View style={styles.container}>
         <AwesomeAlert
-                show={this.state.showAlert}
-                title="Error al iniciar sesión"
-                message="usuario/contraseña incorrectos"
-                closeOnTouchOutside={true}
-                closeOnHardwareBackPress={true}
-                showConfirmButton={true}
-                confirmText="OK"
-                confirmButtonColor="orange"
-                overlayStyle={styles.alertContainer}
-                titleStyle={styles.alertTitleText}
-                confirmButtonTextStyle={styles.alertButtonText}
-                contentContainerStyle={styles.alertPopup}
-                onConfirmPressed={() => {
-                    this.hideAlert();
-                }}
-                onDismiss={() => {
-                    this.hideAlert();
-                }}
-            />
+          show={this.state.showAlert}
+          title="Error al iniciar sesión"
+          message="usuario/contraseña incorrectos"
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={true}
+          showConfirmButton={true}
+          confirmText="OK"
+          confirmButtonColor="orange"
+          overlayStyle={styles.alertContainer}
+          titleStyle={styles.alertTitleText}
+          confirmButtonTextStyle={styles.alertButtonText}
+          contentContainerStyle={styles.alertPopup}
+          onConfirmPressed={() => {
+            this.hideAlert();
+          }}
+          onDismiss={() => {
+            this.hideAlert();
+          }}
+        />
         <Loader loading={isLoading} />
         {this.state.errorMessage && (
           <Text style={styles.textError}>{this.state.errorMessage}</Text>
@@ -115,6 +120,18 @@ class Login extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {};
+};
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      login,
+      logout,
+    },
+    dispatch
+  );
 
 const styles = StyleSheet.create({
   container: {
@@ -174,7 +191,6 @@ const styles = StyleSheet.create({
     width: 340,
     height: 60,
     backgroundColor: "#E93A3B",
-    color: "#000",
     borderRadius: 10,
     borderWidth: 1,
     justifyContent: "center",
@@ -184,6 +200,7 @@ const styles = StyleSheet.create({
   loginButtonText: {
     fontSize: 22,
     fontWeight: "700",
+
     textAlign: "center",
     alignItems: "center",
     fontFamily: "Roboto",
@@ -214,4 +231,4 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
 });
-export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

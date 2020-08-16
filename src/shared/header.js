@@ -32,13 +32,13 @@ export default function Header(props) {
 
   const dispatch = useDispatch();
 
-  if(route.name === "SplashScreen"){
-    return(<View/>);
-  }else{
+  if (route.name === "SplashScreen") {
+    return <View />;
+  } else {
     return (
       <View style={styles.header}>
         <StatusBar barStyle="light-content" />
-  
+
         {route.name === "Home" ? (
           isLogged ? (
             <View
@@ -86,7 +86,6 @@ export default function Header(props) {
       </View>
     );
   }
-  
 }
 
 const styles = StyleSheet.create({
