@@ -6,6 +6,16 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { Feather } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import {removeItem} from "../actions/cartActions";
+
+const mapStateToProps = (state) => ({});
+  const mapDispatchToProps = (dispatch) =>
+    bindActionCreators(
+      {
+        removeItem,
+      },
+      dispatch
+    );
 
 function CartItemDetail(props) {
   const { productItem } = props;
@@ -20,23 +30,12 @@ function CartItemDetail(props) {
   };
 
   const onDelete = () => {
-    console.log(productItem.product);
     props.removeItem(productItem.product);
   };
 
   const formatSubTotal = (number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
-
-  const mapStateToProps = (state) => ({});
-  const mapDispatchToProps = (dispatch) =>
-    bindActionCreators(
-      {
-        addToCart,
-        removeItem,
-      },
-      dispatch
-    );
 
   const subtotal = productItem.product.price * productItem.quantity;
 
@@ -51,7 +50,7 @@ function CartItemDetail(props) {
       </View>
       <Feather
         name="x"
-        size={24}
+        size={26}
         color="white"
         onPress={() => onDelete()}
         style={styles.deleteButton}
@@ -153,12 +152,14 @@ const styles = StyleSheet.create({
   },
   deleteButton: {
     position: "absolute",
-    top: -8,
-    left: -8,
+    top: -10,
+    left: -10,
     backgroundColor: "red",
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 50,
-    width: 24,
-    height: 24,
+    width: 26,
+    height: 26,
   },
 });
 
