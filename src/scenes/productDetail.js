@@ -58,7 +58,6 @@ class ProductDetail extends Component {
   render() {
     const {navigation, route} = this.props;
     const { product } = route.params;
-    console.log(product);
     return (
         <View style={styles.container}>
           <AwesomeAlert
