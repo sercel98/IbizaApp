@@ -20,7 +20,7 @@ class OrderDetail extends Component {
     this.state = {
       showAlert: false,
     };
-    console.log(props);
+    //console.log(props);
   }
 
   keyExtractor = (item, index) => index.toString();

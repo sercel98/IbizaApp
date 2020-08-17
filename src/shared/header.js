@@ -12,6 +12,7 @@ import { useRoute } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { logout } from "../actions/authenticationActions";
+import firebaseClient from "../services/firebaseClient";
 
 export default function Header(props) {
   const { navigation } = props;
@@ -29,9 +30,11 @@ export default function Header(props) {
   const goOrders = () => {
     navigation.navigate("Orders");
   };
-
   const dispatch = useDispatch();
-
+  const signOut = async () => {
+    await firebaseClient.auth.signOut();
+    dispatch(logout());
+  }
   if (route.name === "SplashScreen") {
     return <View />;
   } else {
@@ -46,7 +49,7 @@ export default function Header(props) {
             >
               <MaterialCommunityIcons
                 name="logout"
-                onPress={() => dispatch(logout())}
+                onPress={signOut}
                 size={30}
                 color="white"
               />

@@ -36,13 +36,11 @@ class Login extends React.Component {
         this.state.password
       );
       this.props.login();
-
-      navigation.navigate("Orders");
     } catch (e) {
       this.showAlert();
       console.log(e);
+      this.setState({ isLoading: false });
     }
-    this.setState({ isLoading: false });
   };
 
   hideAlert = () => {
