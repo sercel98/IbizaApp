@@ -43,7 +43,7 @@ class Orders extends React.Component {
     const { orders } = this.props;
     return (
       <View style={styles.container}>
-        <TextTitle textBody="Mis Ordenes" />
+        <TextTitle textBody="Ordenes Pendientes" />
         <FlatList
           style={styles.ordersList}
           data={orders}
