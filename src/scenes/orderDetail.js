@@ -6,13 +6,10 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { addToCart, removeItem } from "../actions/cartActions";
 import { FlatList } from "react-native-gesture-handler";
 import TextTitle from "./../components/textTitle";
-import { cos } from "react-native-reanimated";
 import AwesomeAlert from "react-native-awesome-alerts";
+import orderService from "../services/orderService";
 
 class OrderDetail extends Component {
   constructor(props) {
@@ -20,25 +17,11 @@ class OrderDetail extends Component {
     this.state = {
       showAlert: false,
     };
-    //console.log(props);
   }
-
-  keyExtractor = (item, index) => index.toString();
-
-  renderProducts = ({ item }) => {
-    return (
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <Text>{item.product.names}</Text>
-        <Text>{item.quantity}</Text>
-      </View>
-    );
-  };
 
   formatProductPrice = (number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
-
-  keyExtractor = (item, index) => index.toString();
 
   renderItem = ({ item, index }) => {
     return (
@@ -54,11 +37,11 @@ class OrderDetail extends Component {
   };
 
   cancelOrder = (id) => {
-    console.log(id);
+    const result = orderService.cancelOrder(id);
   };
 
   confirmOrder = (id) => {
-    console.log(id);
+    const result = orderService.confirmOrder(id);
   };
 
   contactBuyer = async (phone) => {
@@ -168,7 +151,7 @@ class OrderDetail extends Component {
             </Text>
             <View style={styles.optionsRow}>
               <TouchableOpacity
-                onPress={() => cancelOrder(orderItem.id)}
+                onPress={() => this.cancelOrder(orderItem.id)}
                 style={styles.btnCancelarPedido}
               >
                 <Text style={styles.btnTextOption}>Cancelar pedido</Text>
@@ -188,7 +171,7 @@ class OrderDetail extends Component {
               }}
             >
               <TouchableOpacity
-                onPress={() => confirmOrder(orderItem.id)}
+                onPress={() => this.confirmOrder(orderItem.id)}
                 style={styles.btnConfirmar}
               >
                 <Text style={styles.btnConfirmarText}>Confirmar envío</Text>
@@ -200,15 +183,6 @@ class OrderDetail extends Component {
     );
   }
 }
-const mapStateToProps = (state) => ({});
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators(
-    {
-      addToCart,
-      removeItem,
-    },
-    dispatch
-  );
 
 const styles = StyleSheet.create({
   container: {
@@ -333,4 +307,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderDetail);
+export default OrderDetail;
