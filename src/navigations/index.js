@@ -10,13 +10,15 @@ import UserForm from "../scenes/userForm";
 import Orders from "../scenes/orders";
 import OrderDetail from "../scenes/orderDetail";
 import SplashScreen from "../scenes/splashScreen";
+import { useSelector } from "react-redux";
 
 const Stack = createStackNavigator();
 
 export default function AppStackNavigation() {
+  const isLogged = useSelector((state) => state.auth);
+  const splashScreenVideo = useSelector((state) => state.navigation.splashScreenVideo);
   return (
     <Stack.Navigator
-      initialRouteName="Home"
       screenOptions={{
         headerStyle: {
           backgroundColor: "#000",
@@ -25,15 +27,19 @@ export default function AppStackNavigation() {
         header: (props) => <Header {...props} />,
       }}
     >
+      {
+        splashScreenVideo ? <Stack.Screen name="SplashScreen" component={SplashScreen} /> : <></>
+      }
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="ProductDetail" component={ProductDetail} />
       <Stack.Screen name="Cart" component={Cart} />
       <Stack.Screen name="About" component={About} />
-      <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="UserForm" component={UserForm} />
       <Stack.Screen name="Orders" component={Orders} />
       <Stack.Screen name="OrderDetail" component={OrderDetail} />
-      <Stack.Screen name="SplashScreen" component={SplashScreen} />
+      {
+        !isLogged ? <Stack.Screen name="Login" component={Login} /> : <></>
+      }
     </Stack.Navigator>
   );
 }

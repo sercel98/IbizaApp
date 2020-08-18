@@ -1,72 +1,60 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Video } from "expo-av";
-import { View, StyleSheet, Text, Dimensions } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import { Asset } from "expo-asset";
-import { useNavigation } from "@react-navigation/native";
+import {endSplashScreen} from '../actions/navigationActions'
+import { useDispatch } from "react-redux";
 
+export default function SplashScreen(props) {
+  const [muteVideo, setMuteVideo] = useState(false);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    return () => {
+      setMuteVideo(true);
+    }
+  }, []);
 
-class SplashScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state={
-      muteVideo: false
+  const endVideo = () => {
+    setMuteVideo(true);
+    dispatch(endSplashScreen());
+  }
+
+  const onPlaybackStatusUpdate = (playbackStatus) => {
+    if (playbackStatus.didJustFinish && !playbackStatus.isLooping) {
+      // The player has just finished playing and will stop. Maybe you want to play something else?
+      endVideo();
     }
   }
-
-  componentWillUnmount(){
-    this.setState({muteVideo: true});
-  }
-
-  goHome=()=>{
-    const {navigation} = this.props;
-    this.setState({muteVideo: true})
-    navigation.navigate("Home");
-  }
-
-  _onPlaybackStatusUpdate = (playbackStatus) => {
-    //const {route}=this.props;
-    if (playbackStatus.didJustFinish){
-      //if(route.name==="SplashScreen"){
-        this.goHome();
-      //}
-    }
-  }
-
-
-  render() {
-    const {muteVideo} = this.state;
-    const video = Asset.fromModule(
-      require("../../assets/videos/splashVideo.mp4")
-    ).uri;
-    return (
-      <View style={styles.backgroundVideo}>
-        <Video
-          source={{ uri: video }}
-          rate={1.0}
-          volume={1.0}
-          isMuted={muteVideo}
-          resizeMode="cover"
-          shouldPlay
-          onEnded={()=>this.goHome()}
-          //onPlaybackStatusUpdate={(playBackStatus)=>this._onPlaybackStatusUpdate(playBackStatus)}
-          style={{height:"100%", width:"100%"}}
-        />
-        <Text style={styles.skipButton} onPress={()=>this.goHome()}>Omitir</Text>
-      </View>
-    );
-  }
+  const video = Asset.fromModule(
+    require("../../assets/videos/splashVideo.mp4")
+  ).uri;
+  return (
+    <View style={styles.backgroundVideo}>
+      <Video
+        source={{ uri: video }}
+        rate={1.0}
+        volume={1.0}
+        isMuted={muteVideo}
+        resizeMode="cover"
+        shouldPlay
+        onPlaybackStatusUpdate={onPlaybackStatusUpdate}
+        style={{ height: "100%", width: "100%" }}
+      />
+      <Text style={styles.skipButton} onPress={endVideo}>Omitir</Text>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
   backgroundVideo: {
-    flex:1,
-    height:"100%",
+    flex: 1,
+    height: "100%",
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "black",
   },
-  skipButton:{
+  skipButton: {
     position: 'absolute',
     bottom: 0,
     right: 0,
@@ -74,5 +62,3 @@ const styles = StyleSheet.create({
     padding: 20
   },
 });
-
-export default SplashScreen;

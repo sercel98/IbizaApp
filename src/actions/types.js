@@ -5,3 +5,4 @@ export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
 export const NEW_ORDER = "NEW_ORDER";
 export const REMOVE_ORDER = "REMOVE_ORDER";
+export const SPLASH_SCREEN_ENDED = "SPLASH_SCREEN_ENDED";
