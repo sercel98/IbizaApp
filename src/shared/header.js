@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Image,
   StyleSheet,
@@ -13,12 +13,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { logout } from "../actions/authenticationActions";
 import firebaseClient from "../services/firebaseClient";
+import AwesomeAlert from "react-native-awesome-alerts";
 
 export default function Header(props) {
   const { navigation } = props;
   const route = useRoute();
   const isLogged = useSelector((state) => state.auth);
   const goBack = () => navigation.goBack();
+  const [showAlert, setShowAlert] = useState(false);
 
   const goLogin = () => {
     navigation.navigate("Login");
@@ -34,7 +36,13 @@ export default function Header(props) {
   const signOut = async () => {
     await firebaseClient.auth.signOut();
     dispatch(logout());
-  }
+    setShowAlert(false);
+  };
+
+  hideAlert = () => {
+    setShowAlert(false);
+  };
+
   if (route.name === "SplashScreen") {
     return <View />;
   } else {
@@ -47,9 +55,36 @@ export default function Header(props) {
             <View
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
+              <AwesomeAlert
+                show={showAlert}
+                title="Cerrar Sesión"
+                message="Realmente desea cerrar sesión?"
+                closeOnTouchOutside={true}
+                closeOnHardwareBackPress={true}
+                showConfirmButton={true}
+                showCancelButton={true}
+                confirmText="Cerrar Sesión"
+                cancelText="Atrás"
+                confirmButtonColor="red"
+                cancelButtonColor="gray"
+                overlayStyle={styles.alertContainer}
+                titleStyle={styles.alertTitleText}
+                confirmButtonTextStyle={styles.alertButtonText}
+                cancelButtonTextStyle={styles.alertButtonText}
+                contentContainerStyle={styles.alertPopup}
+                onConfirmPressed={() => {
+                  signOut();
+                }}
+                onCancelPressed={() => {
+                  hideAlert();
+                }}
+                onDismiss={() => {
+                  hideAlert();
+                }}
+              />
               <MaterialCommunityIcons
                 name="logout"
-                onPress={signOut}
+                onPress={()=>{setShowAlert(true)}}
                 size={30}
                 color="white"
               />
@@ -113,5 +148,24 @@ const styles = StyleSheet.create({
     overflow: "visible",
     justifyContent: "center",
     alignItems: "center",
+  },
+  alertTitleText: {
+    fontSize: 25,
+    fontWeight: "700",
+    fontFamily: "Roboto",
+    lineHeight: 27,
+  },
+  alertButtonText: {
+    fontSize: 22,
+    fontWeight: "500",
+    fontFamily: "Roboto",
+    lineHeight: 27,
+  },
+  alertContainer: {
+    height: "100%",
+    width: "100%",
+  },
+  alertPopup: {
+    borderRadius: 15,
   },
 });

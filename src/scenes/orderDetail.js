@@ -15,7 +15,9 @@ class OrderDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showAlert: false,
+      showErrorNumberAlert: false,
+      showCompletedOrderAlert: false,
+      showCancelOrderAlert: false,
     };
   }
 
@@ -38,10 +40,12 @@ class OrderDetail extends Component {
 
   cancelOrder = (id) => {
     const result = orderService.cancelOrder(id);
+    this.setState({ showCancelOrderAlert: true });
   };
 
   confirmOrder = (id) => {
     const result = orderService.confirmOrder(id);
+    this.setState({ showCompletedOrderAlert: true });
   };
 
   contactBuyer = async (phone) => {
@@ -50,16 +54,20 @@ class OrderDetail extends Component {
     if (supported) {
       await Linking.openURL(route);
     } else {
-      this.showAlert();
+      this.showErrorNumberAlert();
     }
   };
 
-  showAlert = () => {
-    this.setState({ showAlert: true });
+  showErrorNumberAlert = () => {
+    this.setState({ showErrorNumberAlert: true });
   };
 
-  hideAlert = () => {
-    this.setState({ showAlert: false });
+  hideAlerts = () => {
+    const { navigation } = this.props;
+    this.setState({ showErrorNumberAlert: false });
+    this.setState({ showCancelOrderAlert: false });
+    this.setState({ showCompletedOrderAlert: false });
+    navigation.navigate("Orders");
   };
 
   render() {
@@ -69,7 +77,7 @@ class OrderDetail extends Component {
     return (
       <View style={styles.container}>
         <AwesomeAlert
-          show={this.state.showAlert}
+          show={this.state.showErrorNumberAlert}
           title="Ha ocurrido un error"
           message="El número provisto por el usuario no es válido para contactarse"
           closeOnTouchOutside={true}
@@ -82,12 +90,52 @@ class OrderDetail extends Component {
           confirmButtonTextStyle={styles.alertButtonText}
           contentContainerStyle={styles.alertPopup}
           onConfirmPressed={() => {
-            this.hideAlert();
+            this.hideAlerts();
           }}
           onDismiss={() => {
-            this.hideAlert();
+            this.hideAlerts();
           }}
         />
+        <AwesomeAlert
+        show={this.state.showCancelOrderAlert}
+        title="Orden Cancelada"
+        message="Esta orden ha sido cancelada"
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={true}
+        showConfirmButton={true}
+        confirmText="OK"
+        confirmButtonColor="orange"
+        overlayStyle={styles.alertContainer}
+        titleStyle={styles.alertTitleText}
+        confirmButtonTextStyle={styles.alertButtonText}
+        contentContainerStyle={styles.alertPopup}
+        onConfirmPressed={() => {
+          this.hideAlerts();
+        }}
+        onDismiss={() => {
+          this.hideAlerts();
+        }}
+      />
+      <AwesomeAlert
+        show={this.state.showCompletedOrderAlert}
+        title="Orden Completada"
+        message="La orden ha sido completada"
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={true}
+        showConfirmButton={true}
+        confirmText="OK"
+        confirmButtonColor="green"
+        overlayStyle={styles.alertContainer}
+        titleStyle={styles.alertTitleText}
+        confirmButtonTextStyle={styles.alertButtonText}
+        contentContainerStyle={styles.alertPopup}
+        onConfirmPressed={() => {
+          this.hideAlerts();
+        }}
+        onDismiss={() => {
+          this.hideAlerts();
+        }}
+      />
         <TextTitle textBody="Detalles del pedido" />
         <View style={styles.orderContainer}>
           <View style={styles.clientInfo}>
@@ -174,7 +222,7 @@ class OrderDetail extends Component {
                 onPress={() => this.confirmOrder(orderItem.id)}
                 style={styles.btnConfirmar}
               >
-                <Text style={styles.btnConfirmarText}>Confirmar envío</Text>
+                <Text style={styles.btnConfirmarText}>Completar orden</Text>
               </TouchableOpacity>
             </View>
           </View>
