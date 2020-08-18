@@ -118,8 +118,8 @@ class OrderDetail extends Component {
       />
       <AwesomeAlert
         show={this.state.showCompletedOrderAlert}
-        title="Orden Completada"
-        message="La orden ha sido completada"
+        title="Pedido Completado"
+        message="El pedido ha sido completado"
         closeOnTouchOutside={true}
         closeOnHardwareBackPress={true}
         showConfirmButton={true}
@@ -222,7 +222,7 @@ class OrderDetail extends Component {
                 onPress={() => this.confirmOrder(orderItem.id)}
                 style={styles.btnConfirmar}
               >
-                <Text style={styles.btnConfirmarText}>Completar orden</Text>
+                <Text style={styles.btnConfirmarText}>Completar pedido</Text>
               </TouchableOpacity>
             </View>
           </View>
