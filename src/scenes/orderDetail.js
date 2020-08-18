@@ -37,11 +37,15 @@ class OrderDetail extends Component {
   };
 
   cancelOrder = (id) => {
+    //ALERTA
     const result = orderService.cancelOrder(id);
+    this.props.navigation.navigate("Orders");
   };
 
   confirmOrder = (id) => {
+    //ALERTA
     const result = orderService.confirmOrder(id);
+    this.props.navigation.navigate("Orders");
   };
 
   contactBuyer = async (phone) => {
@@ -63,7 +67,7 @@ class OrderDetail extends Component {
   };
 
   render() {
-    const { navigation, route } = this.props;
+    const { route } = this.props;
     const orderItem = JSON.parse(route.params.orderItem);
     const total = route.params.total;
     return (

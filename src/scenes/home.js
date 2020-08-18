@@ -129,7 +129,6 @@ class Home extends React.Component {
   };
 
   render() {
-    const { products } = this.state;
     if (this.state.loading) {
       return (
         <View style={styles.container}>
