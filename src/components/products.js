@@ -33,7 +33,6 @@ export default class Products extends Component {
 
   render() {
     const { products } = this.props;
-
     return (
       <FlatList
         data={formatData(products, numColumns)}

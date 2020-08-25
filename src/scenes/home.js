@@ -22,7 +22,6 @@ class Home extends React.Component {
     this.state = {
       allProducts: [],
       products: [],
-      searchQuery: "",
       loading: true,
       showNotification: false,
       change: 0,
@@ -112,53 +111,17 @@ class Home extends React.Component {
     });
   };
 
-  _onChangeSearch = (query) => {
-    this.setState({ searchQuery: query });
-    if (query) {
-      this.setState({
-        products: this.state.allProducts.filter((product) =>
-          product.name.toLowerCase().includes(query.toLowerCase())
-        ),
-      });
-      this.setState({ change: this.state });
-    } else {
-      this.setState({
-        products: this.state.allProducts,
-      });
-    }
-  };
-
   render() {
     const { products } = this.state;
     if (this.state.loading) {
       return (
         <View style={styles.container}>
-          <Searchbar
-            style={styles.searchInput}
-            placeholder="Buscar"
-            onChangeText={this._onChangeSearch}
-            value={this.state.searchQuery}
-            placeholderTextColor="#BBB"
-            iconColor="#BBB"
-            theme={{ colors: { text: "#BBB" } }}
-          />
-          <Text style={styles.titleProducts}>Productos</Text>
           <ActivityIndicator />
         </View>
       );
     } else {
       return (
         <View style={styles.container}>
-          <Searchbar
-            style={styles.searchInput}
-            placeholder="Buscar"
-            onChangeText={this._onChangeSearch}
-            value={this.state.searchQuery}
-            placeholderTextColor="#BBB"
-            iconColor="#BBB"
-            theme={{ colors: { text: "#BBB" } }}
-          />
-          <Text style={styles.titleProducts}>Productos</Text>
           <Products products={this.state.products} />
         </View>
       );
@@ -171,14 +134,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     backgroundColor: "#000",
-  },
-  searchInput: {
-    marginTop: 15,
-    marginLeft: "auto",
-    marginRight: "auto",
-    width: "90%",
-    borderRadius: 8,
-    backgroundColor: "#2C2C2C",
   },
   titleProducts: {
     marginTop: 15,

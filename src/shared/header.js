@@ -39,7 +39,7 @@ export default function Header(props) {
     setShowAlert(false);
   };
 
-  hideAlert = () => {
+  const hideAlert = () => {
     setShowAlert(false);
   };
 
