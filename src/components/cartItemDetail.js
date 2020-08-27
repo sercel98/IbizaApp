@@ -3,6 +3,10 @@ import { StyleSheet, View, Text } from "react-native";
 import AsyncImage from "../shared/AsyncImage";
 import { useNavigation } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { Feather } from "@expo/vector-icons";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { removeItem } from "../actions/cartActions";
 
 function CartItemDetail(props) {
   const { productItem } = props;
@@ -17,9 +21,7 @@ function CartItemDetail(props) {
   };
 
   const onDelete = () => {
-    navigation.navigate("ProductDetail", {
-      productItem,
-    });
+    props.removeItem(productItem.product);
   };
 
   const formatSubTotal = (number) => {
@@ -30,13 +32,20 @@ function CartItemDetail(props) {
 
   return (
     <View style={styles.container}>
-      <View style={{ justifyContent: "flex-start" }}>
+      <View style={{ width: "25%" }}>
         <AsyncImage
           style={styles.cartItemDetailImage}
           image={productItem.product.image}
           folder={"products"}
         ></AsyncImage>
       </View>
+      <Feather
+        name="x"
+        size={26}
+        color="white"
+        onPress={() => onDelete()}
+        style={styles.deleteButton}
+      />
       <View style={styles.cartItemDetailTextContainer}>
         <Text style={styles.cartItemDetailTextName}>
           {productItem.product.name}
@@ -54,7 +63,7 @@ function CartItemDetail(props) {
           </View>
 
           <TouchableOpacity style={styles.editButton} onPress={onEdit}>
-            <Text style={styles.editTextButton}>EDITAR</Text>
+            <Text style={styles.editTextButton}>Editar</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -62,17 +71,27 @@ function CartItemDetail(props) {
   );
 }
 
+const mapStateToProps = (state) => ({});
+const mapDispatchToProps = (dispatch) =>
+  bindActionCreators(
+    {
+      removeItem,
+    },
+    dispatch
+  );
+
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    marginVertical: 15,
+    marginVertical: 10,
     borderTopRightRadius: 10,
     borderBottomRightRadius: 10,
     justifyContent: "center",
-    marginHorizontal: 5,
+    marginHorizontal: 12,
+    maxHeight: 100,
   },
   cartItemDetailTextContainer: {
-    width: "65%",
+    width: "75%",
     paddingTop: 5,
     backgroundColor: "#191919",
     paddingLeft: 10,
@@ -110,19 +129,23 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto",
   },
   cartItemDetailImage: {
-    height: 100,
-    width: 100,
+    height: "100%",
+    width: "100%",
     borderBottomLeftRadius: 10,
     borderTopLeftRadius: 10,
   },
   editButton: {
-    color: "#FBBD40",
+    backgroundColor: "#FBBD40",
+    borderRadius: 10,
+    borderWidth: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 8,
   },
   editTextButton: {
     color: "#000",
     fontSize: 16,
-    fontWeight: "600",
-    backgroundColor: "#FBBD40",
+    fontWeight: "700",
     padding: 10,
     borderRadius: 10,
     fontFamily: "Roboto",
@@ -130,8 +153,18 @@ const styles = StyleSheet.create({
   subtotalContainer: {
     justifyContent: "space-between",
     flexDirection: "row",
-    backgroundColor: "#191919",
+  },
+  deleteButton: {
+    position: "absolute",
+    top: -10,
+    left: -10,
+    backgroundColor: "red",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 50,
+    width: 26,
+    height: 26,
   },
 });
 
-export default CartItemDetail;
+export default connect(mapStateToProps, mapDispatchToProps)(CartItemDetail);

@@ -1,32 +1,29 @@
 import React, { Component } from "react";
-import { Text, StyleSheet, View, TouchableOpacity } from "react-native";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { addToCart, removeItem } from "../actions/cartActions";
+import {
+  Text,
+  StyleSheet,
+  Linking,
+  View,
+  TouchableOpacity,
+} from "react-native";
 import { FlatList } from "react-native-gesture-handler";
 import TextTitle from "./../components/textTitle";
+import AwesomeAlert from "react-native-awesome-alerts";
+import orderService from "../services/orderService";
 
 class OrderDetail extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      showErrorNumberAlert: false,
+      showCompletedOrderAlert: false,
+      showCancelOrderAlert: false,
+    };
   }
-
-  keyExtractor = (item, index) => index.toString();
-
-  renderProducts = ({ item }) => {
-    return (
-      <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
-        <Text>{item.product.names}</Text>
-        <Text>{item.quantity}</Text>
-      </View>
-    );
-  };
 
   formatProductPrice = (number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
-
-  keyExtractor = (item, index) => index.toString();
 
   renderItem = ({ item, index }) => {
     return (
@@ -41,11 +38,104 @@ class OrderDetail extends Component {
     );
   };
 
+  cancelOrder = (id) => {
+    const result = orderService.cancelOrder(id);
+    this.setState({ showCancelOrderAlert: true });
+  };
+
+  confirmOrder = (id) => {
+    const result = orderService.confirmOrder(id);
+    this.setState({ showCompletedOrderAlert: true });
+  };
+
+  contactBuyer = async (phone) => {
+    const route = "https://wa.me/57" + phone;
+    const supported = await Linking.canOpenURL(route);
+    if (supported) {
+      await Linking.openURL(route);
+    } else {
+      this.showErrorNumberAlert();
+    }
+  };
+
+  showErrorNumberAlert = () => {
+    this.setState({ showErrorNumberAlert: true });
+  };
+
+  hideAlerts = () => {
+    const { navigation } = this.props;
+    this.setState({ showErrorNumberAlert: false });
+    this.setState({ showCancelOrderAlert: false });
+    this.setState({ showCompletedOrderAlert: false });
+    navigation.navigate("Orders");
+  };
+
   render() {
     const { navigation, route } = this.props;
-    const { orderItem } = route.params;
+    const orderItem = JSON.parse(route.params.orderItem);
+    const total = route.params.total;
     return (
       <View style={styles.container}>
+        <AwesomeAlert
+          show={this.state.showErrorNumberAlert}
+          title="Ha ocurrido un error"
+          message="El número provisto por el usuario no es válido para contactarse"
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={true}
+          showConfirmButton={true}
+          confirmText="OK"
+          confirmButtonColor="#BC4B51"
+          overlayStyle={styles.alertContainer}
+          titleStyle={styles.alertTitleText}
+          confirmButtonTextStyle={styles.alertButtonText}
+          contentContainerStyle={styles.alertPopup}
+          onConfirmPressed={() => {
+            this.hideAlerts();
+          }}
+          onDismiss={() => {
+            this.hideAlerts();
+          }}
+        />
+        <AwesomeAlert
+        show={this.state.showCancelOrderAlert}
+        title="Orden Cancelada"
+        message="Esta orden ha sido cancelada"
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={true}
+        showConfirmButton={true}
+        confirmText="OK"
+        confirmButtonColor="orange"
+        overlayStyle={styles.alertContainer}
+        titleStyle={styles.alertTitleText}
+        confirmButtonTextStyle={styles.alertButtonText}
+        contentContainerStyle={styles.alertPopup}
+        onConfirmPressed={() => {
+          this.hideAlerts();
+        }}
+        onDismiss={() => {
+          this.hideAlerts();
+        }}
+      />
+      <AwesomeAlert
+        show={this.state.showCompletedOrderAlert}
+        title="Pedido Completado"
+        message="El pedido ha sido completado"
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={true}
+        showConfirmButton={true}
+        confirmText="OK"
+        confirmButtonColor="green"
+        overlayStyle={styles.alertContainer}
+        titleStyle={styles.alertTitleText}
+        confirmButtonTextStyle={styles.alertButtonText}
+        contentContainerStyle={styles.alertPopup}
+        onConfirmPressed={() => {
+          this.hideAlerts();
+        }}
+        onDismiss={() => {
+          this.hideAlerts();
+        }}
+      />
         <TextTitle textBody="Detalles del pedido" />
         <View style={styles.orderContainer}>
           <View style={styles.clientInfo}>
@@ -97,6 +187,10 @@ class OrderDetail extends Component {
               }
               renderItem={this.renderItem}
             />
+
+            <Text style={[styles.textLabel, styles.textTotal]}>
+              Total: ${total}
+            </Text>
           </View>
 
           <View style={styles.options}>
@@ -104,10 +198,16 @@ class OrderDetail extends Component {
               Opciones
             </Text>
             <View style={styles.optionsRow}>
-              <TouchableOpacity style={styles.btnCancelarPedido}>
+              <TouchableOpacity
+                onPress={() => this.cancelOrder(orderItem.id)}
+                style={styles.btnCancelarPedido}
+              >
                 <Text style={styles.btnTextOption}>Cancelar pedido</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.btnContactar}>
+              <TouchableOpacity
+                onPress={() => this.contactBuyer(orderItem.phone)}
+                style={styles.btnContactar}
+              >
                 <Text style={styles.btnTextOption}>Contactar comprador</Text>
               </TouchableOpacity>
             </View>
@@ -118,8 +218,11 @@ class OrderDetail extends Component {
                 alignItems: "center",
               }}
             >
-              <TouchableOpacity style={styles.btnConfirmar}>
-                <Text style={styles.btnConfirmarText}>Confirmar envío</Text>
+              <TouchableOpacity
+                onPress={() => this.confirmOrder(orderItem.id)}
+                style={styles.btnConfirmar}
+              >
+                <Text style={styles.btnConfirmarText}>Completar pedido</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -128,15 +231,6 @@ class OrderDetail extends Component {
     );
   }
 }
-const mapStateToProps = (state) => ({});
-const mapDispatchToProps = (dispatch) =>
-  bindActionCreators(
-    {
-      addToCart,
-      removeItem,
-    },
-    dispatch
-  );
 
 const styles = StyleSheet.create({
   container: {
@@ -160,9 +254,16 @@ const styles = StyleSheet.create({
   clientInfo: {
     alignItems: "flex-start",
   },
+  textTotal: {
+    fontSize: 20,
+    fontWeight: "700",
+    textAlign: "right",
+    marginTop: 5,
+  },
   orderSubtitle: {
     fontSize: 20,
     fontWeight: "700",
+    marginBottom: 5,
   },
   clientInfoLabel: {
     fontSize: 16,
@@ -185,7 +286,7 @@ const styles = StyleSheet.create({
   productsRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginVertical: 15,
+    marginTop: 15,
   },
   options: { width: "100%", marginTop: 15, marginBottom: 15 },
   optionsRow: {
@@ -200,10 +301,12 @@ const styles = StyleSheet.create({
     height: 55,
     alignItems: "center",
     justifyContent: "center",
+    width: "47.5%",
+
     marginRight: "2.5%",
   },
   btnTextOption: {
-    fontSize: 18,
+    fontSize: 16,
     color: "white",
     textAlign: "center",
   },
@@ -225,13 +328,31 @@ const styles = StyleSheet.create({
     height: 55,
     width: "100%",
     alignItems: "center",
-    marginTop: "2.5%",
   },
   btnConfirmarText: {
     fontSize: 22,
     color: "white",
     textAlign: "center",
   },
+  alertTitleText: {
+    fontSize: 25,
+    fontWeight: "700",
+    fontFamily: "Roboto",
+    lineHeight: 27,
+  },
+  alertButtonText: {
+    fontSize: 22,
+    fontWeight: "500",
+    fontFamily: "Roboto",
+    lineHeight: 27,
+  },
+  alertContainer: {
+    height: "100%",
+    width: "100%",
+  },
+  alertPopup: {
+    borderRadius: 15,
+  },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(OrderDetail);
+export default OrderDetail;

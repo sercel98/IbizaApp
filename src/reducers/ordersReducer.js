@@ -1,4 +1,4 @@
-import { NEW_ORDER } from "../actions/types";
+import { NEW_ORDER, REMOVE_ORDER } from "../actions/types";
 
 const initialState = [];
 const orderReducer = (state = initialState, action) => {
@@ -8,6 +8,9 @@ const orderReducer = (state = initialState, action) => {
         action.payload,
         ...state.filter((order) => order.id !== action.payload.id),
       ];
+    }
+    case REMOVE_ORDER: {
+      return state.filter((order) => order.id !== action.payload.id);
     }
   }
   return state;

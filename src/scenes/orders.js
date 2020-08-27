@@ -24,15 +24,26 @@ class Orders extends React.Component {
       loading: false,
     });
   }
+
+  calculateTotal = (products) => {
+    let total = 0;
+    products.forEach((item) => {
+      total += item.product.price * item.quantity;
+    });
+    return total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
+
   renderOrderItems = ({ item }) => {
-    return <OrderItem orderItem={item} />;
+    //console.log(item);
+    const total = this.calculateTotal(item.products);
+    return <OrderItem orderItem={item} total={total} />;
   };
 
   render() {
     const { orders } = this.props;
     return (
       <View style={styles.container}>
-        <TextTitle textBody="Mis Ordenes" />
+        <TextTitle textBody="Ordenes Pendientes" />
         <FlatList
           style={styles.ordersList}
           data={orders}
@@ -50,15 +61,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
   },
   ordersList: {
-    marginLeft: 15,
-  },
-  ordersTitle: {
-    marginTop: 16,
-    marginLeft: 21,
-    fontSize: 22,
-    fontWeight: "700",
-    color: "white",
-    fontFamily: "Roboto",
+    marginLeft: 5,
+    marginRight: 5,
   },
 });
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View, Text, ActivityIndicator } from "react-native";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 import Products from "../components/products";
 import { Searchbar } from "react-native-paper";
 import productService from "../services/productService";
@@ -12,7 +12,8 @@ import {
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { login, logout } from "../actions/authenticationActions";
-import { newOrder } from "../actions/ordersActions";
+import { newOrder, removeOrder } from "../actions/ordersActions";
+import { Notifications } from "expo";
 
 class Home extends React.Component {
   constructor(props) {
@@ -21,7 +22,6 @@ class Home extends React.Component {
     this.state = {
       allProducts: [],
       products: [],
-      searchQuery: "",
       loading: true,
       showNotification: false,
       change: 0,
@@ -43,32 +43,55 @@ class Home extends React.Component {
     if (this.unsubscribeAuthChanges) {
       this.unsubscribeAuthChanges();
     }
-    this.unsuscribeOrders();
+    this.unsubscribeOrders();
+    this.unsubscribeNotificationsListener();
   }
+
   handleAuthChange = (user) => {
     if (user && !user.isAnonymous) {
-      console.log("User logged");
-      this.unsuscribeOrders();
+      //console.log("User logged");
+      this.unsubscribeOrders();
+      this.unsubscribeNotificationsListener();
       this.unsubscribeOrdersSnapshot = orderService
         .getOrdersCollectionQuery()
         .onSnapshot(this.handleOrdersSnapshot);
       askPermissions().then((result) =>
         this.setState({ showNotification: result })
       );
+      this.notificationListenerSuscription = Notifications.addListener(
+        this.handleNotifications
+      );
       this.props.login();
       this.props.navigation.navigate("Orders");
     } else {
-      console.log(
-        "User not logged",
-        user && user.isAnonymous ? "-> isAnonymous" : ""
-      );
+      //console.log( "User not logged",  user && user.isAnonymous ? "-> isAnonymous" : ""     );
       this.props.logout();
-      this.unsuscribeOrders();
+      this.unsubscribeOrders();
+      this.unsubscribeNotificationsListener();
     }
   };
-  unsuscribeOrders = () => {
+  handleNotifications = (notification) => {
+    //console.log("Notifications listener -> ", notification);
+    if (notification.origin === "selected") {
+      const { navigation } = this.props;
+      if (notification.isMultiple) {
+        navigation.navigate("Orders");
+      } else {
+        const orderStr = JSON.stringify(notification.data);
+        navigation.navigate("OrderDetail", {
+          orderItem: orderStr,
+        });
+      }
+    }
+  };
+  unsubscribeOrders = () => {
     if (this.unsubscribeOrdersSnapshot) {
       this.unsubscribeOrdersSnapshot();
+    }
+  };
+  unsubscribeNotificationsListener = () => {
+    if (this.notificationListenerSuscription) {
+      this.notificationListenerSuscription.remove();
     }
   };
   handleOrdersSnapshot = (snapshot) => {
@@ -79,25 +102,13 @@ class Home extends React.Component {
       if (change.type === "added") {
         this.props.newOrder(order);
         this.state.showNotification && processOrderNotification(order);
+      } else if (change.type === "removed") {
+        this.props.removeOrder(order);
+      } else {
+        this.props.newOrder(order);
       }
-      console.log("Order " + change.type);
+      //console.log("Order " + change.type);
     });
-  };
-
-  _onChangeSearch = (query) => {
-    this.setState({ searchQuery: query });
-    if (query) {
-      this.setState({
-        products: this.state.allProducts.filter((product) =>
-          product.name.toLowerCase().includes(query.toLowerCase())
-        ),
-      });
-      this.setState({ change: this.state });
-    } else {
-      this.setState({
-        products: this.state.allProducts,
-      });
-    }
   };
 
   render() {
@@ -105,32 +116,12 @@ class Home extends React.Component {
     if (this.state.loading) {
       return (
         <View style={styles.container}>
-          <Searchbar
-            style={styles.searchInput}
-            placeholder="Buscar"
-            onChangeText={this._onChangeSearch}
-            value={this.state.searchQuery}
-            placeholderTextColor="#BBB"
-            iconColor="#BBB"
-            theme={{ colors: { text: "#BBB" } }}
-          />
-          <Text style={styles.titleProducts}>Productos</Text>
           <ActivityIndicator />
         </View>
       );
     } else {
       return (
         <View style={styles.container}>
-          <Searchbar
-            style={styles.searchInput}
-            placeholder="Buscar"
-            onChangeText={this._onChangeSearch}
-            value={this.state.searchQuery}
-            placeholderTextColor="#BBB"
-            iconColor="#BBB"
-            theme={{ colors: { text: "#BBB" } }}
-          />
-          <Text style={styles.titleProducts}>Productos</Text>
           <Products products={this.state.products} />
         </View>
       );
@@ -143,14 +134,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     backgroundColor: "#000",
-  },
-  searchInput: {
-    marginTop: 15,
-    marginLeft: "auto",
-    marginRight: "auto",
-    width: "90%",
-    borderRadius: 8,
-    backgroundColor: "#2C2C2C",
   },
   titleProducts: {
     marginTop: 15,
@@ -178,6 +161,7 @@ const mapDispatchToProps = (dispatch) =>
       login,
       logout,
       newOrder,
+      removeOrder,
     },
     dispatch
   );
