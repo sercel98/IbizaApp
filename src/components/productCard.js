@@ -44,12 +44,14 @@ function ProductCard(props) {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 4,
+    marginHorizontal: 8,
     marginBottom: 20,
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
     height: screenWidth / numColumns + 60, // approximate a square
+    backgroundColor: "#191919",
+    borderRadius: 10,
   },
   itemInvisible: {
     backgroundColor: "transparent",
@@ -72,7 +74,7 @@ const styles = StyleSheet.create({
   priceText: {
     flex: 1.5,
     justifyContent: "center",
-    fontSize: 16,
+    fontSize: 14,
     fontStyle: "normal",
     fontWeight: "700",
     color: "#FFFFFF",

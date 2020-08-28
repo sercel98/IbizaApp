@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import AsyncImage from "../shared/AsyncImage";
 import { useNavigation } from "@react-navigation/native";
@@ -7,9 +7,11 @@ import { Feather } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { removeItem } from "../actions/cartActions";
+import AwesomeAlert from "react-native-awesome-alerts";
 
 function CartItemDetail(props) {
   const { productItem } = props;
+  const [showAlert, setShowAlert] = useState(false);
 
   const navigation = useNavigation();
 
@@ -21,8 +23,17 @@ function CartItemDetail(props) {
   };
 
   const onDelete = () => {
-    props.removeItem(productItem.product);
+    setShowAlert(true);
   };
+
+  const confirmDelete=()=>{
+    setShowAlert(false);
+    props.removeItem(productItem.product);
+  }
+
+  const dismissDelete=()=>{
+    setShowAlert(false);
+  }
 
   const formatSubTotal = (number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -32,6 +43,33 @@ function CartItemDetail(props) {
 
   return (
     <View style={styles.container}>
+      <AwesomeAlert
+                show={showAlert}
+                title="Eliminar Producto"
+                message="Realmente desea eliminar el producto?"
+                closeOnTouchOutside={true}
+                closeOnHardwareBackPress={true}
+                showConfirmButton={true}
+                showCancelButton={true}
+                confirmText="Eliminar"
+                cancelText="Atrás"
+                confirmButtonColor="red"
+                cancelButtonColor="gray"
+                overlayStyle={styles.alertContainer}
+                titleStyle={styles.alertTitleText}
+                confirmButtonTextStyle={styles.alertButtonText}
+                cancelButtonTextStyle={styles.alertButtonText}
+                contentContainerStyle={styles.alertPopup}
+                onConfirmPressed={() => {
+                  confirmDelete();
+                }}
+                onCancelPressed={() => {
+                  dismissDelete();
+                }}
+                onDismiss={() => {
+                  dismissDelete();
+                }}
+              />
       <View style={{ width: "25%" }}>
         <AsyncImage
           style={styles.cartItemDetailImage}
@@ -140,7 +178,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 8,
+    padding: 5,
+    top: -15,
+    left: -10,
   },
   editTextButton: {
     color: "#000",
@@ -164,6 +204,25 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     width: 26,
     height: 26,
+  },
+  alertTitleText: {
+    fontSize: 25,
+    fontWeight: "700",
+    fontFamily: "Roboto",
+    lineHeight: 27,
+  },
+  alertButtonText: {
+    fontSize: 22,
+    fontWeight: "500",
+    fontFamily: "Roboto",
+    lineHeight: 27,
+  },
+  alertContainer: {
+    height: "100%",
+    width: "100%",
+  },
+  alertPopup: {
+    borderRadius: 15,
   },
 });
 
