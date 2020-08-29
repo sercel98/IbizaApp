@@ -31,7 +31,9 @@ function ProductCard(props) {
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
-      <Text style={styles.tittleText}>{new String(product.name).toUpperCase()}</Text>
+      <View style={styles.tittleContainer}>
+        <Text style={styles.tittleText}>{new String(product.name).toUpperCase()}</Text>
+      </View>
       <AsyncImage
         image={product.image}
         folder={"products"}
@@ -45,7 +47,7 @@ function ProductCard(props) {
 const styles = StyleSheet.create({
   container: {
     marginHorizontal: 8,
-    marginBottom: 20,
+    marginBottom: 15,
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
@@ -63,13 +65,13 @@ const styles = StyleSheet.create({
     //resizeMode: "cover",
   },
   tittleText: {
-    flex: 2,
     justifyContent: "center",
     fontSize: 12,
     fontStyle: "normal",
     fontWeight: "700",
     color: "#FFFFFF",
     fontFamily: "Roboto",
+    textAlign: 'center',
   },
   priceText: {
     flex: 1.5,
@@ -80,6 +82,11 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     //fontFamily: "Roboto",
   },
+  tittleContainer: {
+    flex:2,
+    alignItems:"center",
+    justifyContent:"center",
+  }
 });
 
 export default ProductCard;

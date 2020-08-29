@@ -26,14 +26,14 @@ function CartItemDetail(props) {
     setShowAlert(true);
   };
 
-  const confirmDelete=()=>{
+  const confirmDelete = () => {
     setShowAlert(false);
     props.removeItem(productItem.product);
-  }
+  };
 
-  const dismissDelete=()=>{
+  const dismissDelete = () => {
     setShowAlert(false);
-  }
+  };
 
   const formatSubTotal = (number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -44,32 +44,32 @@ function CartItemDetail(props) {
   return (
     <View style={styles.container}>
       <AwesomeAlert
-                show={showAlert}
-                title="Eliminar Producto"
-                message="Realmente desea eliminar el producto?"
-                closeOnTouchOutside={true}
-                closeOnHardwareBackPress={true}
-                showConfirmButton={true}
-                showCancelButton={true}
-                confirmText="Eliminar"
-                cancelText="Atrás"
-                confirmButtonColor="red"
-                cancelButtonColor="gray"
-                overlayStyle={styles.alertContainer}
-                titleStyle={styles.alertTitleText}
-                confirmButtonTextStyle={styles.alertButtonText}
-                cancelButtonTextStyle={styles.alertButtonText}
-                contentContainerStyle={styles.alertPopup}
-                onConfirmPressed={() => {
-                  confirmDelete();
-                }}
-                onCancelPressed={() => {
-                  dismissDelete();
-                }}
-                onDismiss={() => {
-                  dismissDelete();
-                }}
-              />
+        show={showAlert}
+        title="Eliminar Producto"
+        message="Realmente desea eliminar el producto?"
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={true}
+        showConfirmButton={true}
+        showCancelButton={true}
+        confirmText="Eliminar"
+        cancelText="Atrás"
+        confirmButtonColor="red"
+        cancelButtonColor="gray"
+        overlayStyle={styles.alertContainer}
+        titleStyle={styles.alertTitleText}
+        confirmButtonTextStyle={styles.alertButtonText}
+        cancelButtonTextStyle={styles.alertButtonText}
+        contentContainerStyle={styles.alertPopup}
+        onConfirmPressed={() => {
+          confirmDelete();
+        }}
+        onCancelPressed={() => {
+          dismissDelete();
+        }}
+        onDismiss={() => {
+          dismissDelete();
+        }}
+      />
       <View style={{ width: "25%" }}>
         <AsyncImage
           style={styles.cartItemDetailImage}
@@ -120,13 +120,13 @@ const mapDispatchToProps = (dispatch) =>
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: "row",
     marginVertical: 10,
     borderTopRightRadius: 10,
     borderBottomRightRadius: 10,
     justifyContent: "center",
     marginHorizontal: 12,
-    maxHeight: 100,
   },
   cartItemDetailTextContainer: {
     width: "75%",
