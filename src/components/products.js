@@ -49,7 +49,7 @@ export default class Products extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     marginVertical: 5,
   },
 });

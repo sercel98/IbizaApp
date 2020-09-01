@@ -29,7 +29,7 @@ class Home extends React.Component {
   }
 
   async componentDidMount() {
-    const products = await productService.testingProducts();
+    const products = await productService.fetchProducts();
     this.setState({
       products: products,
       allProducts: products,
