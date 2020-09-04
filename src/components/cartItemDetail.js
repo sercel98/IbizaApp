@@ -88,10 +88,7 @@ function CartItemDetail(props) {
         <Text style={styles.cartItemDetailTextName}>
           {productItem.product.name}
         </Text>
-        <Text style={styles.productDetailTextQuantity}>
-          Cantidad: {productItem.quantity}
-        </Text>
-
+        <Text style={styles.textRegular}>Cantidad: {productItem.quantity}</Text>
         <View style={styles.subtotalContainer}>
           <View>
             <Text style={styles.productDetailTextSubtotalLabel}>Subtotal</Text>
@@ -138,10 +135,18 @@ const styles = StyleSheet.create({
   },
   cartItemDetailTextName: {
     fontSize: 20,
-    color: "white",
-    fontWeight: "700",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_600SemiBold",
   },
+  textSemibold: {
+    fontSize: 20,
+    color: "white",
+    fontFamily: "Poppins_600SemiBold",
+  },
+  textRegular: {
+    color: "white",
+    fontFamily: "Poppins_400Regular",
+  },
+
   closeButton: {
     margin: 5,
     position: "absolute",
@@ -151,20 +156,15 @@ const styles = StyleSheet.create({
     height: 25,
     backgroundColor: "white",
   },
-  productDetailTextQuantity: {
-    color: "#FFF",
-    fontFamily: "Roboto",
-  },
   productDetailTextSubtotalLabel: {
     color: "#FFF",
     marginBottom: -4,
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_400Regular",
   },
   productDetailTextSubtotalValue: {
     color: "#FFF",
     fontSize: 20,
-    fontWeight: "700",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_600SemiBold",
   },
   cartItemDetailImage: {
     height: "100%",
@@ -185,10 +185,9 @@ const styles = StyleSheet.create({
   editTextButton: {
     color: "#000",
     fontSize: 16,
-    fontWeight: "700",
     padding: 10,
     borderRadius: 10,
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_600SemiBold",
   },
   subtotalContainer: {
     justifyContent: "space-between",
@@ -207,14 +206,12 @@ const styles = StyleSheet.create({
   },
   alertTitleText: {
     fontSize: 25,
-    fontWeight: "700",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_700Bold",
     lineHeight: 27,
   },
   alertButtonText: {
     fontSize: 22,
-    fontWeight: "500",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_500Medium",
     lineHeight: 27,
   },
   alertContainer: {

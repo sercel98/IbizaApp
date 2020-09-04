@@ -90,9 +90,8 @@ const styles = StyleSheet.create({
     marginTop: 16,
     marginLeft: 21,
     fontSize: 22,
-    fontWeight: "700",
     color: "white",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_600SemiBold",
   },
   cartTotalInfo: {
     flex: 1,
@@ -116,21 +115,18 @@ const styles = StyleSheet.create({
   },
   cartTotalText: {
     fontSize: 22,
-    fontWeight: "400",
     color: "#EEE",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_400Regular",
   },
   cartTotalValue: {
     fontSize: 28,
-    fontWeight: "700",
     color: "white",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_600SemiBold",
   },
   cartEmpty: {
     fontSize: 24,
-    fontWeight: "600",
     color: "white",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_500Medium",
     textAlign: "center",
   },
   userFormButton: {
@@ -143,11 +139,10 @@ const styles = StyleSheet.create({
   },
   userFormButtonText: {
     fontSize: 22,
-    fontWeight: "700",
     color: "#000",
     textAlign: "center",
     alignItems: "center",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_600SemiBold",
   },
 });
 

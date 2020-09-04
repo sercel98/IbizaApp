@@ -38,15 +38,14 @@ const styles = StyleSheet.create({
     marginLeft: 15,
   },
   textCounter: {
-    color: "white",
-    fontWeight: "bold",
+    color: "#FFF",
     marginLeft: "auto",
     marginRight: "auto",
     fontSize: 10,
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_600SemiBold",
   },
   headerIcon: {
-    color: "#fff",
+    color: "#FFF",
     paddingTop: 2,
   },
 });

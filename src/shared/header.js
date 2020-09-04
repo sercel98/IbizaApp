@@ -84,7 +84,9 @@ export default function Header(props) {
               />
               <MaterialCommunityIcons
                 name="logout"
-                onPress={()=>{setShowAlert(true)}}
+                onPress={() => {
+                  setShowAlert(true);
+                }}
                 size={30}
                 color="white"
               />
@@ -140,7 +142,7 @@ const styles = StyleSheet.create({
     height: 50,
   },
   headerIcon: {
-    color: "#fff",
+    color: "#FFF",
     paddingTop: 2,
   },
   imageContainer: {
@@ -151,14 +153,12 @@ const styles = StyleSheet.create({
   },
   alertTitleText: {
     fontSize: 25,
-    fontWeight: "700",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_700Bold",
     lineHeight: 27,
   },
   alertButtonText: {
     fontSize: 22,
-    fontWeight: "500",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_500Medium",
     lineHeight: 27,
   },
   alertContainer: {

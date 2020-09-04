@@ -245,9 +245,8 @@ const styles = StyleSheet.create({
   titleText: {
     textAlign: "left",
     fontSize: 25,
-    fontWeight: "700",
     color: "white",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_700Bold",
     lineHeight: 27,
     marginBottom: 60,
   },
@@ -270,10 +269,8 @@ const styles = StyleSheet.create({
     textAlign: "left",
     fontSize: 20,
     lineHeight: 20,
-    fontStyle: "normal",
-    fontWeight: "normal",
     color: "#FFFFFF",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_400Regular",
   },
   button: {
     marginTop: 50,
@@ -288,10 +285,9 @@ const styles = StyleSheet.create({
   },
   userFormButtonText: {
     fontSize: 22,
-    fontWeight: "700",
     textAlign: "center",
     alignItems: "center",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_600SemiBold",
   },
   okTextInput: {
     flexDirection: "row",
@@ -321,14 +317,12 @@ const styles = StyleSheet.create({
   },
   alertTitleText: {
     fontSize: 25,
-    fontWeight: "700",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_700Bold",
     lineHeight: 27,
   },
   alertButtonText: {
     fontSize: 22,
-    fontWeight: "500",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_500Medium",
     lineHeight: 27,
   },
   alertContainer: {
