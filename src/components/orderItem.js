@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   orderText: {
     color: "white",
     fontSize: 18,
-    fontWeight: "700",
+    fontFamily: "Poppins_600SemiBold",
   },
   orderSubtext: {
     color: "gray",
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
   orderButtonText: {
     fontSize: 16,
-    fontWeight: "700",
+    fontFamily: "Poppins_600SemiBold",
   },
 });
 

@@ -112,7 +112,6 @@ class Home extends React.Component {
   };
 
   render() {
-    const { products } = this.state;
     if (this.state.loading) {
       return (
         <View style={styles.container}>
@@ -134,22 +133,6 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     backgroundColor: "#000",
-  },
-  titleProducts: {
-    marginTop: 15,
-    marginLeft: 21,
-    fontSize: 22,
-    fontWeight: "700",
-    color: "white",
-    fontFamily: "Roboto",
-  },
-  titleCategories: {
-    marginTop: 15,
-    marginLeft: 21,
-    fontSize: 22,
-    fontWeight: "700",
-    color: "white",
-    //fontFamily:   Montserrat,
   },
 });
 const mapStateToProps = (state) => {

@@ -10,9 +10,8 @@ const styles = StyleSheet.create({
     marginTop: 16,
     marginLeft: 21,
     fontSize: 22,
-    fontWeight: "700",
     color: "white",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_600SemiBold",
   },
 });
 
