@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     height: screenWidth / numColumns + 60, // approximate a square
-    backgroundColor: "#191919",
     borderRadius: 10,
   },
   itemInvisible: {
@@ -80,12 +79,14 @@ const styles = StyleSheet.create({
     fontStyle: "normal",
     fontWeight: "700",
     color: "#FFFFFF",
+    padding: 1,
     //fontFamily: "Roboto",
   },
   tittleContainer: {
     flex:2,
     alignItems:"center",
-    justifyContent:"center",
+    justifyContent:"flex-end",
+    padding: 3,
   }
 });
 
