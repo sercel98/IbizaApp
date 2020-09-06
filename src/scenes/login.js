@@ -112,7 +112,7 @@ class Login extends React.Component {
           />
         </View>
         <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
-          <Text style={styles.loginButtonText}>Iniciar Sesion</Text>
+          <Text style={styles.loginButtonText}>Iniciar Sesión</Text>
         </TouchableOpacity>
       </View>
     );
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     width: 340,
     textAlign: "left",
     fontSize: 20,
-    lineHeight: 20,
+    lineHeight: 22,
     color: "#FFFFFF",
     fontFamily: "Poppins_400Regular",
   },

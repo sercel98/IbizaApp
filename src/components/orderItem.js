@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
   },
   orderSubtext: {
     color: "gray",
-    fontSize: 16,
+    fontSize: 14,
+    fontFamily: "Poppins_400Regular",
   },
   textColumn: { width: "70%" },
   buttonColumn: { width: "30%" },

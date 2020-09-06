@@ -97,6 +97,7 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "column",
     justifyContent: "center",
+    alignItems: "center",
     paddingHorizontal: 10,
   },
   cartTotalContainer: {
@@ -114,7 +115,7 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   cartTotalText: {
-    fontSize: 22,
+    fontSize: 20,
     color: "#EEE",
     fontFamily: "Poppins_400Regular",
   },

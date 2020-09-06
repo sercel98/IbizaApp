@@ -112,6 +112,7 @@ function UserForm(props) {
         confirmButtonColor="green"
         overlayStyle={styles.alertContainer}
         titleStyle={styles.alertTitleText}
+        messageStyle={styles.alertMessageText}
         confirmButtonTextStyle={styles.alertButtonText}
         contentContainerStyle={styles.alertPopup}
         onConfirmPressed={() => {
@@ -132,6 +133,7 @@ function UserForm(props) {
         confirmButtonColor="orange"
         overlayStyle={styles.alertContainer}
         titleStyle={styles.alertTitleText}
+        messageStyle={styles.alertMessageText}
         confirmButtonTextStyle={styles.alertButtonText}
         contentContainerStyle={styles.alertPopup}
         onConfirmPressed={() => {
@@ -268,7 +270,7 @@ const styles = StyleSheet.create({
     width: 340,
     textAlign: "left",
     fontSize: 20,
-    lineHeight: 20,
+    lineHeight: 22,
     color: "#FFFFFF",
     fontFamily: "Poppins_400Regular",
   },
@@ -319,6 +321,10 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontFamily: "Poppins_700Bold",
     lineHeight: 27,
+  },
+  alertMessageText:{
+    fontSize: 14,
+    fontFamily: "Poppins_300Light",
   },
   alertButtonText: {
     fontSize: 22,
