@@ -172,7 +172,7 @@ function UserForm(props) {
           ]}
           autoCapitalize="none"
         />
-        <Text style={styles.textInputTitle}>Telefono:</Text>
+        <Text style={styles.textInputTitle}>Celular:</Text>
         <TextInput
           textContentType="telephoneNumber"
           keyboardType="phone-pad"
