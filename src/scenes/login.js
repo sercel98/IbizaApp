@@ -112,7 +112,7 @@ class Login extends React.Component {
           />
         </View>
         <TouchableOpacity style={styles.button} onPress={this.handleLogin}>
-          <Text style={styles.loginButtonText}>Iniciar Sesion</Text>
+          <Text style={styles.loginButtonText}>Iniciar Sesión</Text>
         </TouchableOpacity>
       </View>
     );
@@ -151,14 +151,12 @@ const styles = StyleSheet.create({
     width: 340,
     textAlign: "left",
     fontSize: 20,
-    lineHeight: 20,
-    fontStyle: "normal",
-    fontWeight: "normal",
+    lineHeight: 22,
     color: "#FFFFFF",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_400Regular",
   },
   textError: {
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_400Regular",
     color: "red",
   },
   SectionStyle: {
@@ -197,11 +195,9 @@ const styles = StyleSheet.create({
   },
   loginButtonText: {
     fontSize: 22,
-    fontWeight: "700",
-
     textAlign: "center",
     alignItems: "center",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_600SemiBold",
     color: "#fff",
   },
   logoImage: {
@@ -211,14 +207,12 @@ const styles = StyleSheet.create({
   },
   alertTitleText: {
     fontSize: 25,
-    fontWeight: "700",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_600SemiBold",
     lineHeight: 27,
   },
   alertButtonText: {
     fontSize: 22,
-    fontWeight: "500",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_500Medium",
     lineHeight: 27,
   },
   alertContainer: {

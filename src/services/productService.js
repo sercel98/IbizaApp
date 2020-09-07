@@ -10,7 +10,7 @@ class ProductService {
   async fetchProducts() {
     let productsCollection = this.db.collection("productos");
 
-    const products = await productsCollection.where("active", "==", true).get();
+    const products = await productsCollection.where("active", "==", true).orderBy("order").get();
 
     return products.docs.map((product) => {
       const data = product.data();

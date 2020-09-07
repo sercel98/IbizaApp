@@ -31,7 +31,9 @@ function ProductCard(props) {
 
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
-      <Text style={styles.tittleText}>{new String(product.name).toUpperCase()}</Text>
+      <View style={styles.titleContainer}>
+        <Text style={styles.titleText}>{product.name}</Text>
+      </View>
       <AsyncImage
         image={product.image}
         folder={"products"}
@@ -44,12 +46,13 @@ function ProductCard(props) {
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 4,
-    marginBottom: 20,
+    marginHorizontal: 8,
+    marginBottom: 15,
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
     height: screenWidth / numColumns + 60, // approximate a square
+    borderRadius: 10,
   },
   itemInvisible: {
     backgroundColor: "transparent",
@@ -60,23 +63,25 @@ const styles = StyleSheet.create({
     width: "100%",
     //resizeMode: "cover",
   },
-  tittleText: {
-    flex: 2,
+  titleText: {
     justifyContent: "center",
-    fontSize: 12,
+    fontSize: 13,
     fontStyle: "normal",
-    fontWeight: "700",
     color: "#FFFFFF",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_600SemiBold",
+    textAlign: "center",
   },
   priceText: {
     flex: 1.5,
     justifyContent: "center",
-    fontSize: 16,
-    fontStyle: "normal",
-    fontWeight: "700",
+    fontSize: 14,
     color: "#FFFFFF",
-    //fontFamily: "Roboto",
+    fontFamily: "Poppins_700Bold",
+  },
+  titleContainer: {
+    flex: 2,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

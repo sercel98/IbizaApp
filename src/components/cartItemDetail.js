@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import AsyncImage from "../shared/AsyncImage";
 import { useNavigation } from "@react-navigation/native";
@@ -7,9 +7,11 @@ import { Feather } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { removeItem } from "../actions/cartActions";
+import AwesomeAlert from "react-native-awesome-alerts";
 
 function CartItemDetail(props) {
   const { productItem } = props;
+  const [showAlert, setShowAlert] = useState(false);
 
   const navigation = useNavigation();
 
@@ -21,7 +23,16 @@ function CartItemDetail(props) {
   };
 
   const onDelete = () => {
+    setShowAlert(true);
+  };
+
+  const confirmDelete = () => {
+    setShowAlert(false);
     props.removeItem(productItem.product);
+  };
+
+  const dismissDelete = () => {
+    setShowAlert(false);
   };
 
   const formatSubTotal = (number) => {
@@ -32,6 +43,34 @@ function CartItemDetail(props) {
 
   return (
     <View style={styles.container}>
+      <AwesomeAlert
+        show={showAlert}
+        title="Eliminar Producto"
+        message="Realmente desea eliminar el producto?"
+        closeOnTouchOutside={true}
+        closeOnHardwareBackPress={true}
+        showConfirmButton={true}
+        showCancelButton={true}
+        confirmText="Eliminar"
+        cancelText="Atrás"
+        confirmButtonColor="red"
+        cancelButtonColor="gray"
+        overlayStyle={styles.alertContainer}
+        titleStyle={styles.alertTitleText}
+        messageStyle={styles.alertMessageText}
+        confirmButtonTextStyle={styles.alertButtonText}
+        cancelButtonTextStyle={styles.alertButtonText}
+        contentContainerStyle={styles.alertPopup}
+        onConfirmPressed={() => {
+          confirmDelete();
+        }}
+        onCancelPressed={() => {
+          dismissDelete();
+        }}
+        onDismiss={() => {
+          dismissDelete();
+        }}
+      />
       <View style={{ width: "25%" }}>
         <AsyncImage
           style={styles.cartItemDetailImage}
@@ -50,10 +89,7 @@ function CartItemDetail(props) {
         <Text style={styles.cartItemDetailTextName}>
           {productItem.product.name}
         </Text>
-        <Text style={styles.productDetailTextQuantity}>
-          Cantidad: {productItem.quantity}
-        </Text>
-
+        <Text style={styles.textRegular}>Cantidad: {productItem.quantity}</Text>
         <View style={styles.subtotalContainer}>
           <View>
             <Text style={styles.productDetailTextSubtotalLabel}>Subtotal</Text>
@@ -82,13 +118,13 @@ const mapDispatchToProps = (dispatch) =>
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     flexDirection: "row",
     marginVertical: 10,
     borderTopRightRadius: 10,
     borderBottomRightRadius: 10,
     justifyContent: "center",
     marginHorizontal: 12,
-    maxHeight: 100,
   },
   cartItemDetailTextContainer: {
     width: "75%",
@@ -101,9 +137,18 @@ const styles = StyleSheet.create({
   cartItemDetailTextName: {
     fontSize: 20,
     color: "white",
-    fontWeight: "700",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_600SemiBold",
   },
+  textSemibold: {
+    fontSize: 20,
+    color: "white",
+    fontFamily: "Poppins_600SemiBold",
+  },
+  textRegular: {
+    color: "white",
+    fontFamily: "Poppins_400Regular",
+  },
+
   closeButton: {
     margin: 5,
     position: "absolute",
@@ -113,20 +158,15 @@ const styles = StyleSheet.create({
     height: 25,
     backgroundColor: "white",
   },
-  productDetailTextQuantity: {
-    color: "#FFF",
-    fontFamily: "Roboto",
-  },
   productDetailTextSubtotalLabel: {
     color: "#FFF",
     marginBottom: -4,
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_400Regular",
   },
   productDetailTextSubtotalValue: {
     color: "#FFF",
     fontSize: 20,
-    fontWeight: "700",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_600SemiBold",
   },
   cartItemDetailImage: {
     height: "100%",
@@ -140,15 +180,16 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 8,
+    padding: 5,
+    top: -15,
+    left: -10,
   },
   editTextButton: {
     color: "#000",
     fontSize: 16,
-    fontWeight: "700",
     padding: 10,
     borderRadius: 10,
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_600SemiBold",
   },
   subtotalContainer: {
     justifyContent: "space-between",
@@ -164,6 +205,27 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     width: 26,
     height: 26,
+  },
+  alertTitleText: {
+    fontSize: 25,
+    fontFamily: "Poppins_700Bold",
+    lineHeight: 27,
+  },
+  alertMessageText:{
+    fontSize: 14,
+    fontFamily: "Poppins_300Light",
+  },
+  alertButtonText: {
+    fontSize: 22,
+    fontFamily: "Poppins_500Medium",
+    lineHeight: 27,
+  },
+  alertContainer: {
+    height: "100%",
+    width: "100%",
+  },
+  alertPopup: {
+    borderRadius: 15,
   },
 });
 

@@ -39,12 +39,24 @@ class OrderDetail extends Component {
   };
 
   cancelOrder = (id) => {
+    const { navigation } = this.props;
+    navigation.navigate("Orders");
+    this.hideCancelAlert();
     const result = orderService.cancelOrder(id);
+  };
+
+  showCancelOrderAlert = () => {
     this.setState({ showCancelOrderAlert: true });
   };
 
   confirmOrder = (id) => {
+    const { navigation } = this.props;
     const result = orderService.confirmOrder(id);
+    this.hideCompletedAlert();
+    navigation.navigate("Orders");
+  };
+
+  showConfirmOrderAlert=()=>{
     this.setState({ showCompletedOrderAlert: true });
   };
 
@@ -62,16 +74,20 @@ class OrderDetail extends Component {
     this.setState({ showErrorNumberAlert: true });
   };
 
-  hideAlerts = () => {
-    const { navigation } = this.props;
+  hideErrorNumberAlert = () => {
     this.setState({ showErrorNumberAlert: false });
-    this.setState({ showCancelOrderAlert: false });
-    this.setState({ showCompletedOrderAlert: false });
-    navigation.navigate("Orders");
   };
 
+  hideCancelAlert=()=>{
+    this.setState({ showCancelOrderAlert: false });
+  }
+
+  hideCompletedAlert=()=>{
+    this.setState({ showCompletedOrderAlert: false });
+  }
+
   render() {
-    const { navigation, route } = this.props;
+    const { route } = this.props;
     const orderItem = JSON.parse(route.params.orderItem);
     const total = route.params.total;
     return (
@@ -97,45 +113,61 @@ class OrderDetail extends Component {
           }}
         />
         <AwesomeAlert
-        show={this.state.showCancelOrderAlert}
-        title="Orden Cancelada"
-        message="Esta orden ha sido cancelada"
-        closeOnTouchOutside={true}
-        closeOnHardwareBackPress={true}
-        showConfirmButton={true}
-        confirmText="OK"
-        confirmButtonColor="orange"
-        overlayStyle={styles.alertContainer}
-        titleStyle={styles.alertTitleText}
-        confirmButtonTextStyle={styles.alertButtonText}
-        contentContainerStyle={styles.alertPopup}
-        onConfirmPressed={() => {
-          this.hideAlerts();
-        }}
-        onDismiss={() => {
-          this.hideAlerts();
-        }}
-      />
-      <AwesomeAlert
-        show={this.state.showCompletedOrderAlert}
-        title="Pedido Completado"
-        message="El pedido ha sido completado"
-        closeOnTouchOutside={true}
-        closeOnHardwareBackPress={true}
-        showConfirmButton={true}
-        confirmText="OK"
-        confirmButtonColor="green"
-        overlayStyle={styles.alertContainer}
-        titleStyle={styles.alertTitleText}
-        confirmButtonTextStyle={styles.alertButtonText}
-        contentContainerStyle={styles.alertPopup}
-        onConfirmPressed={() => {
-          this.hideAlerts();
-        }}
-        onDismiss={() => {
-          this.hideAlerts();
-        }}
-      />
+          show={this.state.showCancelOrderAlert}
+          title="Cancelar Pedido"
+          message="Desea cancelar este pedido?"
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={true}
+          showConfirmButton={true}
+          showCancelButton={true}
+          confirmText="Cancelar"
+          cancelText="Atrás"
+          confirmButtonColor="red"
+          cancelButtonColor="gray"
+          overlayStyle={styles.alertContainer}
+          titleStyle={styles.alertTitleText}
+          messageStyle={styles.alertMessageText}
+          confirmButtonTextStyle={styles.alertButtonText}
+          cancelButtonTextStyle={styles.alertButtonText}
+          contentContainerStyle={styles.alertPopup}
+          onConfirmPressed={() => {
+            this.cancelOrder(orderItem.id);
+          }}
+          onCancelPressed={() => {
+            this.hideCancelAlert();
+          }}
+          onDismiss={() => {
+            this.hideCancelAlert();
+          }}
+        />
+        <AwesomeAlert
+          show={this.state.showCompletedOrderAlert}
+          title="Completar Pedido"
+          message="Desea completar este pedido?"
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={true}
+          showConfirmButton={true}
+          showCancelButton={true}
+          confirmText="Confirmar"
+          cancelText="Cancelar"
+          confirmButtonColor="green"
+          cancelButtonColor="gray"
+          overlayStyle={styles.alertContainer}
+          titleStyle={styles.alertTitleText}
+          messageStyle={styles.alertMessageText}
+          confirmButtonTextStyle={styles.alertButtonText}
+          cancelButtonTextStyle={styles.alertButtonText}
+          contentContainerStyle={styles.alertPopup}
+          onConfirmPressed={() => {
+            this.confirmOrder(orderItem.id);
+          }}
+          onCancelPressed={() => {
+            this.hideCompletedAlert();
+          }}
+          onDismiss={() => {
+            this.hideCompletedAlert();
+          }}
+        />
         <TextTitle textBody="Detalles del pedido" />
         <View style={styles.orderContainer}>
           <View style={styles.clientInfo}>
@@ -199,7 +231,7 @@ class OrderDetail extends Component {
             </Text>
             <View style={styles.optionsRow}>
               <TouchableOpacity
-                onPress={() => this.cancelOrder(orderItem.id)}
+                onPress={() => this.showCancelOrderAlert()}
                 style={styles.btnCancelarPedido}
               >
                 <Text style={styles.btnTextOption}>Cancelar pedido</Text>
@@ -219,7 +251,7 @@ class OrderDetail extends Component {
               }}
             >
               <TouchableOpacity
-                onPress={() => this.confirmOrder(orderItem.id)}
+                onPress={() => this.showConfirmOrderAlert()}
                 style={styles.btnConfirmar}
               >
                 <Text style={styles.btnConfirmarText}>Completar pedido</Text>
@@ -240,7 +272,7 @@ const styles = StyleSheet.create({
   },
   textLabel: {
     color: "white",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_400Regular",
   },
   orderContainer: {
     alignItems: "flex-start",
@@ -256,23 +288,23 @@ const styles = StyleSheet.create({
   },
   textTotal: {
     fontSize: 20,
-    fontWeight: "700",
     textAlign: "right",
     marginTop: 5,
+    fontFamily: "Poppins_600SemiBold",
   },
   orderSubtitle: {
     fontSize: 20,
-    fontWeight: "700",
     marginBottom: 5,
+    fontFamily: "Poppins_600SemiBold",
   },
   clientInfoLabel: {
     fontSize: 16,
-    fontWeight: "700",
     marginRight: 5,
+    fontFamily: "Poppins_600SemiBold",
   },
   orderValue: {
     fontSize: 16,
-    fontWeight: "300",
+    fontFamily: "Poppins_300Light",
   },
   clientInfoRow: {
     flexDirection: "row",
@@ -309,6 +341,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "white",
     textAlign: "center",
+    fontFamily: "Poppins_400Regular",
   },
   btnContactar: {
     backgroundColor: "#BC4B51",
@@ -333,17 +366,20 @@ const styles = StyleSheet.create({
     fontSize: 22,
     color: "white",
     textAlign: "center",
+    fontFamily: "Poppins_500Medium",
   },
   alertTitleText: {
     fontSize: 25,
-    fontWeight: "700",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_600SemiBold",
     lineHeight: 27,
+  },
+  alertMessageText: {
+    fontSize: 14,
+    fontFamily: "Poppins_300Light",
   },
   alertButtonText: {
     fontSize: 22,
-    fontWeight: "500",
-    fontFamily: "Roboto",
+    fontFamily: "Poppins_500Medium",
     lineHeight: 27,
   },
   alertContainer: {
