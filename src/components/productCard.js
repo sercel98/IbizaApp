@@ -51,8 +51,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    height: screenWidth / numColumns + 60,
-    backgroundColor: "#191919",
+    height: screenWidth / numColumns + 60, // approximate a square
     borderRadius: 10,
   },
   itemInvisible: {

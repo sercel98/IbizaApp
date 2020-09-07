@@ -7,6 +7,7 @@ import AsyncImage from "../shared/AsyncImage";
 import { Button } from "react-native-paper";
 import { AntDesign } from "@expo/vector-icons";
 import AwesomeAlert from "react-native-awesome-alerts";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const screenHeight = Dimensions.get("window").height;
 const screenWidth = Dimensions.get("window").width;
@@ -51,6 +52,10 @@ class ProductDetail extends Component {
     navigation.navigate("Home");
   };
 
+  formatPrice = (number) => {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  };
+
   formatProductPrice = (number) => {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
@@ -71,6 +76,7 @@ class ProductDetail extends Component {
           confirmButtonColor="green"
           overlayStyle={alertStyles.alertContainer}
           titleStyle={alertStyles.alertTitleText}
+          messageStyle={alertStyles.alertMessageText}
           confirmButtonTextStyle={alertStyles.alertButtonText}
           contentContainerStyle={alertStyles.alertPopup}
           onConfirmPressed={() => {
@@ -86,7 +92,14 @@ class ProductDetail extends Component {
             image={product.image}
             folder={"products"}
           ></AsyncImage>
+          <View style={styles.detailContainer}>
+            <Text style={styles.nameText}>{product.name}</Text>
+            <Text style={styles.priceText}>
+              {"$" + this.formatPrice(product.price)}
+            </Text>
+          </View>
         </View>
+
         <View style={styles.quantityContainer}>
           <Text style={styles.textQuantity}>Cantidad</Text>
           <View style={styles.quantityView}>
@@ -109,13 +122,9 @@ class ProductDetail extends Component {
             </View>
           </View>
         </View>
-        <Button
-          onPress={this.addToCart}
-          color="white"
-          style={styles.btnAddToCart}
-        >
-          Añadir al carrito
-        </Button>
+        <TouchableOpacity style={styles.btnAddToCart} onPress={this.addToCart}>
+          <Text style={styles.addCartButtonText}>Añadir al Carrito</Text>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -226,11 +235,32 @@ const styles = StyleSheet.create({
   },
   btnAddToCart: {
     width: "70%",
-    paddingVertical: 5,
-    paddingHorizontal: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
     borderRadius: 10,
     backgroundColor: "#E93A3B",
   },
+  addCartButtonText:{
+    color: "white",
+    fontSize: 20,
+    fontFamily: "Poppins_500Medium",
+  },
+  detailContainer: {
+    alignItems: "center",
+    justifyContent: "flex-end",
+  },
+  nameText: {
+    color: "#FFFFFF",
+    lineHeight: 30,
+    fontSize: 18,
+    fontFamily: "Poppins_400Regular",
+  },
+  priceText:{
+    color: "#FFFFFF",
+    lineHeight: 30,
+    fontFamily: "Poppins_600SemiBold",
+    fontSize: 20,
+  }
 });
 
 const alertStyles = StyleSheet.create({
@@ -278,6 +308,10 @@ const alertStyles = StyleSheet.create({
     fontSize: 25,
     fontFamily: "Poppins_700Bold",
     lineHeight: 27,
+  },
+  alertMessageText:{
+    fontSize: 14,
+    fontFamily: "Poppins_300Light",
   },
   alertButtonText: {
     fontSize: 22,

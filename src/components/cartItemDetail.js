@@ -57,6 +57,7 @@ function CartItemDetail(props) {
         cancelButtonColor="gray"
         overlayStyle={styles.alertContainer}
         titleStyle={styles.alertTitleText}
+        messageStyle={styles.alertMessageText}
         confirmButtonTextStyle={styles.alertButtonText}
         cancelButtonTextStyle={styles.alertButtonText}
         contentContainerStyle={styles.alertPopup}
@@ -135,6 +136,7 @@ const styles = StyleSheet.create({
   },
   cartItemDetailTextName: {
     fontSize: 20,
+    color: "white",
     fontFamily: "Poppins_600SemiBold",
   },
   textSemibold: {
@@ -208,6 +210,10 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontFamily: "Poppins_700Bold",
     lineHeight: 27,
+  },
+  alertMessageText:{
+    fontSize: 14,
+    fontFamily: "Poppins_300Light",
   },
   alertButtonText: {
     fontSize: 22,
