@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins_700Bold",
   },
   titleContainer: {
+    marginTop:5,
     flex: 2,
     alignItems: "center",
     justifyContent: "center",

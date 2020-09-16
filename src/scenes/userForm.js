@@ -103,8 +103,8 @@ function UserForm(props) {
       <Loader loading={isLoading} />
       <AwesomeAlert
         show={showSuccessAlert}
-        title="Hecho"
-        message="Tu pedido ha sido realizado con exito"
+        title="Pedido realizado"
+        message="Pronto te contactaremos"
         closeOnTouchOutside={true}
         closeOnHardwareBackPress={true}
         showConfirmButton={true}
@@ -322,9 +322,10 @@ const styles = StyleSheet.create({
     fontFamily: "Poppins_700Bold",
     lineHeight: 27,
   },
-  alertMessageText:{
+  alertMessageText: {
     fontSize: 14,
     fontFamily: "Poppins_300Light",
+    justifyContent: "center",
   },
   alertButtonText: {
     fontSize: 22,
