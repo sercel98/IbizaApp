@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#E93A3B",
   },
-  addCartButtonText:{
+  addCartButtonText: {
     color: "white",
     fontSize: 20,
     fontFamily: "Poppins_500Medium",
@@ -255,12 +255,12 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: "Poppins_400Regular",
   },
-  priceText:{
+  priceText: {
     color: "#FFFFFF",
     lineHeight: 30,
     fontFamily: "Poppins_600SemiBold",
     fontSize: 20,
-  }
+  },
 });
 
 const alertStyles = StyleSheet.create({
@@ -309,7 +309,7 @@ const alertStyles = StyleSheet.create({
     fontFamily: "Poppins_700Bold",
     lineHeight: 27,
   },
-  alertMessageText:{
+  alertMessageText: {
     fontSize: 14,
     fontFamily: "Poppins_300Light",
   },
